@@ -2,8 +2,8 @@ import Image from "next/image";
 
 import type { BrandProfile } from "@/data/brand-profile";
 
-import { FeaturedCard } from "./FeaturedCard";
 import { LinkButton } from "./LinkButton";
+import { RevealOnView } from "./RevealOnView";
 import { SocialRow } from "./SocialRow";
 
 type LinkHubProps = {
@@ -14,125 +14,82 @@ export function LinkHub({ profile }: LinkHubProps) {
   return (
     <section
       id="link-hub"
-      className="snap-panel safe-screen relative overflow-hidden"
-      style={{ backgroundColor: profile.linkBackground }}
+      className="snap-panel relative overflow-hidden bg-black pb-[calc(env(safe-area-inset-bottom)+1.75rem)]"
     >
-      <div
-        className="absolute inset-x-0 top-0 h-44 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.85),transparent_68%)]"
-        aria-hidden
+      <Image
+        src={profile.linksImage}
+        alt={profile.linksImageAlt}
+        fill
+        quality={92}
+        sizes="100vw"
+        className="object-cover object-[50%_18%] lg:object-[center_14%] xl:object-[center_18%]"
       />
 
-      <div className="mx-auto flex min-h-[100svh] w-full max-w-6xl items-center px-4 sm:px-6 lg:px-8">
-        <div className="grid w-full items-center gap-10 lg:grid-cols-[0.85fr_0.78fr]">
-          <div className="hidden lg:block">
-            <p
-              className="text-[0.72rem] font-semibold uppercase tracking-[0.28em]"
-              style={{ color: profile.linkAccent }}
-            >
-              Practical Layer
-            </p>
-            <h2 className="mt-4 max-w-lg font-display text-6xl leading-[0.92] tracking-tight text-foreground">
-              Scroll lands on the useful part: taps, bookings, socials, and
-              one fast featured story.
-            </h2>
-            <p className="mt-6 max-w-md text-base leading-8 text-muted">
-              The cover builds desire. This section converts it with thumb-sized
-              actions and a calm, direct hierarchy.
-            </p>
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,4,3,0.14)_0%,rgba(5,4,3,0.08)_18%,rgba(7,5,4,0.26)_58%,rgba(8,6,5,0.72)_100%)] lg:bg-[linear-gradient(90deg,rgba(7,5,4,0.5)_0%,rgba(7,5,4,0.18)_26%,rgba(7,5,4,0.08)_56%,rgba(7,5,4,0.46)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,6,5,0.12)_0%,rgba(8,6,5,0.04)_40%,rgba(8,6,5,0.12)_100%)] lg:hidden" />
 
-            <div className="mt-8 grid max-w-md gap-3 sm:grid-cols-2">
-              <div className="rounded-[1.5rem] border border-black/8 bg-white/60 px-4 py-4">
-                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-muted">
-                  Best For
-                </p>
-                <p className="mt-2 text-lg font-semibold tracking-tight text-foreground">
-                  Creators, salons, barbers, pastry brands.
-                </p>
-              </div>
-              <div className="rounded-[1.5rem] border border-black/8 bg-white/60 px-4 py-4">
-                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-muted">
-                  Mobile Target
-                </p>
-                <p className="mt-2 text-lg font-semibold tracking-tight text-foreground">
-                  Built around phone-first taps and scroll behavior.
-                </p>
-              </div>
-            </div>
-          </div>
+      <div className="relative mx-auto flex min-h-[100svh] w-full max-w-7xl items-end px-4 py-8 sm:px-6 lg:px-14 xl:px-20">
+        <div
+          className="mx-auto w-full max-w-[40rem] rounded-[2rem] border border-white/12 p-5 shadow-[0_30px_90px_-40px_rgba(0,0,0,0.78)] sm:p-6 lg:mx-0 lg:max-w-[72rem] lg:rounded-[2.35rem] lg:p-8"
+          style={{ backgroundColor: profile.surfaceColor }}
+        >
+          <div className="mx-auto h-1.5 w-16 rounded-full bg-white/12 lg:hidden" />
 
-          <div className="mx-auto w-full max-w-[27rem]">
-            <div
-              className="phone-shadow rounded-[2.3rem] border border-black/8 p-5 sm:p-6"
-              style={{ backgroundColor: profile.surfaceColor }}
-            >
-              <div className="text-center">
-                <div
-                  className="mx-auto flex h-20 w-20 items-center justify-center rounded-full text-xl font-black uppercase tracking-tight text-[#16120f]"
-                  style={{ backgroundColor: profile.accentColor }}
-                >
-                  {profile.brandBadge}
+          <div className="lg:grid lg:grid-cols-[minmax(16rem,0.78fr)_minmax(24rem,1fr)] lg:gap-8 xl:gap-12">
+            <RevealOnView className="mt-6 lg:mt-0">
+              <div className="flex items-start justify-between gap-4 lg:flex-col lg:h-full lg:justify-between">
+                <div className="max-w-[18.5rem] sm:max-w-[24rem] lg:max-w-[22rem]">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-[#cfb08a]">
+                    {profile.serviceType}
+                  </p>
+                  <h2 className="mt-3 font-display text-[2.25rem] leading-[0.92] tracking-[-0.035em] text-[#fbf1e4] sm:text-[2.8rem] lg:text-[clamp(3rem,3.8vw,4.15rem)]">
+                    {profile.brandName}
+                  </h2>
+                  <p className="mt-3 text-[0.95rem] leading-6 text-[#eadccc]/78 lg:max-w-[18rem]">
+                    {profile.tagline}
+                  </p>
                 </div>
-                <p className="mt-5 text-[1.9rem] font-semibold tracking-tight text-foreground">
-                  {profile.brandName}
-                </p>
-                <p className="mt-2 text-sm leading-6 text-muted">
-                  {profile.tagline}
-                </p>
-              </div>
 
-              <div className="mt-6 space-y-3">
-                {profile.links.map((link) => (
+                <div className="flex items-start gap-4 lg:mt-auto lg:flex-col lg:items-start">
+                  <div
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/12 bg-[#1a120f] text-[0.78rem] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: profile.accentColor }}
+                  >
+                    {profile.brandBadge}
+                  </div>
+
+                  <div className="hidden lg:block">
+                    <SocialRow socials={profile.socials} accentColor={profile.accentColor} />
+                    <p className="mt-5 text-left text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[#d5baa0]/66">
+                      {profile.footerTag}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </RevealOnView>
+
+            <div className="mt-7 space-y-3 lg:mt-0">
+              {profile.links.map((link, index) => (
+                <RevealOnView key={link.label} delayMs={index * 70 + 80}>
                   <LinkButton
-                    key={link.label}
                     label={link.label}
                     href={link.href}
-                    detail={link.detail}
-                    accentColor={profile.linkAccent}
-                    featured={link.featured}
+                    accentColor={profile.accentColor}
+                    backgroundColor={profile.buttonBackground}
+                    textColor={profile.buttonText}
                   />
-                ))}
-              </div>
+                </RevealOnView>
+              ))}
 
-              <div className="mt-5">
-                <SocialRow socials={profile.socials} accentColor={profile.linkAccent} />
-              </div>
-
-              <div className="mt-5">
-                <FeaturedCard
-                  feature={profile.featuredCard}
-                  accentColor={profile.linkAccent}
-                />
-              </div>
-
-              <div className="mt-5 overflow-hidden rounded-[1.9rem] border border-black/8 bg-[linear-gradient(180deg,#faf8f3_0%,#ede7dd_100%)] p-4">
-                <div className="flex items-end justify-between gap-4">
-                  <div className="max-w-[11rem]">
-                    <p
-                      className="text-[0.68rem] font-semibold uppercase tracking-[0.28em]"
-                      style={{ color: profile.linkAccent }}
-                    >
-                      Take Home Ritual
-                    </p>
-                    <p className="mt-2 text-lg font-semibold tracking-tight text-foreground">
-                      Beard oil and finishing texture for post-cut care.
-                    </p>
-                  </div>
-
-                  <div className="relative h-28 w-24 shrink-0">
-                    <Image
-                      src={profile.productImage}
-                      alt={profile.productImageAlt}
-                      fill
-                      sizes="6rem"
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <p className="mt-5 text-center text-xs leading-6 tracking-[0.14em] text-muted">
-                {profile.footerNote}
-              </p>
+              <RevealOnView
+                delayMs={profile.links.length * 70 + 120}
+                className="mt-8 border-t border-white/10 pt-5 lg:hidden"
+              >
+                <SocialRow socials={profile.socials} accentColor={profile.accentColor} />
+                <p className="mt-5 text-center text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[#d5baa0]/66">
+                  {profile.footerTag}
+                </p>
+              </RevealOnView>
             </div>
           </div>
         </div>

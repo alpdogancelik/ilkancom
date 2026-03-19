@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         url: "/images/og-cover.svg",
         width: 1200,
         height: 630,
-        alt: "A gallery of premium profile link pages.",
+        alt: "Portrait-led booking links for Ilkan Kaymak.",
       },
     ],
   },
@@ -54,6 +54,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${manrope.variable} ${cormorant.variable} bg-background antialiased`}
     >
       <body className="min-h-screen bg-background text-foreground">

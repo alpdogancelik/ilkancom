@@ -2,15 +2,12 @@ export type BrandSocialPlatform =
   | "instagram"
   | "tiktok"
   | "youtube"
-  | "x"
   | "whatsapp"
   | "maps";
 
 export type BrandActionLink = {
   label: string;
   href: string;
-  detail: string;
-  featured?: boolean;
 };
 
 export type BrandSocialLink = {
@@ -18,111 +15,53 @@ export type BrandSocialLink = {
   href: string;
 };
 
-export type BrandFeature = {
-  eyebrow: string;
-  title: string;
-  description: string;
-  href: string;
-  cta: string;
-  image: string;
-  imageAlt: string;
-};
-
 export type BrandProfile = {
   brandName: string;
   brandBadge: string;
-  handle: string;
-  category: string;
   tagline: string;
-  heroTitle: string;
-  heroSubtitle: string;
-  city: string;
   serviceType: string;
-  stylistName: string;
-  primaryImage: string;
-  primaryImageAlt: string;
-  supportingImage: string;
-  supportingImageAlt: string;
-  productImage: string;
-  productImageAlt: string;
+  heroImage: string;
+  heroImageAlt: string;
+  linksImage: string;
+  linksImageAlt: string;
+  featuredLinkLabels: string[];
   accentColor: string;
-  posterAccent: string;
-  linkAccent: string;
-  heroBackground: string;
-  linkBackground: string;
   surfaceColor: string;
-  heroHighlights: string[];
+  buttonBackground: string;
+  buttonText: string;
   links: BrandActionLink[];
   socials: BrandSocialLink[];
-  featuredCard: BrandFeature;
-  footerNote: string;
+  footerTag: string;
 };
 
 export const brandProfile: BrandProfile = {
-  brandName: "Ilkan Studio",
-  brandBadge: "IS",
-  handle: "@ilkancom",
-  category: "Barber Atelier",
-  tagline: "Cuts, beard sculpting, and calm appointments for modern men.",
-  heroTitle: "MAKE UNIQUE STYLE",
-  heroSubtitle:
-    "A branded grooming experience with campaign-level visuals on the cover and a clean booking flow underneath.",
-  city: "Istanbul",
-  serviceType: "Barbering / Grooming",
-  stylistName: "Ilkan Demir",
-  primaryImage: "/images/experience/barber-portrait.svg",
-  primaryImageAlt: "Illustrated barber portrait holding grooming tools.",
-  supportingImage: "/images/experience/barber-tools.svg",
-  supportingImageAlt: "Illustrated scissors and comb composition.",
-  productImage: "/images/experience/grooming-oil.svg",
-  productImageAlt: "Illustrated grooming oil bottle.",
-  accentColor: "#ff6a2a",
-  posterAccent: "#f4c63d",
-  linkAccent: "#3548d6",
-  heroBackground: "#cdc0b0",
-  linkBackground: "#f1eee7",
-  surfaceColor: "#fbfaf6",
-  heroHighlights: ["Barbering", "Grooming", "Private Chair"],
+  brandName: "Ilkan Kaymak",
+  brandBadge: "IK",
+  tagline: "Modern cuts, beard styling, and premium appointments.",
+  serviceType: "Hair Stylist",
+  heroImage: "/images/ilkkan.png",
+  heroImageAlt: "Full-screen portrait of Ilkan Kaymak.",
+  linksImage: "/images/ilkan2.PNG",
+  linksImageAlt: "Portrait background for Ilkan Kaymak's links page.",
+  featuredLinkLabels: ["Book Appointment", "Instagram"],
+  accentColor: "#c29563",
+  surfaceColor: "#120d0a",
+  buttonBackground: "#1d1511",
+  buttonText: "#f6ecde",
   links: [
-    {
-      label: "Book Appointment",
-      href: "https://example.com/book",
-      detail: "Reserve a fade, beard sculpt, or full grooming session.",
-      featured: true,
-    },
-    {
-      label: "Service Menu",
-      href: "https://example.com/menu",
-      detail: "Cuts, skin fades, beard care, and premium add-ons.",
-    },
-    {
-      label: "Grooming Journal",
-      href: "https://example.com/journal",
-      detail: "Latest tips, aftercare notes, and product rituals.",
-    },
-    {
-      label: "Visit The Studio",
-      href: "https://example.com/location",
-      detail: "See the address, opening hours, and directions.",
-    },
+    { label: "Book Appointment", href: "https://example.com/book" },
+    { label: "WhatsApp", href: "https://whatsapp.com" },
+    { label: "Instagram", href: "https://instagram.com" },
+    { label: "TikTok", href: "https://tiktok.com" },
+    { label: "YouTube", href: "https://youtube.com" },
+    { label: "Location", href: "https://maps.google.com" },
   ],
   socials: [
     { platform: "instagram", href: "https://instagram.com" },
     { platform: "tiktok", href: "https://tiktok.com" },
     { platform: "youtube", href: "https://youtube.com" },
-    { platform: "x", href: "https://x.com" },
     { platform: "whatsapp", href: "https://whatsapp.com" },
+    { platform: "maps", href: "https://maps.google.com" },
   ],
-  featuredCard: {
-    eyebrow: "This Week",
-    title: "Clean taper with a sharp beard line-up",
-    description:
-      "A fast preview card for current work, editorial clips, or limited booking slots.",
-    href: "https://example.com/story",
-    cta: "View Feature",
-    image: "/images/experience/barber-tools.svg",
-    imageAlt: "Barber tools card illustration.",
-  },
-  footerNote:
-    "Appointments are preferred. Walk-ins only when the chair is open.",
+  footerTag: "\u00A9330",
 };

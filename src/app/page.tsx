@@ -5,14 +5,14 @@ import { ProfileHero } from "@/components/ProfileHero";
 import { brandProfile } from "@/data/brand-profile";
 
 export const metadata: Metadata = {
-  title: "ilkancom",
+  title: brandProfile.brandName,
   description:
-    "A mobile-first profile microsite with an editorial cover and a swipe-down link hub.",
+    "Premium booking, contact, and social links for hair stylist Ilkan Kaymak.",
 };
 
 export default function HomePage() {
   return (
-    <main className="snap-shell">
+    <main className="snap-shell relative overflow-x-hidden bg-background">
       <ProfileHero profile={brandProfile} />
       <LinkHub profile={brandProfile} />
     </main>

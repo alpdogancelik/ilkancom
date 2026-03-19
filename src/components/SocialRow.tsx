@@ -41,15 +41,6 @@ const socialMeta: Record<BrandSocialPlatform, SocialMeta> = {
       </svg>
     ),
   },
-  x: {
-    label: "X",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5 fill-none stroke-current stroke-[1.8]">
-        <path d="M5.5 5.5L18.5 18.5" />
-        <path d="M18.5 5.5L5.5 18.5" />
-      </svg>
-    ),
-  },
   whatsapp: {
     label: "WhatsApp",
     icon: (
@@ -72,7 +63,7 @@ const socialMeta: Record<BrandSocialPlatform, SocialMeta> = {
 
 export function SocialRow({ socials, accentColor }: SocialRowProps) {
   return (
-    <ul className="flex items-center justify-center gap-3">
+    <ul className="flex items-center justify-center gap-2.5">
       {socials.map((social) => {
         const meta = socialMeta[social.platform];
 
@@ -81,12 +72,13 @@ export function SocialRow({ socials, accentColor }: SocialRowProps) {
             <a
               href={social.href}
               target="_blank"
-              rel="noreferrer"
+              rel="noreferrer noopener"
               aria-label={meta.label}
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border bg-white/85 transition duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border shadow-[0_14px_30px_-22px_rgba(0,0,0,0.4)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#1c1410] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c29563] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0907]"
               style={{
                 color: accentColor,
-                borderColor: `${accentColor}50`,
+                backgroundColor: "#120d0a",
+                borderColor: `${accentColor}2f`,
               }}
             >
               {meta.icon}
