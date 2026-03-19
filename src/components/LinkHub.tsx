@@ -14,7 +14,7 @@ export function LinkHub({ profile }: LinkHubProps) {
   return (
     <section
       id="link-hub"
-      className="snap-panel relative overflow-hidden bg-black pb-[calc(env(safe-area-inset-bottom)+1.75rem)]"
+      className="snap-panel relative overflow-hidden bg-black"
     >
       <Image
         src={profile.linksImage}
@@ -28,15 +28,15 @@ export function LinkHub({ profile }: LinkHubProps) {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,4,3,0.14)_0%,rgba(5,4,3,0.08)_18%,rgba(7,5,4,0.26)_58%,rgba(8,6,5,0.72)_100%)] lg:bg-[linear-gradient(90deg,rgba(7,5,4,0.5)_0%,rgba(7,5,4,0.18)_26%,rgba(7,5,4,0.08)_56%,rgba(7,5,4,0.46)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,6,5,0.12)_0%,rgba(8,6,5,0.04)_40%,rgba(8,6,5,0.12)_100%)] lg:hidden" />
 
-      <div className="relative mx-auto flex min-h-[100svh] w-full max-w-7xl items-end px-4 py-8 sm:px-6 lg:px-14 xl:px-20">
+      <div className="relative mx-auto flex h-[100svh] w-full max-w-7xl items-stretch px-3 pt-[max(0.7rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom)+0.8rem)] sm:px-6 sm:pt-5 sm:pb-6 lg:min-h-[100svh] lg:h-auto lg:items-center lg:px-14 lg:py-10 xl:px-20">
         <div
-          className="mx-auto w-full max-w-[40rem] rounded-[2rem] border border-white/12 p-5 shadow-[0_30px_90px_-40px_rgba(0,0,0,0.78)] sm:p-6 lg:mx-0 lg:max-w-[72rem] lg:rounded-[2.35rem] lg:p-8"
+          className="mx-auto flex h-full w-full max-w-[40rem] flex-col rounded-[2rem] border border-white/12 p-5 shadow-[0_30px_90px_-40px_rgba(0,0,0,0.78)] sm:p-6 lg:mx-0 lg:h-auto lg:max-w-[72rem] lg:rounded-[2.35rem] lg:p-8"
           style={{ backgroundColor: profile.surfaceColor }}
         >
           <div className="mx-auto h-1.5 w-16 rounded-full bg-white/12 lg:hidden" />
 
-          <div className="lg:grid lg:grid-cols-[minmax(16rem,0.78fr)_minmax(24rem,1fr)] lg:gap-8 xl:gap-12">
-            <RevealOnView className="mt-6 lg:mt-0">
+          <div className="flex-1 lg:grid lg:grid-cols-[minmax(16rem,0.78fr)_minmax(24rem,1fr)] lg:gap-8 xl:gap-12">
+            <RevealOnView className="mt-5 lg:mt-0">
               <div className="flex items-start justify-between gap-4 lg:flex-col lg:h-full lg:justify-between">
                 <div className="max-w-[18.5rem] sm:max-w-[24rem] lg:max-w-[22rem]">
                   <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-[#cfb08a]">
