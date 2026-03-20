@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
 import { LinkHub } from "@/components/LinkHub";
 import { ProfileHero } from "@/components/ProfileHero";
 import { brandProfile } from "@/data/brand-profile";
@@ -14,6 +15,7 @@ export default function HomePage() {
     <main className="snap-shell relative overflow-x-hidden bg-background">
       <ProfileHero profile={brandProfile} />
       <LinkHub profile={brandProfile} />
+      <FloatingWhatsAppButton />
     </main>
   );
 }
