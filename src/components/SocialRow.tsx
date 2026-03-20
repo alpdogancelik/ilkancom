@@ -67,7 +67,7 @@ const socialMeta: Record<BrandSocialPlatform, SocialMeta> = {
     ),
   },
   maps: {
-    label: "Maps",
+    label: "Konum",
     icon: (
       <svg
         viewBox="0 0 24 24"

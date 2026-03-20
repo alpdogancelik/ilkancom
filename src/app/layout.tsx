@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -34,7 +28,7 @@ export const metadata: Metadata = {
         url: "/images/og-cover.svg",
         width: 1200,
         height: 630,
-        alt: "Portrait-led booking links for Ilkan Kaymak.",
+        alt: "İlkan Kaymak için portre odaklı randevu ve bağlantı sayfası.",
       },
     ],
   },
@@ -53,10 +47,10 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="tr"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${manrope.variable} ${cormorant.variable} bg-background antialiased`}
+      className={`${inter.variable} bg-background antialiased`}
     >
       <body className="min-h-screen bg-background text-foreground">
         {children}

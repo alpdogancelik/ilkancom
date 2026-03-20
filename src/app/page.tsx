@@ -6,8 +6,7 @@ import { brandProfile } from "@/data/brand-profile";
 
 export const metadata: Metadata = {
   title: brandProfile.brandName,
-  description:
-    "Premium booking, contact, and social links for hair stylist Ilkan Kaymak.",
+  description: "İlkan Kaymak için premium randevu, iletişim ve sosyal medya bağlantıları.",
 };
 
 export default function HomePage() {

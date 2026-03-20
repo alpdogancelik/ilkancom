@@ -1,7 +1,7 @@
 export const siteConfig = {
-  name: "Ilkan Kaymak",
-  shortName: "IK",
+  name: "İlkan Kaymak",
+  shortName: "İK",
   description:
-    "Premium booking, contact, and social links for hair stylist Ilkan Kaymak.",
+    "İlkan Kaymak için premium randevu, iletişim ve sosyal medya bağlantıları.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 };

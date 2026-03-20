@@ -35,26 +35,26 @@ export type BrandProfile = {
 };
 
 export const brandProfile: BrandProfile = {
-  brandName: "Ilkan Kaymak",
-  brandBadge: "IK",
-  tagline: "Modern cuts, beard styling, and premium appointments.",
-  serviceType: "Hair Stylist",
+  brandName: "İlkan Kaymak",
+  brandBadge: "İK",
+  tagline: "Detay, kalite, ayrıcalık.",
+  serviceType: "HAIR STYLIST",
   heroImage: "/images/ilkkan.png",
-  heroImageAlt: "Full-screen portrait of Ilkan Kaymak.",
+  heroImageAlt: "İlkan Kaymak'ın tam ekran portresi.",
   linksImage: "/images/ilkan2.PNG",
-  linksImageAlt: "Portrait background for Ilkan Kaymak's links page.",
-  featuredLinkLabels: ["Book Appointment", "Instagram"],
+  linksImageAlt: "İlkan Kaymak'ın bağlantı sayfası için portre arka planı.",
+  featuredLinkLabels: ["Randevu Al", "Instagram"],
   accentColor: "#c29563",
   surfaceColor: "#120d0a",
-  buttonBackground: "#1d1511",
+  buttonBackground: "#1b130f",
   buttonText: "#f6ecde",
   links: [
-    { label: "Book Appointment", href: "https://example.com/book" },
+    { label: "Online Randevu", href: "https://example.com/book" },
     { label: "WhatsApp", href: "https://whatsapp.com" },
     { label: "Instagram", href: "https://instagram.com" },
     { label: "TikTok", href: "https://tiktok.com" },
     { label: "YouTube", href: "https://youtube.com" },
-    { label: "Location", href: "https://maps.google.com" },
+    { label: "Konum", href: "https://maps.google.com" },
   ],
   socials: [
     { platform: "instagram", href: "https://instagram.com" },
@@ -63,5 +63,5 @@ export const brandProfile: BrandProfile = {
     { platform: "whatsapp", href: "https://whatsapp.com" },
     { platform: "maps", href: "https://maps.google.com" },
   ],
-  footerTag: "\u00A9330",
+  footerTag: "@330",
 };

@@ -22,7 +22,7 @@ export function LinkButton({
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer noopener" : undefined}
-      className="group relative block overflow-hidden rounded-[1.55rem] border px-5 py-[1.05rem] shadow-[0_20px_44px_-34px_rgba(0,0,0,0.48)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_26px_52px_-34px_rgba(0,0,0,0.58)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c29563] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0907] active:scale-[0.995]"
+      className="group relative block overflow-hidden rounded-[1.2rem] border px-5 py-[0.96rem] shadow-[0_18px_36px_-32px_rgba(0,0,0,0.5)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_46px_-32px_rgba(0,0,0,0.58)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c29563] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0907] active:scale-[0.995]"
       style={{ backgroundColor, borderColor: `${accentColor}1f`, color: textColor }}
     >
       <span
@@ -31,10 +31,10 @@ export function LinkButton({
       />
 
       <div className="relative flex items-center justify-between gap-4">
-        <p className="text-[1rem] font-semibold tracking-[-0.01em]">{label}</p>
+        <p className="text-[0.93rem] font-medium tracking-[-0.012em]">{label}</p>
         <span
           aria-hidden
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition duration-300 group-hover:translate-x-0.5"
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition duration-300 group-hover:translate-x-0.5"
           style={{
             backgroundColor: `${accentColor}12`,
             borderColor: `${accentColor}35`,

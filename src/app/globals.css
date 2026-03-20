@@ -12,8 +12,8 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-line: var(--line);
-  --font-sans: var(--font-manrope);
-  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-inter);
 }
 
 * {
@@ -31,7 +31,7 @@ body {
     radial-gradient(circle at top, rgba(183, 130, 68, 0.1), transparent 28%),
     linear-gradient(180deg, #090604 0%, #0c0806 36%, #120b08 100%);
   color: var(--foreground);
-  font-family: var(--font-manrope), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
