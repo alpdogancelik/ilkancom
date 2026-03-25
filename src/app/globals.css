@@ -90,6 +90,10 @@ img {
   -webkit-overflow-scrolling: touch;
 }
 
+.snap-shell[data-carousel-lock="true"] {
+  scroll-snap-type: none;
+}
+
 .snap-shell::-webkit-scrollbar {
   width: 0;
   height: 0;
@@ -135,7 +139,8 @@ img {
 .review-carousel {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
-  touch-action: pan-x;
+  overscroll-behavior-y: contain;
+  touch-action: auto;
   scrollbar-width: none;
 }
 

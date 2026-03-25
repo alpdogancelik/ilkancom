@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef, useState, type TouchEvent } from "react";
+
 import type { BrandReview } from "@/data/brand-profile";
 
 type ReviewCarouselProps = {
@@ -23,6 +27,144 @@ function ReviewStars({ rating }: { rating: number }) {
 }
 
 export function ReviewCarousel({ reviews, accentColor }: ReviewCarouselProps) {
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const releaseTimerRef = useRef<number | null>(null);
+  const scrollTimerRef = useRef<number | null>(null);
+  const gestureRef = useRef({
+    startX: 0,
+    startY: 0,
+    horizontalIntent: false,
+  });
+  const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      if (releaseTimerRef.current) {
+        window.clearTimeout(releaseTimerRef.current);
+      }
+
+      if (scrollTimerRef.current) {
+        window.clearTimeout(scrollTimerRef.current);
+      }
+    };
+  }, []);
+
+  const setParentSnapLocked = (locked: boolean) => {
+    const viewport = viewportRef.current;
+    const snapShell = viewport?.closest(".snap-shell");
+
+    if (!(snapShell instanceof HTMLElement)) {
+      return;
+    }
+
+    if (locked) {
+      snapShell.dataset.carouselLock = "true";
+      return;
+    }
+
+    delete snapShell.dataset.carouselLock;
+  };
+
+  const settleToNearestCard = () => {
+    const viewport = viewportRef.current;
+
+    if (!viewport) {
+      setIsDragging(false);
+      setParentSnapLocked(false);
+      return;
+    }
+
+    const cards = Array.from(
+      viewport.querySelectorAll<HTMLElement>("[data-review-card='true']"),
+    );
+
+    if (!cards.length) {
+      setIsDragging(false);
+      setParentSnapLocked(false);
+      return;
+    }
+
+    const targetLeft = cards.reduce((closest, card) => {
+      const cardLeft = card.offsetLeft;
+      const closestDistance = Math.abs(closest - viewport.scrollLeft);
+      const currentDistance = Math.abs(cardLeft - viewport.scrollLeft);
+
+      return currentDistance < closestDistance ? cardLeft : closest;
+    }, cards[0].offsetLeft);
+
+    viewport.scrollTo({
+      left: targetLeft,
+      behavior: "smooth",
+    });
+
+    if (releaseTimerRef.current) {
+      window.clearTimeout(releaseTimerRef.current);
+    }
+
+    releaseTimerRef.current = window.setTimeout(() => {
+      setIsDragging(false);
+      setParentSnapLocked(false);
+    }, 180);
+  };
+
+  const scheduleSettle = () => {
+    if (scrollTimerRef.current) {
+      window.clearTimeout(scrollTimerRef.current);
+    }
+
+    scrollTimerRef.current = window.setTimeout(() => {
+      settleToNearestCard();
+    }, 110);
+  };
+
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+
+    if (!touch) {
+      return;
+    }
+
+    gestureRef.current = {
+      startX: touch.clientX,
+      startY: touch.clientY,
+      horizontalIntent: false,
+    };
+
+    if (releaseTimerRef.current) {
+      window.clearTimeout(releaseTimerRef.current);
+    }
+  };
+
+  const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+
+    if (!touch) {
+      return;
+    }
+
+    const deltaX = Math.abs(touch.clientX - gestureRef.current.startX);
+    const deltaY = Math.abs(touch.clientY - gestureRef.current.startY);
+
+    if (!gestureRef.current.horizontalIntent && deltaX > deltaY + 8 && deltaX > 10) {
+      gestureRef.current.horizontalIntent = true;
+      setIsDragging(true);
+      setParentSnapLocked(true);
+    }
+
+    if (gestureRef.current.horizontalIntent) {
+      scheduleSettle();
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!gestureRef.current.horizontalIntent) {
+      return;
+    }
+
+    gestureRef.current.horizontalIntent = false;
+    scheduleSettle();
+  };
+
   return (
     <div className="mt-6">
       <div className="flex items-end justify-between gap-4 px-1">
@@ -38,8 +180,17 @@ export function ReviewCarousel({ reviews, accentColor }: ReviewCarouselProps) {
         </p>
       </div>
 
-      <div className="review-carousel -mx-5 mt-4 overflow-x-auto overflow-y-hidden px-5 pb-2 sm:-mx-6 sm:px-6 lg:-mx-0 lg:px-0">
-        <div className="flex w-max snap-x snap-mandatory gap-3 pb-2 pr-5 lg:pr-0">
+      <div
+        ref={viewportRef}
+        className="review-carousel -mx-5 mt-4 overflow-x-auto overflow-y-hidden px-5 pb-2 sm:-mx-6 sm:px-6 lg:-mx-0 lg:px-0"
+        data-dragging={isDragging ? "true" : "false"}
+        onScroll={isDragging ? scheduleSettle : undefined}
+        onTouchCancel={handleTouchEnd}
+        onTouchEnd={handleTouchEnd}
+        onTouchMove={handleTouchMove}
+        onTouchStart={handleTouchStart}
+      >
+        <div className={`flex w-max gap-3 pb-2 pr-5 lg:pr-0 ${isDragging ? "snap-none" : "snap-x snap-proximity"}`}>
           {reviews.map((review, index) => {
             const initials = review.author
               .split(" ")
@@ -51,7 +202,8 @@ export function ReviewCarousel({ reviews, accentColor }: ReviewCarouselProps) {
             return (
               <article
                 key={`${review.author}-${index}`}
-                className="min-w-[16.5rem] max-w-[16.5rem] snap-start rounded-[1.4rem] border border-white/8 bg-[linear-gradient(180deg,rgba(37,25,18,0.94)_0%,rgba(24,16,12,0.96)_100%)] p-4 shadow-[0_24px_44px_-30px_rgba(0,0,0,0.65)] sm:min-w-[18rem] sm:max-w-[18rem] lg:min-w-[19rem] lg:max-w-[19rem]"
+                data-review-card="true"
+                className="min-w-[16.5rem] max-w-[16.5rem] snap-start rounded-[1.4rem] border border-white/8 bg-[linear-gradient(180deg,rgba(37,25,18,0.94)_0%,rgba(24,16,12,0.96)_100%)] p-4 shadow-[0_24px_44px_-30px_rgba(0,0,0,0.65)] sm:min-w-[18rem] sm:max-w-[18rem] lg:min-w-[21rem] lg:max-w-[21rem] xl:min-w-[22rem] xl:max-w-[22rem]"
               >
                 <div className="flex items-start gap-3">
                   <div
