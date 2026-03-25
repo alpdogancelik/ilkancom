@@ -132,6 +132,17 @@ img {
   animation: cue-float 1.9s ease-in-out infinite;
 }
 
+.review-carousel {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+  scrollbar-width: none;
+}
+
+.review-carousel::-webkit-scrollbar {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

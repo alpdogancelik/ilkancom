@@ -10,8 +10,11 @@ type ProfileHeroProps = {
 };
 
 export function ProfileHero({ profile }: ProfileHeroProps) {
+  const appointmentLink = profile.links.find((link) => link.label === "Online Randevu");
   const primaryActions = [
-    { label: "Randevu Al", href: "https://example.com/book", variant: "primary" as const },
+    ...(appointmentLink
+      ? [{ label: "Randevu Al", href: appointmentLink.href, variant: "primary" as const }]
+      : []),
     ...profile.links
       .filter((link) => link.label === "Instagram")
       .map((link) => ({ ...link, variant: "secondary" as const })),
@@ -26,8 +29,29 @@ export function ProfileHero({ profile }: ProfileHeroProps) {
         priority
         quality={92}
         sizes="100vw"
-        className="object-cover object-[center_20%] sm:object-[center_18%] lg:object-[center_8%] xl:object-[center_10%]"
+        className="object-cover object-[center_20%] sm:object-[center_18%] lg:hidden"
       />
+      {profile.desktopHeroImage ? (
+        <Image
+          src={profile.desktopHeroImage}
+          alt={profile.heroImageAlt}
+          fill
+          priority
+          quality={92}
+          sizes="100vw"
+          className="hidden object-cover lg:block lg:object-[center_center]"
+        />
+      ) : (
+        <Image
+          src={profile.heroImage}
+          alt={profile.heroImageAlt}
+          fill
+          priority
+          quality={92}
+          sizes="100vw"
+          className="hidden object-cover lg:block lg:object-[center_8%] xl:object-[center_10%]"
+        />
+      )}
 
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,3,2,0.02)_0%,rgba(5,4,3,0.05)_18%,rgba(7,5,4,0.18)_44%,rgba(8,6,5,0.74)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,transparent_52%,rgba(9,6,4,0.38)_72%,rgba(9,6,4,0.78)_100%)]" />
@@ -53,9 +77,11 @@ export function ProfileHero({ profile }: ProfileHeroProps) {
             <span className="block">İlkan</span>
             <span className="mt-0.5 block">Kaymak</span>
           </h1>
-          <p className="reveal reveal-delay-2 mt-5 max-w-[14.25rem] text-[0.93rem] leading-[1.75] text-[rgba(245,239,232,0.72)] sm:max-w-[15.5rem]">
-            {profile.tagline}
-          </p>
+          <div className="reveal reveal-delay-2 mt-5">
+            <p className="inline-flex max-w-[15.5rem] items-center rounded-sm border border-[#c89a5a]/22 bg-[linear-gradient(90deg,rgba(201,153,94,0.34)_0%,rgba(201,153,94,0.18)_55%,rgba(201,153,94,0.05)_100%)] px-3 py-2 text-[1rem] font-[650] leading-[1.5] tracking-[-0.015em] text-[#fff3e1] shadow-[0_10px_30px_-18px_rgba(201,153,94,0.55)] backdrop-blur-[1px] sm:max-w-[17rem]">
+              {profile.tagline}
+            </p>
+          </div>
 
           <div className="reveal reveal-delay-3 mt-6 flex flex-wrap items-center gap-2.5">
             {primaryActions.map((link) => {

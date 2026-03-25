@@ -5,6 +5,7 @@ import { isExternalHref } from "@/lib/utils";
 
 import { LinkButton } from "./LinkButton";
 import { RevealOnView } from "./RevealOnView";
+import { ReviewCarousel } from "./ReviewCarousel";
 import { SocialRow } from "./SocialRow";
 
 type LinkHubProps = {
@@ -13,8 +14,12 @@ type LinkHubProps = {
 
 export function LinkHub({ profile }: LinkHubProps) {
   const appointmentLink = profile.links.find((link) => link.label === "Online Randevu");
-  const visibleLinks = profile.links.filter((link) => link.label !== "Online Randevu");
+  const mapLink = profile.links.find((link) => link.label === "Konum");
+  const visibleLinks = profile.links.filter(
+    (link) => link.label !== "Online Randevu" && link.label !== "Konum",
+  );
   const appointmentExternal = appointmentLink ? isExternalHref(appointmentLink.href) : false;
+  const mapExternal = mapLink ? isExternalHref(mapLink.href) : false;
 
   return (
     <section id="link-hub" className="snap-panel relative overflow-hidden bg-black">
@@ -103,28 +108,91 @@ export function LinkHub({ profile }: LinkHubProps) {
                 </RevealOnView>
               ))}
 
+              {mapLink ? (
+                <RevealOnView delayMs={visibleLinks.length * 70 + 80}>
+                  <div className="overflow-hidden rounded-[1.45rem] border border-[#c29563]/18 bg-[#17110d] shadow-[0_22px_48px_-28px_rgba(0,0,0,0.62)]">
+                    <div className="flex items-center justify-between gap-3 border-b border-white/8 px-4 py-3">
+                      <div>
+                        <p className="text-[0.66rem] font-semibold uppercase tracking-[0.28em] text-[#c89a5a]">
+                          Konum
+                        </p>
+                        <p className="mt-1 text-sm font-medium text-[#f5efe8]">Balçova / İzmir</p>
+                      </div>
+                      <a
+                        href={mapLink.href}
+                        target={mapExternal ? "_blank" : undefined}
+                        rel={mapExternal ? "noreferrer noopener" : undefined}
+                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#c29563]/28 bg-[#1a120f] text-[#c89a5a] transition hover:bg-[#221711] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c29563]"
+                        aria-label="Google Maps'te aç"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          aria-hidden
+                          className="h-4 w-4 fill-none stroke-current stroke-[2]"
+                        >
+                          <path d="M5 12H19" />
+                          <path d="M12 5L19 12L12 19" />
+                        </svg>
+                      </a>
+                    </div>
+
+                    {profile.mapEmbedUrl ? (
+                      <div className="relative aspect-[16/10] bg-[#120d0a] lg:aspect-[16/7]">
+                        <iframe
+                          src={profile.mapEmbedUrl}
+                          title={`${profile.brandName} konum haritası`}
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          className="absolute inset-0 h-full w-full border-0"
+                          allowFullScreen
+                        />
+                        <a
+                          href={mapLink.href}
+                          target={mapExternal ? "_blank" : undefined}
+                          rel={mapExternal ? "noreferrer noopener" : undefined}
+                          aria-label="Konumu Google Maps'te aç"
+                          className="absolute inset-0"
+                        />
+                      </div>
+                    ) : null}
+                  </div>
+                </RevealOnView>
+              ) : null}
+
+              <RevealOnView delayMs={visibleLinks.length * 70 + 120}>
+                <ReviewCarousel reviews={profile.reviews} accentColor={profile.accentColor} />
+              </RevealOnView>
+
               <RevealOnView
-                delayMs={visibleLinks.length * 70 + 120}
+                delayMs={visibleLinks.length * 70 + 160}
                 className="mt-6 border-t border-white/10 pt-5 lg:hidden"
               >
                 <SocialRow socials={profile.socials} accentColor={profile.accentColor} />
               </RevealOnView>
             </div>
 
-            <RevealOnView delayMs={visibleLinks.length * 70 + 180} className="mt-8">
+            <RevealOnView delayMs={visibleLinks.length * 70 + 220} className="mt-8">
               <div className="overflow-hidden">
-                <Image
-                  src="/images/İlkanhair.svg"
-                  alt={`${profile.brandName} imza görseli`}
-                  width={1200}
-                  height={1600}
-                  sizes="(min-width: 1024px) 46rem, 100vw"
-                  className="h-auto w-full object-contain"
-                />
+                <div className="py-8 text-center lg:hidden">
+                  <p className="text-[0.9rem] font-semibold uppercase tracking-[0.34em] text-[#d5baa0]/72">
+                    Balçova / İzmir
+                  </p>
+                </div>
+
+                <div className="hidden lg:block">
+                  <Image
+                    src="/images/ilkanhair-signature.svg"
+                    alt={`${profile.brandName} imza görseli`}
+                    width={1200}
+                    height={1600}
+                    sizes="(min-width: 1024px) 46rem, 100vw"
+                    className="h-auto w-full object-contain"
+                  />
+                </div>
               </div>
             </RevealOnView>
 
-            <RevealOnView delayMs={visibleLinks.length * 70 + 220} className="mt-5">
+            <RevealOnView delayMs={visibleLinks.length * 70 + 260} className="mt-5">
               <p className="text-center text-[0.64rem] font-semibold uppercase tracking-[0.34em] text-[#d5baa0]/58">
                 {profile.footerTag}
               </p>
