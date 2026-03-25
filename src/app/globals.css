@@ -83,26 +83,15 @@ img {
 }
 
 .snap-shell {
-  height: 100svh;
-  overflow-y: auto;
-  scroll-snap-type: y proximity;
-  overscroll-behavior-y: contain;
-  -webkit-overflow-scrolling: touch;
+  min-height: 100vh;
 }
 
 .snap-shell[data-carousel-lock="true"] {
   scroll-snap-type: none;
 }
 
-.snap-shell::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
 .snap-panel {
   min-height: 100svh;
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
 }
 
 .reveal-on-view {
@@ -146,16 +135,6 @@ img {
 
 .review-carousel::-webkit-scrollbar {
   display: none;
-}
-
-@media (min-width: 1024px) {
-  .snap-shell {
-    scroll-snap-type: none;
-  }
-
-  .snap-panel {
-    scroll-snap-align: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
