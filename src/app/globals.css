@@ -83,9 +83,9 @@ img {
 }
 
 .snap-shell {
-  height: 100svh;
+  min-height: 100svh;
   overflow-y: auto;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
 }
@@ -102,7 +102,7 @@ img {
 .snap-panel {
   min-height: 100svh;
   scroll-snap-align: start;
-  scroll-snap-stop: always;
+  scroll-snap-stop: normal;
 }
 
 .reveal-on-view {
@@ -146,6 +146,20 @@ img {
 
 .review-carousel::-webkit-scrollbar {
   display: none;
+}
+
+@media (min-width: 1024px) {
+  .snap-shell {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: visible;
+    scroll-snap-type: none;
+  }
+
+  .snap-panel {
+    min-height: 100vh;
+    scroll-snap-align: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
