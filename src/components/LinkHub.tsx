@@ -35,9 +35,9 @@ export function LinkHub({ profile }: LinkHubProps) {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,4,3,0.14)_0%,rgba(5,4,3,0.08)_18%,rgba(7,5,4,0.26)_58%,rgba(8,6,5,0.72)_100%)] lg:bg-[linear-gradient(90deg,rgba(7,5,4,0.5)_0%,rgba(7,5,4,0.18)_26%,rgba(7,5,4,0.08)_56%,rgba(7,5,4,0.46)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,6,5,0.12)_0%,rgba(8,6,5,0.04)_40%,rgba(8,6,5,0.12)_100%)] lg:hidden" />
 
-      <div className="relative mx-auto flex min-h-[100svh] w-full max-w-7xl items-start px-3 pt-[max(0.7rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom)+1rem)] sm:px-6 sm:pt-5 sm:pb-6 lg:px-14 lg:py-10 xl:px-20">
+      <div className="relative mx-auto flex min-h-[100svh] w-full max-w-7xl items-start px-3 pt-[max(0.7rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom)+1rem)] sm:px-6 sm:pt-5 sm:pb-6 lg:max-w-[96rem] lg:px-14 lg:py-10 xl:max-w-[108rem] xl:px-20">
         <div
-          className="mx-auto flex w-full max-w-[40rem] flex-col rounded-[2rem] border border-white/10 px-5 pt-5 pb-5 shadow-[0_30px_90px_-40px_rgba(0,0,0,0.78)] sm:px-6 sm:pt-6 sm:pb-6 lg:max-w-[46rem] lg:rounded-[2.2rem] lg:px-8 lg:pt-7 lg:pb-8"
+          className="mx-auto flex w-full max-w-[40rem] flex-col rounded-[2rem] border border-white/10 px-5 pt-5 pb-5 shadow-[0_30px_90px_-40px_rgba(0,0,0,0.78)] sm:px-6 sm:pt-6 sm:pb-6 lg:max-w-[56rem] lg:rounded-[2.2rem] lg:px-8 lg:pt-7 lg:pb-8 xl:max-w-[62rem]"
           style={{ backgroundColor: profile.surfaceColor }}
         >
           <div className="mx-auto h-1.5 w-16 rounded-full bg-white/12 lg:hidden" />
