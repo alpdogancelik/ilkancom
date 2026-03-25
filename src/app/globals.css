@@ -83,7 +83,7 @@ img {
 }
 
 .snap-shell {
-  min-height: 100svh;
+  height: 100svh;
   overflow-y: auto;
   scroll-snap-type: y proximity;
   overscroll-behavior-y: contain;
@@ -150,14 +150,10 @@ img {
 
 @media (min-width: 1024px) {
   .snap-shell {
-    height: auto;
-    min-height: 100vh;
-    overflow-y: visible;
     scroll-snap-type: none;
   }
 
   .snap-panel {
-    min-height: 100vh;
     scroll-snap-align: none;
   }
 }
