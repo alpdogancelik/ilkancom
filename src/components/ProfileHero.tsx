@@ -28,7 +28,7 @@ export function ProfileHero({ profile }: ProfileHeroProps) {
         fill
         priority
         quality={92}
-        sizes="100vw"
+        sizes="(max-width: 1023px) 100vw, 0px"
         className="object-cover object-[center_20%] sm:object-[center_18%] lg:hidden"
       />
       {profile.desktopHeroImage ? (
@@ -38,7 +38,7 @@ export function ProfileHero({ profile }: ProfileHeroProps) {
           fill
           priority
           quality={92}
-          sizes="100vw"
+          sizes="(min-width: 1024px) 100vw, 0px"
           className="hidden object-cover lg:block lg:object-[center_center]"
         />
       ) : (
@@ -48,7 +48,7 @@ export function ProfileHero({ profile }: ProfileHeroProps) {
           fill
           priority
           quality={92}
-          sizes="100vw"
+          sizes="(min-width: 1024px) 100vw, 0px"
           className="hidden object-cover lg:block lg:object-[center_8%] xl:object-[center_10%]"
         />
       )}

@@ -25,6 +25,26 @@ type MapCardProps = {
   desktop?: boolean;
 };
 
+const aboutParagraphs = [
+  "Ben İlkan Kaymak. 19.08.1991 İzmir / Ödemiş doğumluyum. Erkek kuaförlüğü ve saç tasarımı mesleğini 22 yıldır severek ve tutkuyla yapıyorum.",
+  "Saça olan ilgim çok küçük yaşlarda başladı. Kendi saçımla sürekli ilgilenir, arkadaşlarımın saçlarını yapardım. Hatta lise döneminde saçımı istediğim gibi yapamadığım günlerde okula gitmediğim bile olurdu. O zamanlar fark ettim ki, bu benim için sadece bir hobi değil, gerçek bir tutku ve hayatımın odak noktası.",
+  "Zamanla erkek berberliğinin ve vizyoner saç tasarımının benim için en doğru meslek olduğunu anlayarak bu yola girdim. Çıraklık ve kalfalık dönemlerimde kendimi sürekli geliştirmeye odaklandım. Mesleğin akademik eğitimini alarak kalfalık, ustalık ve usta öğreticilik belgelerimi tamamladım ve sektörel altyapımı sağlamlaştırdım.",
+  "Meslek hayatım boyunca gelişimi hiç bırakmadım. Ulusal ve uluslararası organizasyonlara katılarak farklı bakış açıları kazandım, çeşitli sahne şovlarında ve yarışmalarda yer alarak dereceler elde ettim ve uluslararası sertifikalar kazandım. Bu tecrübeler, dünya standartlarını yakından takip edip İzmir'e taşımamı sağladı.",
+  "Dünya markası saç bakım ürünleri ve şampuanlar üzerine eğitimler alarak her saç tipine uygun doğru ürünü belirleme konusunda uzmanlaştım. Bugün müşterilerime sadece bir saç kesimi değil; doğru analiz, doğru teknik ve doğru ürün kombinasyonunu sunuyorum.",
+  "Mesleğimde her zaman yeniliği ve kaliteyi ön planda tutuyorum. Gerek salon dekorasyonu gerek uyguladığım modern kesim teknikleri ile kendimi sürekli güncelliyor, koltuğuma oturan her misafirimin salonumdan özgüvenle ayrılması için gelişmeye devam ediyorum.",
+];
+
+const aboutTraining = [
+  "Saç kesim teknikleri",
+  "Pivot Point kesim teknikleri",
+  "Anatomik saç kesim teknikleri",
+];
+
+const aboutParagraphColumns = [
+  aboutParagraphs.slice(0, 3),
+  aboutParagraphs.slice(3),
+];
+
 function LinkHubHeader({
   profile,
   appointmentLink,
@@ -138,6 +158,81 @@ function MapCard({ profile, mapLink, mapExternal, desktop = false }: MapCardProp
   );
 }
 
+function AboutSection({ profile }: { profile: BrandProfile }) {
+  return (
+    <div className="relative overflow-hidden rounded-[1.8rem] border border-white/10 bg-[linear-gradient(180deg,rgba(28,19,14,0.92)_0%,rgba(16,11,8,0.98)_100%)] p-4 shadow-[0_28px_70px_-34px_rgba(0,0,0,0.72)] sm:p-5 lg:p-5 xl:p-6">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(194,149,99,0.14),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.03),transparent_42%)]" />
+
+      <div className="relative grid gap-5 lg:grid-cols-[minmax(16rem,0.56fr)_minmax(0,1fr)] lg:gap-6 xl:grid-cols-[minmax(17rem,0.54fr)_minmax(0,1fr)]">
+        <div>
+          <div className="relative overflow-hidden rounded-[1.65rem] border border-white/10 bg-[#0f0a08] shadow-[0_20px_48px_-28px_rgba(0,0,0,0.78)]">
+            <Image
+              src="/images/ilkankaymakcup.png"
+              alt={`${profile.brandName} portre görseli`}
+              width={1600}
+              height={2000}
+              sizes="(min-width: 1280px) 20rem, (min-width: 1024px) 18rem, 100vw"
+              quality={92}
+              className="h-full max-h-[25rem] w-full object-cover object-center lg:max-h-[34rem] xl:max-h-[36rem]"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col">
+          <p className="text-[0.66rem] font-semibold uppercase tracking-[0.36em] text-[#c89a5a]">
+            Hakkımda
+          </p>
+          <h3 className="mt-3 max-w-[48rem] text-[1.9rem] font-[760] leading-[0.94] tracking-[-0.045em] text-[#f5efe8] sm:text-[2.15rem] lg:text-[2.35rem] xl:text-[2.65rem]">
+            Kişisel yaklaşım, güçlü teknik altyapı ve rafine erkek bakımı.
+          </h3>
+
+          <div className="mt-5 grid gap-4 lg:grid-cols-2 lg:gap-5">
+            {aboutParagraphColumns.map((column, columnIndex) => (
+              <div key={columnIndex} className="space-y-3">
+                {column.map((paragraph) => (
+                  <p
+                    key={paragraph.slice(0, 32)}
+                    className="text-[0.92rem] leading-[1.78] text-[#eadfce]/80 lg:text-[0.86rem] lg:leading-[1.72] xl:text-[0.9rem]"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 rounded-[1.35rem] border border-[#c29563]/18 bg-black/16 px-4 py-4">
+            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-[#c89a5a]">
+              İleri Düzey Eğitimler
+            </p>
+            <div className="mt-4 grid gap-2.5 sm:grid-cols-3">
+              {aboutTraining.map((item) => (
+                <div
+                  key={item}
+                  className="rounded-[1rem] border border-white/8 bg-white/[0.03] px-3 py-3 text-[0.82rem] leading-[1.55] text-[#f0e5d8]/84 lg:text-[0.76rem]"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-5 rounded-[1.35rem] border border-white/8 bg-[linear-gradient(135deg,rgba(194,149,99,0.12),rgba(255,255,255,0.02))] px-4 py-4">
+            <p className="text-[0.94rem] leading-[1.8] text-[#f4ebdf]/84 lg:text-[0.84rem] lg:leading-[1.72] xl:text-[0.88rem]">
+              Kalite, hijyen ve müşteri memnuniyeti bizim için vazgeçilmezdir. Her zaman en
+              iyi ürünleri kullanarak hizmet standartlarımızı en üst seviyede tutuyoruz. Sizi
+              de bu ayrıcalıklı deneyimi yaşamak için salonumuza bekliyoruz.
+            </p>
+            <p className="mt-4 text-[0.76rem] font-semibold uppercase tracking-[0.28em] text-[#d8c0a5]/68">
+              Saygılarımla, İlkan Kaymak
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function LinkHub({ profile }: LinkHubProps) {
   const appointmentLink = profile.links.find((link) => link.label === "Online Randevu");
   const mapLink = profile.links.find((link) => link.label === "Konum");
@@ -226,6 +321,10 @@ export function LinkHub({ profile }: LinkHubProps) {
                 <SocialRow socials={profile.socials} accentColor={profile.accentColor} />
               </RevealOnView>
 
+              <RevealOnView delayMs={visibleLinks.length * 70 + 200} className="mt-8 lg:mt-10">
+                <AboutSection profile={profile} />
+              </RevealOnView>
+
               <RevealOnView delayMs={visibleLinks.length * 70 + 220} className="mt-8 lg:hidden">
                 <div className="overflow-hidden py-8 text-center">
                   <p className="text-[0.9rem] font-semibold uppercase tracking-[0.34em] text-[#d5baa0]/72">
@@ -261,18 +360,7 @@ export function LinkHub({ profile }: LinkHubProps) {
             className="mx-auto flex min-h-[calc(100svh-5rem)] w-full max-w-[78rem] flex-col items-center justify-center rounded-[2.2rem] border border-white/10 px-12 py-12 shadow-[0_30px_90px_-40px_rgba(0,0,0,0.78)]"
             style={{ backgroundColor: profile.surfaceColor }}
           >
-            <RevealOnView className="w-full max-w-[34rem]">
-              <Image
-                src="/images/ilkanhair-signature.svg"
-                alt={`${profile.brandName} imza görseli`}
-                width={1200}
-                height={1600}
-                sizes="(min-width: 1024px) 34rem, 100vw"
-                className="h-auto w-full object-contain"
-              />
-            </RevealOnView>
-
-            <RevealOnView delayMs={120} className="mt-14">
+            <RevealOnView>
               <p className="text-center text-[0.64rem] font-semibold uppercase tracking-[0.34em] text-[#d5baa0]/58">
                 {profile.footerTag}
               </p>

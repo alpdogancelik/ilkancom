@@ -50,7 +50,7 @@ export const brandProfile: BrandProfile = {
   brandName: "İlkan Kaymak",
   brandBadge: "İK",
   tagline: "Detay, kalite, ayrıcalık.",
-  serviceType: "HAIR STYLIST",
+  serviceType: "HAIR ARTIST",
   heroImage: "/images/ilkkan.png",
   desktopHeroImage: "/images/ilkankaymak-w.png",
   heroImageAlt: "İlkan Kaymak'ın tam ekran portresi.",
