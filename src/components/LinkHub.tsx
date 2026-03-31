@@ -5,6 +5,7 @@ import { isExternalHref } from "@/lib/utils";
 
 import { LinkButton } from "./LinkButton";
 import { BrandFooter } from "./BrandFooter";
+import LineWaves from "./linewaves";
 import { RevealOnView } from "./RevealOnView";
 import { ReviewCarousel } from "./ReviewCarousel";
 import { SocialRow } from "./SocialRow";
@@ -229,18 +230,26 @@ export function LinkHub({ profile }: LinkHubProps) {
 
   return (
     <>
-      <section id="link-hub" className="snap-panel relative overflow-hidden bg-black">
-        <Image
-          src={profile.linksImage}
-          alt={profile.linksImageAlt}
-          fill
-          quality={92}
-          sizes="100vw"
-          className="object-cover object-[50%_18%] lg:object-[center_14%] xl:object-[center_18%]"
-        />
-
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,4,3,0.14)_0%,rgba(5,4,3,0.08)_18%,rgba(7,5,4,0.26)_58%,rgba(8,6,5,0.72)_100%)] lg:bg-[linear-gradient(90deg,rgba(7,5,4,0.5)_0%,rgba(7,5,4,0.18)_26%,rgba(7,5,4,0.08)_56%,rgba(7,5,4,0.46)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,6,5,0.12)_0%,rgba(8,6,5,0.04)_40%,rgba(8,6,5,0.12)_100%)] lg:hidden" />
+      <section id="link-hub" className="snap-panel relative overflow-hidden bg-[#050402]">
+        <div className="absolute inset-0">
+          <LineWaves
+            speed={0.3}
+            innerLineCount={32}
+            outerLineCount={36}
+            warpIntensity={1}
+            rotation={-45}
+            edgeFadeWidth={0}
+            colorCycleSpeed={1}
+            brightness={0.2}
+            color1="#ffffff"
+            color2="#ffffff"
+            color3="#ffffff"
+            enableMouseInteraction
+            mouseInfluence={2}
+          />
+        </div>
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,4,3,0.34)_0%,rgba(5,4,3,0.16)_24%,rgba(7,5,4,0.58)_100%)] lg:bg-[linear-gradient(90deg,rgba(7,5,4,0.62)_0%,rgba(7,5,4,0.18)_28%,rgba(7,5,4,0.08)_56%,rgba(7,5,4,0.54)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,transparent_34%,rgba(5,4,3,0.16)_72%,rgba(5,4,3,0.34)_100%)]" />
 
         <div className="relative mx-auto flex min-h-[100svh] w-full max-w-7xl items-start px-3 pt-[max(0.7rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom)+1rem)] sm:px-6 sm:pt-5 sm:pb-6 lg:max-w-[96rem] lg:px-14 lg:py-10 xl:max-w-[108rem] xl:px-20">
           <div
