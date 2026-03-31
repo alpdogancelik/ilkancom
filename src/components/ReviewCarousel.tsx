@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, type TouchEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 
 import type { BrandReview } from "@/data/brand-profile";
 
 type ReviewCarouselProps = {
   reviews: BrandReview[];
   accentColor: string;
+  eyebrow: string;
+  title: string;
+  ownerReplyLabel: string;
 };
 
 function ReviewStars({ rating }: { rating: number }) {
@@ -26,13 +29,22 @@ function ReviewStars({ rating }: { rating: number }) {
   );
 }
 
-export function ReviewCarousel({ reviews, accentColor }: ReviewCarouselProps) {
+export function ReviewCarousel({
+  reviews,
+  accentColor,
+  eyebrow,
+  title,
+  ownerReplyLabel,
+}: ReviewCarouselProps) {
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const releaseTimerRef = useRef<number | null>(null);
   const scrollTimerRef = useRef<number | null>(null);
   const gestureRef = useRef({
     startX: 0,
     startY: 0,
+    startScrollLeft: 0,
+    pointerId: -1,
+    pointerActive: false,
     horizontalIntent: false,
   });
   const [isDragging, setIsDragging] = useState(false);
@@ -117,51 +129,84 @@ export function ReviewCarousel({ reviews, accentColor }: ReviewCarouselProps) {
     }, 110);
   };
 
-  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    const touch = event.touches[0];
+  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) {
+      return;
+    }
 
-    if (!touch) {
+    const viewport = viewportRef.current;
+
+    if (!viewport) {
       return;
     }
 
     gestureRef.current = {
-      startX: touch.clientX,
-      startY: touch.clientY,
+      startX: event.clientX,
+      startY: event.clientY,
+      startScrollLeft: viewport.scrollLeft,
+      pointerId: event.pointerId,
+      pointerActive: true,
       horizontalIntent: false,
     };
 
     if (releaseTimerRef.current) {
       window.clearTimeout(releaseTimerRef.current);
     }
+
+    if (scrollTimerRef.current) {
+      window.clearTimeout(scrollTimerRef.current);
+    }
+
+    event.currentTarget.setPointerCapture(event.pointerId);
   };
 
-  const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
-    const touch = event.touches[0];
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const viewport = viewportRef.current;
 
-    if (!touch) {
+    if (
+      !viewport ||
+      !gestureRef.current.pointerActive ||
+      gestureRef.current.pointerId !== event.pointerId
+    ) {
       return;
     }
 
-    const deltaX = Math.abs(touch.clientX - gestureRef.current.startX);
-    const deltaY = Math.abs(touch.clientY - gestureRef.current.startY);
+    const deltaX = event.clientX - gestureRef.current.startX;
+    const deltaY = event.clientY - gestureRef.current.startY;
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
 
-    if (!gestureRef.current.horizontalIntent && deltaX > deltaY + 8 && deltaX > 10) {
+    if (!gestureRef.current.horizontalIntent && absX > absY + 8 && absX > 10) {
       gestureRef.current.horizontalIntent = true;
       setIsDragging(true);
       setParentSnapLocked(true);
     }
 
     if (gestureRef.current.horizontalIntent) {
-      scheduleSettle();
+      event.preventDefault();
+      viewport.scrollLeft = gestureRef.current.startScrollLeft - deltaX;
     }
   };
 
-  const handleTouchEnd = () => {
-    if (!gestureRef.current.horizontalIntent) {
+  const handlePointerRelease = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (gestureRef.current.pointerId !== event.pointerId) {
       return;
     }
 
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    const shouldSettle = gestureRef.current.horizontalIntent;
+
+    gestureRef.current.pointerActive = false;
+    gestureRef.current.pointerId = -1;
     gestureRef.current.horizontalIntent = false;
+
+    if (!shouldSettle) {
+      return;
+    }
+
     scheduleSettle();
   };
 
@@ -170,14 +215,13 @@ export function ReviewCarousel({ reviews, accentColor }: ReviewCarouselProps) {
       <div className="flex items-end justify-between gap-4 px-1">
         <div>
           <p className="text-[0.66rem] font-semibold uppercase tracking-[0.32em] text-[#c89a5a]">
-            Yorumlar
+            {eyebrow}
           </p>
           <h3 className="mt-2 text-[1.1rem] font-semibold tracking-[-0.03em] text-[#f5efe8]">
-            Misafir deneyimleri
+            {title}
           </h3>
         </div>
-        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#d8c0a5]/60">
-        </p>
+        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#d8c0a5]/60"></p>
       </div>
 
       <div
@@ -185,12 +229,14 @@ export function ReviewCarousel({ reviews, accentColor }: ReviewCarouselProps) {
         className="review-carousel -mx-5 mt-4 overflow-x-auto overflow-y-hidden px-5 pb-2 sm:-mx-6 sm:px-6 lg:-mx-0 lg:px-0"
         data-dragging={isDragging ? "true" : "false"}
         onScroll={isDragging ? scheduleSettle : undefined}
-        onTouchCancel={handleTouchEnd}
-        onTouchEnd={handleTouchEnd}
-        onTouchMove={handleTouchMove}
-        onTouchStart={handleTouchStart}
+        onPointerCancel={handlePointerRelease}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerRelease}
       >
-        <div className={`flex w-max gap-3 pb-2 pr-5 lg:pr-0 ${isDragging ? "snap-none" : "snap-x snap-proximity"}`}>
+        <div
+          className={`flex w-max gap-3 pb-2 pr-5 lg:pr-0 ${isDragging ? "snap-none" : "snap-x snap-proximity"}`}
+        >
           {reviews.map((review, index) => {
             const initials = review.author
               .split(" ")
@@ -241,7 +287,7 @@ export function ReviewCarousel({ reviews, accentColor }: ReviewCarouselProps) {
                 {review.ownerReply ? (
                   <div className="mt-4 rounded-[1rem] border border-white/8 bg-black/16 px-3 py-3">
                     <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[#c89a5a]">
-                      İşletme yanıtı
+                      {ownerReplyLabel}
                     </p>
                     <p className="mt-2 text-[0.82rem] leading-[1.65] text-[#e9dccb]/84">
                       {review.ownerReply}

@@ -129,8 +129,15 @@ img {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
   overscroll-behavior-y: contain;
-  touch-action: auto;
+  touch-action: pan-y;
+  cursor: grab;
   scrollbar-width: none;
+}
+
+.review-carousel[data-dragging="true"] {
+  cursor: grabbing;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .review-carousel::-webkit-scrollbar {

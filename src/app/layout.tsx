@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Libre_Baskerville } from "next/font/google";
 
 import { siteConfig } from "@/lib/site";
 
@@ -8,6 +8,12 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const libreBaskerville = Libre_Baskerville({
+  variable: "--font-libre-baskerville",
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -50,7 +56,7 @@ export default function RootLayout({
       lang="tr"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${inter.variable} bg-background antialiased`}
+      className={`${inter.variable} ${libreBaskerville.variable} bg-background antialiased`}
     >
       <body className="min-h-screen bg-background text-foreground">
         {children}
