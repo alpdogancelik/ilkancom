@@ -312,6 +312,7 @@ export function LinkHub({ profile }: LinkHubProps) {
                   eyebrow={profile.reviewEyebrow}
                   title={profile.reviewTitle}
                   ownerReplyLabel={profile.ownerReplyLabel}
+                  guestExperienceLabel={profile.reviewTitle}
                 />
               </RevealOnView>
 

@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 
 import type { BrandReview } from "@/data/brand-profile";
 
@@ -10,22 +16,103 @@ type ReviewCarouselProps = {
   eyebrow: string;
   title: string;
   ownerReplyLabel: string;
+  guestExperienceLabel: string;
 };
 
-function ReviewStars({ rating }: { rating: number }) {
+type ReviewCardProps = {
+  review: BrandReview;
+  ownerReplyLabel: string;
+  guestExperienceLabel: string;
+  accentColor: string;
+};
+
+function TypingText({ text, delay = 0 }: { text: string; delay?: number }) {
   return (
-    <div className="flex items-center gap-1 text-[#d9a15f]">
-      {Array.from({ length: 5 }, (_, index) => (
-        <svg
-          key={index}
-          viewBox="0 0 20 20"
-          aria-hidden
-          className={`h-3.5 w-3.5 ${index < rating ? "fill-current" : "fill-[#4c3725]"}`}
+    <span className="inline-block">
+      {text.split("").map((char, index) => (
+        <span
+          key={`${char}-${index}`}
+          className="char-reveal inline-block"
+          style={{ animationDelay: `${delay + index * 0.035}s` }}
         >
-          <path d="M10 1.7L12.5 6.8L18.1 7.6L14 11.6L15 17.3L10 14.7L5 17.3L6 11.6L1.9 7.6L7.5 6.8L10 1.7Z" />
-        </svg>
+          {char === " " ? "\u00A0" : char}
+        </span>
       ))}
-    </div>
+    </span>
+  );
+}
+
+function ReviewCard({
+  review,
+  ownerReplyLabel,
+  guestExperienceLabel,
+  accentColor,
+}: ReviewCardProps) {
+  const initials = review.author
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join("");
+
+  return (
+    <article className="review-card-container mx-4 h-[480px]">
+      <div className="review-card relative flex h-full w-[320px] flex-col justify-between rounded-[40px] bg-[#0a0a0a] p-8 sm:w-[380px]">
+        <div className="no-scrollbar flex flex-col gap-4 overflow-y-auto">
+          <div className="flex items-center gap-2">
+            <div className="flex gap-1">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <svg
+                  key={`${review.author}-star-${i}`}
+                  className={`h-3.5 w-3.5 ${i < review.rating ? "fill-[#C7A17A]" : "fill-[#222]"}`}
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                >
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              ))}
+            </div>
+            <span className="text-xs text-[#6a6a6a]">{review.timeAgo}</span>
+          </div>
+
+          <p className="text-sm leading-relaxed text-[#A1A1AA] italic transition-colors duration-500 hover:text-white">
+            &ldquo;{review.quote}&rdquo;
+          </p>
+
+          {review.ownerReply ? (
+            <div className="mt-2 rounded-r-2xl border-l-2 bg-[#111] p-5" style={{ borderColor: accentColor }}>
+              <p
+                className="mb-2 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase"
+                style={{ color: accentColor }}
+              >
+                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accentColor }} />
+                {ownerReplyLabel}
+              </p>
+              <p className="text-xs leading-relaxed text-[#777] italic">{review.ownerReply}</p>
+            </div>
+          ) : null}
+        </div>
+
+        <div className="mt-6 flex items-center gap-4 border-t border-[#222]/50 pt-6">
+          <div
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border text-sm font-bold uppercase"
+            style={{
+              borderColor: `${accentColor}45`,
+              color: accentColor,
+              backgroundColor: "#111",
+            }}
+          >
+            {initials}
+          </div>
+          <div className="overflow-hidden text-left">
+            <h4 className="truncate text-sm font-medium tracking-tight text-white">{review.author}</h4>
+            <p className="mt-1 text-[10px] tracking-[0.2em] whitespace-nowrap uppercase text-[#444]">
+              {review.summary ?? guestExperienceLabel}
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
   );
 }
 
@@ -35,161 +122,80 @@ export function ReviewCarousel({
   eyebrow,
   title,
   ownerReplyLabel,
+  guestExperienceLabel,
 }: ReviewCarouselProps) {
-  const viewportRef = useRef<HTMLDivElement | null>(null);
-  const releaseTimerRef = useRef<number | null>(null);
-  const scrollTimerRef = useRef<number | null>(null);
-  const gestureRef = useRef({
-    startX: 0,
-    startY: 0,
-    startScrollLeft: 0,
-    pointerId: -1,
-    pointerActive: false,
-    horizontalIntent: false,
-  });
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const scrollRef = useRef(0);
+  const velocityRef = useRef(1.2);
+  const hoveredRef = useRef(false);
+  const draggingRef = useRef(false);
+  const pointerIdRef = useRef<number | null>(null);
+  const startXRef = useRef(0);
+  const dragOriginRef = useRef(0);
   const [isDragging, setIsDragging] = useState(false);
+  const reviewsLoop = useMemo(() => [...reviews, ...reviews], [reviews]);
 
   useEffect(() => {
-    return () => {
-      if (releaseTimerRef.current) {
-        window.clearTimeout(releaseTimerRef.current);
+    const animate = () => {
+      if (!draggingRef.current) {
+        const targetVelocity = hoveredRef.current ? 0 : 1.2;
+        velocityRef.current += (targetVelocity - velocityRef.current) * 0.05;
+        scrollRef.current -= velocityRef.current;
       }
 
-      if (scrollTimerRef.current) {
-        window.clearTimeout(scrollTimerRef.current);
+      const track = trackRef.current;
+      if (track) {
+        const maxScroll = track.scrollWidth / 2;
+
+        if (maxScroll > 0) {
+          if (Math.abs(scrollRef.current) >= maxScroll) {
+            scrollRef.current = 0;
+          } else if (scrollRef.current > 0) {
+            scrollRef.current = -maxScroll;
+          }
+        }
+
+        track.style.transform = `translate3d(${scrollRef.current}px, 0, 0)`;
+      }
+
+      rafRef.current = window.requestAnimationFrame(animate);
+    };
+
+    rafRef.current = window.requestAnimationFrame(animate);
+
+    return () => {
+      if (rafRef.current) {
+        window.cancelAnimationFrame(rafRef.current);
       }
     };
   }, []);
-
-  const setParentSnapLocked = (locked: boolean) => {
-    const viewport = viewportRef.current;
-    const snapShell = viewport?.closest(".snap-shell");
-
-    if (!(snapShell instanceof HTMLElement)) {
-      return;
-    }
-
-    if (locked) {
-      snapShell.dataset.carouselLock = "true";
-      return;
-    }
-
-    delete snapShell.dataset.carouselLock;
-  };
-
-  const settleToNearestCard = () => {
-    const viewport = viewportRef.current;
-
-    if (!viewport) {
-      setIsDragging(false);
-      setParentSnapLocked(false);
-      return;
-    }
-
-    const cards = Array.from(
-      viewport.querySelectorAll<HTMLElement>("[data-review-card='true']"),
-    );
-
-    if (!cards.length) {
-      setIsDragging(false);
-      setParentSnapLocked(false);
-      return;
-    }
-
-    const targetLeft = cards.reduce((closest, card) => {
-      const cardLeft = card.offsetLeft;
-      const closestDistance = Math.abs(closest - viewport.scrollLeft);
-      const currentDistance = Math.abs(cardLeft - viewport.scrollLeft);
-
-      return currentDistance < closestDistance ? cardLeft : closest;
-    }, cards[0].offsetLeft);
-
-    viewport.scrollTo({
-      left: targetLeft,
-      behavior: "smooth",
-    });
-
-    if (releaseTimerRef.current) {
-      window.clearTimeout(releaseTimerRef.current);
-    }
-
-    releaseTimerRef.current = window.setTimeout(() => {
-      setIsDragging(false);
-      setParentSnapLocked(false);
-    }, 180);
-  };
-
-  const scheduleSettle = () => {
-    if (scrollTimerRef.current) {
-      window.clearTimeout(scrollTimerRef.current);
-    }
-
-    scrollTimerRef.current = window.setTimeout(() => {
-      settleToNearestCard();
-    }, 110);
-  };
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) {
       return;
     }
 
-    const viewport = viewportRef.current;
-
-    if (!viewport) {
-      return;
-    }
-
-    gestureRef.current = {
-      startX: event.clientX,
-      startY: event.clientY,
-      startScrollLeft: viewport.scrollLeft,
-      pointerId: event.pointerId,
-      pointerActive: true,
-      horizontalIntent: false,
-    };
-
-    if (releaseTimerRef.current) {
-      window.clearTimeout(releaseTimerRef.current);
-    }
-
-    if (scrollTimerRef.current) {
-      window.clearTimeout(scrollTimerRef.current);
-    }
-
+    pointerIdRef.current = event.pointerId;
+    draggingRef.current = true;
+    setIsDragging(true);
+    startXRef.current = event.clientX;
+    dragOriginRef.current = scrollRef.current;
+    velocityRef.current = 0;
     event.currentTarget.setPointerCapture(event.pointerId);
   };
 
   const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const viewport = viewportRef.current;
-
-    if (
-      !viewport ||
-      !gestureRef.current.pointerActive ||
-      gestureRef.current.pointerId !== event.pointerId
-    ) {
+    if (!draggingRef.current || pointerIdRef.current !== event.pointerId) {
       return;
     }
 
-    const deltaX = event.clientX - gestureRef.current.startX;
-    const deltaY = event.clientY - gestureRef.current.startY;
-    const absX = Math.abs(deltaX);
-    const absY = Math.abs(deltaY);
-
-    if (!gestureRef.current.horizontalIntent && absX > absY + 8 && absX > 10) {
-      gestureRef.current.horizontalIntent = true;
-      setIsDragging(true);
-      setParentSnapLocked(true);
-    }
-
-    if (gestureRef.current.horizontalIntent) {
-      event.preventDefault();
-      viewport.scrollLeft = gestureRef.current.startScrollLeft - deltaX;
-    }
+    const deltaX = event.clientX - startXRef.current;
+    scrollRef.current = dragOriginRef.current + deltaX;
   };
 
   const handlePointerRelease = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (gestureRef.current.pointerId !== event.pointerId) {
+    if (pointerIdRef.current !== event.pointerId) {
       return;
     }
 
@@ -197,108 +203,52 @@ export function ReviewCarousel({
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
 
-    const shouldSettle = gestureRef.current.horizontalIntent;
-
-    gestureRef.current.pointerActive = false;
-    gestureRef.current.pointerId = -1;
-    gestureRef.current.horizontalIntent = false;
-
-    if (!shouldSettle) {
-      return;
-    }
-
-    scheduleSettle();
+    pointerIdRef.current = null;
+    draggingRef.current = false;
+    setIsDragging(false);
   };
 
   return (
-    <div className="mt-6">
-      <div className="flex items-end justify-between gap-4 px-1">
-        <div>
-          <p className="text-[0.66rem] font-semibold uppercase tracking-[0.32em] text-[#c89a5a]">
-            {eyebrow}
-          </p>
-          <h3 className="mt-2 text-[1.1rem] font-semibold tracking-[-0.03em] text-[#f5efe8]">
-            {title}
+    <section className="relative flex flex-col justify-center overflow-hidden py-16">
+      <div className="mb-14 w-full px-1 text-left select-none">
+        <div className="flex flex-col gap-2">
+          <span className="text-[10px] font-bold tracking-[0.5em] uppercase text-[#C7A17A]">
+            <TypingText text={eyebrow} />
+          </span>
+          <h3 className="text-3xl font-light tracking-tighter text-white italic sm:text-4xl lg:text-6xl">
+            <TypingText text={title} delay={0.6} />
           </h3>
         </div>
-        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#d8c0a5]/60"></p>
       </div>
 
       <div
-        ref={viewportRef}
-        className="review-carousel -mx-5 mt-4 overflow-x-auto overflow-y-hidden px-5 pb-2 sm:-mx-6 sm:px-6 lg:-mx-0 lg:px-0"
-        data-dragging={isDragging ? "true" : "false"}
-        onScroll={isDragging ? scheduleSettle : undefined}
+        className={`mask-edges relative w-full cursor-grab py-4 active:cursor-grabbing touch-pan-y ${isDragging ? "select-none" : ""}`}
+        onMouseEnter={() => {
+          hoveredRef.current = true;
+        }}
+        onMouseLeave={() => {
+          hoveredRef.current = false;
+          draggingRef.current = false;
+          pointerIdRef.current = null;
+          setIsDragging(false);
+        }}
         onPointerCancel={handlePointerRelease}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerRelease}
       >
-        <div
-          className={`flex w-max gap-3 pb-2 pr-5 lg:pr-0 ${isDragging ? "snap-none" : "snap-x snap-proximity"}`}
-        >
-          {reviews.map((review, index) => {
-            const initials = review.author
-              .split(" ")
-              .filter(Boolean)
-              .slice(0, 2)
-              .map((part) => part[0]?.toUpperCase())
-              .join("");
-
-            return (
-              <article
-                key={`${review.author}-${index}`}
-                data-review-card="true"
-                className="min-w-[16.5rem] max-w-[16.5rem] snap-start rounded-[1.4rem] border border-white/8 bg-[linear-gradient(180deg,rgba(37,25,18,0.94)_0%,rgba(24,16,12,0.96)_100%)] p-4 shadow-[0_24px_44px_-30px_rgba(0,0,0,0.65)] sm:min-w-[18rem] sm:max-w-[18rem] lg:min-w-[21rem] lg:max-w-[21rem] xl:min-w-[22rem] xl:max-w-[22rem]"
-              >
-                <div className="flex items-start gap-3">
-                  <div
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[0.78rem] font-semibold uppercase"
-                    style={{
-                      backgroundColor: `${accentColor}20`,
-                      color: "#f5efe8",
-                      border: `1px solid ${accentColor}3a`,
-                    }}
-                  >
-                    {initials}
-                  </div>
-
-                  <div className="min-w-0">
-                    <p className="truncate text-[0.98rem] font-semibold text-[#f5efe8]">
-                      {review.author}
-                    </p>
-                    {review.summary ? (
-                      <p className="mt-0.5 text-[0.74rem] leading-[1.4] text-[#d8c0a5]/72">
-                        {review.summary}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-
-                <div className="mt-4 flex items-center gap-2">
-                  <ReviewStars rating={review.rating} />
-                  <span className="text-[0.76rem] text-[#d8c0a5]/76">{review.timeAgo}</span>
-                </div>
-
-                <p className="mt-4 text-[0.92rem] leading-[1.7] text-[#f2e8dc]">
-                  {review.quote}
-                </p>
-
-                {review.ownerReply ? (
-                  <div className="mt-4 rounded-[1rem] border border-white/8 bg-black/16 px-3 py-3">
-                    <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[#c89a5a]">
-                      {ownerReplyLabel}
-                    </p>
-                    <p className="mt-2 text-[0.82rem] leading-[1.65] text-[#e9dccb]/84">
-                      {review.ownerReply}
-                    </p>
-                  </div>
-                ) : null}
-              </article>
-            );
-          })}
+        <div ref={trackRef} className="flex will-change-transform">
+          {reviewsLoop.map((review, index) => (
+            <ReviewCard
+              key={`${review.author}-${index}`}
+              review={review}
+              ownerReplyLabel={ownerReplyLabel}
+              guestExperienceLabel={guestExperienceLabel}
+              accentColor={accentColor}
+            />
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
