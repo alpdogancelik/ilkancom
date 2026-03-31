@@ -239,11 +239,12 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
               socials={heroSocials}
               accentColor={profile.accentColor}
               iconClassName="h-11 w-11"
+              containerClassName="mt-5 flex flex-col gap-3"
             />
           </div>
         </div>
 
-        <div className="absolute top-8 right-6 hidden items-start gap-4 lg:flex xl:top-10 xl:right-8">
+        <div className="absolute top-8 right-6 hidden items-start gap-6 lg:flex xl:top-10 xl:right-8 xl:gap-7">
           <LanguageSwitch locale={locale} className="scale-[0.92] origin-top-right" />
           <HeroSocialRail socials={heroSocials} accentColor={profile.accentColor} />
         </div>
