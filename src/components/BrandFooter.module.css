@@ -1,0 +1,110 @@
+﻿@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-10deg);
+  }
+
+  50% {
+    transform: translateY(-30px) rotate(-5deg);
+  }
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+}
+
+@keyframes jiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(-5deg);
+  }
+
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes revealText {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.metalicText {
+  background: linear-gradient(90deg, #8e6e4e 0%, #c7a17a 25%, #fdfdfd 50%, #c7a17a 75%, #8e6e4e 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 15s linear infinite;
+}
+
+.leftFloat {
+  animation: float 12s infinite ease-in-out;
+}
+
+.rightFloat {
+  animation: float 15s infinite reverse ease-in-out;
+}
+
+.animateShake:hover svg {
+  animation: shake 0.82s both;
+}
+
+.animateEnvelope:hover svg {
+  animation: jiggle 0.5s infinite;
+}
+
+.char {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  animation: revealText 0.5s cubic-bezier(0.35, 0, 0.25, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metalicText,
+  .leftFloat,
+  .rightFloat,
+  .char,
+  .animateShake:hover svg,
+  .animateEnvelope:hover svg {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+

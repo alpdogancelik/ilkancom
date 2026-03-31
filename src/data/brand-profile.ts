@@ -35,6 +35,7 @@ export type BrandReview = {
 };
 
 export type BrandProfile = {
+  locale: Locale;
   brandName: string;
   brandBadge: string;
   tagline: string;
@@ -428,6 +429,7 @@ function buildReviews(locale: Locale): BrandReview[] {
 export const brandProfiles: Record<Locale, BrandProfile> = {
   tr: {
     ...sharedProfile,
+    locale: "tr",
     tagline: "Detay, kalite, ayrıcalık.",
     heroImageAlt: "İlkan Kaymak'ın tam ekran portresi.",
     linksImageAlt: "İlkan Kaymak'ın bağlantı sayfası için portre arka planı.",
@@ -470,6 +472,7 @@ export const brandProfiles: Record<Locale, BrandProfile> = {
   },
   en: {
     ...sharedProfile,
+    locale: "en",
     tagline: "Detail, quality, distinction.",
     heroImageAlt: "Full-screen portrait of İlkan Kaymak.",
     linksImageAlt: "Portrait background for İlkan Kaymak's link page.",
