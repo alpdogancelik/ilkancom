@@ -108,7 +108,7 @@ export function BrandFooter({ profile }: BrandFooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden bg-black p-4 font-sans text-[#fdfdfd] sm:p-8">
+    <footer className="relative overflow-hidden bg-black p-4 pb-28 font-sans text-[#fdfdfd] sm:p-8">
       <div className="relative mx-auto flex min-h-[100svh] w-full items-center justify-center overflow-hidden">
         <img
           src="https://i.hizliresim.com/p6nkv01.png"
@@ -130,17 +130,23 @@ export function BrandFooter({ profile }: BrandFooterProps) {
         >
           <div className="mb-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-[#222] bg-[#101010]/70 p-6 backdrop-blur-xl sm:p-10 lg:col-span-2">
-              <div className="relative mb-16 inline-block w-fit sm:mb-24">
-                <h2 className="text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
+              <div className="relative mb-12 sm:mb-24">
+                <h2 className="max-w-[19rem] text-[clamp(1.95rem,7.2vw,2.75rem)] leading-[1.08] font-medium tracking-tight sm:max-w-none sm:text-4xl">
                   {isVisible ? (
                     <>
-                      <SplitText text={copy.headingTop} />
+                      <span className="sm:hidden">{copy.headingTop}</span>
+                      <span className="hidden sm:inline">
+                        <SplitText text={copy.headingTop} />
+                      </span>
                       <br />
-                      <SplitText text={copy.headingBottom} />
+                      <span className="sm:hidden">{copy.headingBottom}</span>
+                      <span className="hidden sm:inline">
+                        <SplitText text={copy.headingBottom} />
+                      </span>
                     </>
                   ) : null}
                 </h2>
-                <div className="absolute top-10 -right-4 translate-x-full rounded-2xl rounded-bl-none bg-[#a5f3bc] px-4 py-2 text-xs font-semibold text-[#1a5d2e] shadow-lg sm:top-8 sm:-right-8 sm:text-sm">
+                <div className="mt-4 inline-flex rounded-2xl bg-[#a5f3bc] px-4 py-2 text-xs font-semibold text-[#1a5d2e] shadow-lg sm:absolute sm:top-8 sm:-right-8 sm:mt-0 sm:translate-x-full sm:rounded-bl-none sm:text-sm">
                   {copy.bubbleLabel}
                 </div>
               </div>
@@ -306,7 +312,6 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                   </span>
                 </span>
               </div>
-              <span className="tracking-[0.2em] uppercase">{profile.serviceType}</span>
             </div>
           </div>
         </div>

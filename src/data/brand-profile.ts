@@ -105,8 +105,8 @@ const sharedProfile = {
   brandName: "İlkan Kaymak",
   brandBadge: "İK",
   serviceType: "HAIR ARTIST",
-  heroImage: "/images/ilkkan.png",
-  desktopHeroImage: "/images/ilkankaymak-w.png",
+  heroImage: "/images/ikpage1.PNG",
+  desktopHeroImage: "/images/ikpage1.PNG",
   linksImage: "/images/ilkan2.PNG",
   accentColor: "#c29563",
   surfaceColor: "#120d0a",
@@ -114,7 +114,7 @@ const sharedProfile = {
   buttonText: "#f6ecde",
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3127.0667694464046!2d27.051147000000004!3d38.3937052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14bbdd93072a6925%3A0xd15100635744800f!2s%C4%B0lkan%20kaymak%20hair%20artist%20bal%C3%A7ova!5e0!3m2!1str!2str!4v1774442051149!5m2!1str!2str",
-  footerTag: "@330",
+  footerTag: "@ucucsifir330",
 } as const;
 
 const linkSeeds: LinkSeed[] = [
