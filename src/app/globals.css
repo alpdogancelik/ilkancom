@@ -125,6 +125,94 @@ img {
   animation: cue-float 1.9s ease-in-out infinite;
 }
 
+.premium-ambient-bg {
+  background:
+    radial-gradient(circle at 16% 20%, rgba(194, 149, 99, 0.22), transparent 38%),
+    radial-gradient(circle at 84% 78%, rgba(124, 85, 52, 0.2), transparent 42%),
+    linear-gradient(135deg, #060403 0%, #110c09 42%, #080503 100%);
+  background-size: 140% 140%, 140% 140%, 100% 100%;
+  animation: premium-ambient-drift 20s ease-in-out infinite alternate;
+}
+
+.premium-ambient-noise {
+  opacity: 0.22;
+  mix-blend-mode: soft-light;
+  background-image:
+    linear-gradient(118deg, transparent 0%, rgba(255, 255, 255, 0.03) 48%, transparent 52%),
+    linear-gradient(300deg, transparent 0%, rgba(194, 149, 99, 0.1) 50%, transparent 55%);
+  animation: premium-ambient-shimmer 12s linear infinite;
+}
+
+.premium-ambient-orb {
+  animation: premium-ambient-float 14s ease-in-out infinite;
+}
+
+.premium-ambient-orb-slow {
+  animation: premium-ambient-float-reverse 20s ease-in-out infinite;
+}
+
+@keyframes premium-ambient-drift {
+  0% {
+    background-position: 0% 8%, 100% 92%, 50% 50%;
+  }
+
+  50% {
+    background-position: 24% 0%, 76% 100%, 50% 50%;
+  }
+
+  100% {
+    background-position: 8% 20%, 92% 84%, 50% 50%;
+  }
+}
+
+@keyframes premium-ambient-shimmer {
+  0% {
+    transform: translate3d(-4%, -2%, 0);
+  }
+
+  50% {
+    transform: translate3d(2%, 2%, 0);
+  }
+
+  100% {
+    transform: translate3d(6%, -1%, 0);
+  }
+}
+
+@keyframes premium-ambient-float {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.42;
+  }
+
+  50% {
+    transform: translate3d(16px, -12px, 0) scale(1.04);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translate3d(2px, 10px, 0) scale(0.98);
+    opacity: 0.4;
+  }
+}
+
+@keyframes premium-ambient-float-reverse {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.34;
+  }
+
+  50% {
+    transform: translate3d(-18px, 10px, 0) scale(1.05);
+    opacity: 0.42;
+  }
+
+  100% {
+    transform: translate3d(-4px, -12px, 0) scale(0.98);
+    opacity: 0.36;
+  }
+}
+
 .mask-edges {
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
@@ -161,6 +249,46 @@ img {
   animation: reveal-char 0.4s ease-out forwards;
 }
 
+@keyframes reveal-and-fill-char {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    color: #ffffff;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    color: transparent;
+  }
+}
+
+@keyframes animated-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.text-gradient-gold .char-reveal {
+  background: linear-gradient(to right, #c7a17a, #fcebc4, #c7a17a, #8a6b40, #c7a17a);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation-name: reveal-and-fill-char, animated-gradient;
+  animation-duration: 0.4s, 6s;
+  animation-timing-function: ease-out, ease;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: forwards, forwards;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -170,6 +298,51 @@ img {
   scrollbar-width: none;
 }
 
+.bento-item {
+  background: rgba(16, 16, 16, 0.6);
+  border: 1px solid rgba(34, 34, 34, 1);
+  backdrop-filter: blur(12px);
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.bento-item:hover {
+  border-color: rgba(199, 161, 122, 0.8);
+  box-shadow: 0 0 40px rgba(199, 161, 122, 0.15);
+}
+
+.premium-map {
+  filter: grayscale(1) invert(1) contrast(1.2) brightness(0.7);
+  pointer-events: none;
+}
+
+@keyframes rotate-pole {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 0 100px;
+  }
+}
+
+.berber-pole {
+  width: 14px;
+  height: 35px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ff3333,
+    #ff3333 5px,
+    #ffffff 5px,
+    #ffffff 10px,
+    #3333ff 10px,
+    #3333ff 15px
+  );
+  background-size: 100% 100px;
+  animation: rotate-pole 2s linear infinite;
+  border: 2px solid #c7a17a;
+  border-radius: 20px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -177,6 +350,13 @@ img {
 
   .reveal,
   .swipe-cue {
+    animation: none !important;
+  }
+
+  .premium-ambient-bg,
+  .premium-ambient-noise,
+  .premium-ambient-orb,
+  .premium-ambient-orb-slow {
     animation: none !important;
   }
 
