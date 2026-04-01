@@ -179,7 +179,6 @@ export function ServicePriceDialog({
                         alt={`${brandName} ${copy.imageAlt}`}
                         width={1500}
                         height={2100}
-                        priority
                         sizes="100vw"
                         draggable={false}
                         className="h-auto max-h-full w-auto max-w-full select-none object-contain shadow-[0_36px_90px_-44px_rgba(0,0,0,0.85)]"

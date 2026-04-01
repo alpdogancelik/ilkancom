@@ -7,7 +7,7 @@ import { isExternalHref } from "@/lib/utils";
 
 import { AnimatedCounter } from "./AnimatedCounter";
 import { BrandFooter } from "./BrandFooter";
-import DarkVeil from "./darkveil";
+import ColorBends from "./colorbends";
 import { RevealOnView } from "./RevealOnView";
 import { ReviewCarousel } from "./ReviewCarousel";
 import { ServicePriceDialog } from "./ServicePriceDialog";
@@ -301,7 +301,7 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
                   alt={`${profile.brandName} about portrait`}
                   fill
                   sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 25vw, 100vw"
-                  quality={95}
+                  quality={92}
                   className="object-cover object-center"
                 />
               </div>
@@ -479,19 +479,23 @@ export function LinkHub({ profile }: LinkHubProps) {
     <>
       <section id="link-hub" className="snap-panel relative overflow-hidden bg-[#050402]">
         <div className="pointer-events-none absolute inset-0">
-          <DarkVeil
-            hueShift={360}
-            noiseIntensity={0}
-            scanlineIntensity={0}
-            speed={1.8}
-            scanlineFrequency={0.5}
-            warpAmount={3.8}
-            resolutionScale={1}
+          <ColorBends
+            className="h-full w-full"
+            colors={["#ff5c7a", "#8a5cff", "#00ffd1"]}
+            rotation={0}
+            speed={0.2}
+            scale={1}
+            frequency={1}
+            warpStrength={1}
+            mouseInfluence={1}
+            parallax={0.5}
+            noise={0.1}
+            autoRotate={0}
+            transparent
           />
         </div>
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(4,2,7,0.18)_0%,rgba(5,3,8,0.1)_18%,rgba(6,4,10,0.16)_34%,rgba(2,1,4,0.58)_72%,rgba(0,0,0,0.82)_100%)] lg:bg-[linear-gradient(90deg,rgba(2,1,5,0.74)_0%,rgba(3,2,7,0.36)_26%,rgba(5,3,9,0.18)_54%,rgba(1,0,2,0.78)_100%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(126,70,255,0.12),transparent_28%),radial-gradient(circle_at_82%_14%,rgba(144,59,255,0.14),transparent_26%),radial-gradient(circle_at_50%_78%,rgba(77,20,177,0.08),transparent_34%)] mix-blend-screen" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,transparent_38%,rgba(0,0,0,0.18)_70%,rgba(0,0,0,0.42)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,5,14,0.36)_0%,rgba(7,4,12,0.18)_24%,rgba(5,3,10,0.16)_42%,rgba(4,3,7,0.58)_78%,rgba(0,0,0,0.82)_100%)] lg:bg-[linear-gradient(90deg,rgba(5,3,10,0.68)_0%,rgba(5,3,10,0.28)_26%,rgba(5,3,10,0.12)_54%,rgba(2,1,4,0.76)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,transparent_42%,rgba(0,0,0,0.14)_74%,rgba(0,0,0,0.34)_100%)]" />
 
         <div className="relative mx-auto flex min-h-[100svh] w-full max-w-[108rem] items-start px-3 pt-[max(0.9rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom)+1rem)] sm:px-6 sm:pt-5 sm:pb-6 lg:px-14 lg:pt-8 lg:pb-8 xl:px-20">
           <div className="mx-auto flex w-full max-w-[96rem] flex-col">
