@@ -1,3 +1,4 @@
+// Mobil/desktop icin sabit bir "ara" butonu sunar.
 import Image from "next/image";
 
 const phoneHref = "tel:+905531283843";
@@ -13,6 +14,7 @@ export function FloatingWhatsAppButton({
 }: FloatingWhatsAppButtonProps) {
   return (
     <div className="fixed right-3 bottom-[calc(env(safe-area-inset-bottom)+1rem)] z-50 sm:right-5 lg:right-8 lg:bottom-8">
+      {/* Mobilde sadece ikon gorunen hizli arama butonu */}
       <a
         href={phoneHref}
         aria-label={ariaLabel}
@@ -33,6 +35,7 @@ export function FloatingWhatsAppButton({
         </span>
       </a>
 
+      {/* Desktop'ta metin + ikon birlikte gosterilir */}
       <a
         href={phoneHref}
         aria-label={ariaLabel}

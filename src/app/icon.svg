@@ -1,6 +1,8 @@
+<!-- Site favicon vektoru -->
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="64" height="64" rx="20" fill="#F4EEE5"/>
   <rect x="9" y="9" width="46" height="46" rx="16" fill="#1F1813"/>
   <path d="M22 40.5V23H31.6C35.6 23 38.25 25.3 38.25 28.95C38.25 31.55 36.95 33.55 34.7 34.4L39.95 40.5H35.8L31.05 35H25.55V40.5H22ZM25.55 32.05H31.25C33.5 32.05 34.75 30.85 34.75 29.05C34.75 27.25 33.5 26.05 31.25 26.05H25.55V32.05Z" fill="#F4EEE5"/>
   <path d="M42.25 23H45.8V40.5H42.25V23Z" fill="#D19A66"/>
 </svg>
+

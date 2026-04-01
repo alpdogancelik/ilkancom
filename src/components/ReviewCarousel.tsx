@@ -1,5 +1,6 @@
 "use client";
 
+// Yorumlari otomatik kayan ve suruklenebilir bir bantta gosterir.
 import {
   useEffect,
   useMemo,
@@ -27,6 +28,7 @@ type ReviewCardProps = {
 };
 
 function TypingText({ text, delay = 0 }: { text: string; delay?: number }) {
+  // Baslik metinlerinde karakter karakter gorunme efekti.
   return (
     <span className="inline-block">
       {text.split("").map((char, index) => (
@@ -124,6 +126,7 @@ export function ReviewCarousel({
   ownerReplyLabel,
   guestExperienceLabel,
 }: ReviewCarouselProps) {
+  // Surekli kayan sonsuz liste hissi icin yorumlar iki kez birlestirilir.
   const trackRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const scrollRef = useRef(0);

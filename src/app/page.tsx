@@ -1,3 +1,4 @@
+// Ana sayfa: dil parametresine gore profil secip bolumleri birlestirir.
 import type { Metadata } from "next";
 
 import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
@@ -9,6 +10,7 @@ import {
   getLocaleFromSearchParam,
 } from "@/data/brand-profile";
 
+// Statik metadata icin varsayilan dil profili kullanilir.
 const defaultProfile = getBrandProfile(defaultLocale);
 
 export const metadata: Metadata = {
@@ -23,6 +25,7 @@ type HomePageProps = {
 };
 
 export default async function HomePage({ searchParams }: HomePageProps) {
+  // URL'deki ?lang= degerine gore dogru locale belirlenir.
   const { lang } = await searchParams;
   const locale = getLocaleFromSearchParam(lang);
   const profile = getBrandProfile(locale);

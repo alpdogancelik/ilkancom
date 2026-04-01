@@ -1,5 +1,6 @@
 "use client";
 
+// Hizmet/fiyat gorselini tam ekran dialog olarak acar.
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -36,6 +37,7 @@ export function ServicePriceDialog({
   locale,
   className,
 }: ServicePriceDialogProps) {
+  // Dialog acildiginda odak yonetimi ve sayfa scroll kilidi uygulanir.
   const [isOpen, setIsOpen] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);

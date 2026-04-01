@@ -1,9 +1,11 @@
-﻿"use client";
+"use client";
 
+// Sayfa sonundaki iletisim ve hizli baglanti bolumu.
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
 import type { BrandProfile } from "@/data/brand-profile";
+import { isExternalHref } from "@/lib/utils";
 
 import styles from "./BrandFooter.module.css";
 
@@ -49,6 +51,7 @@ const footerCopy = {
 } as const;
 
 function SplitText({ text }: SplitTextProps) {
+  // Baslik metnini harf harf animasyonla gosterir.
   return (
     <span className="inline-block overflow-hidden">
       {text.split("").map((char, index) => (
@@ -70,11 +73,8 @@ function findSocialHref(profile: BrandProfile, platform: "instagram" | "tiktok" 
 
 const DIRECT_PHONE_HREF = "tel:+905531283843";
 
-function isExternalHref(href: string) {
-  return href.startsWith("http://") || href.startsWith("https://");
-}
-
 export function BrandFooter({ profile }: BrandFooterProps) {
+  // Footer gorunur oldugunda tek seferlik giris animasyonunu tetikler.
   const [isVisible, setIsVisible] = useState(false);
   const domRef = useRef<HTMLDivElement | null>(null);
 

@@ -1,3 +1,4 @@
+// Site genelindeki ad, aciklama ve temel URL ayarlari.
 export const siteConfig = {
   name: "İlkan Kaymak",
   shortName: "İK",

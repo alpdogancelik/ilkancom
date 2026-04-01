@@ -1,5 +1,6 @@
 "use client";
 
+// Gorunur alana giren icerigi yumusak bir gecisle acar.
 import type { ReactNode } from "react";
 
 import { motion } from "motion/react";

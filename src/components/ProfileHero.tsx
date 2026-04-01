@@ -1,3 +1,4 @@
+// Ilk ekran kahraman bolumu: dil secimi, sosyal kisayollar ve CTA alanlari.
 import Link from "next/link";
 import Image from "next/image";
 
@@ -100,6 +101,7 @@ const socialMeta: Record<BrandSocialPlatform, SocialMeta> = {
 };
 
 function getLocaleHref(locale: Locale) {
+  // Varsayilan dil URL'de parametre olmadan acilir.
   return locale === defaultLocale ? "/" : `/?lang=${locale}`;
 }
 
@@ -149,6 +151,7 @@ function HeroSocialRail({
   iconClassName?: string;
   containerClassName?: string;
 }) {
+  // Hero alanindaki sosyal ikon listesini cizer.
   return (
     <ul className={containerClassName ?? "flex flex-col gap-3"}>
       {socials.map((social) => {
@@ -177,6 +180,7 @@ function HeroSocialRail({
 }
 
 export function ProfileHero({ profile, locale }: ProfileHeroProps) {
+  // Profil verisine gore hero icerigi locale bazli olusturulur.
   const appointmentLink = profile.links.find((link) => link.id === "appointment");
   const appointmentExternal = appointmentLink ? isExternalHref(appointmentLink.href) : false;
   const [firstName, ...restName] = profile.brandName.split(" ");
@@ -222,7 +226,7 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,3,2,0.02)_0%,rgba(5,4,3,0.06)_18%,rgba(7,5,4,0.18)_44%,rgba(8,6,5,0.78)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,6,5,0.42)_0%,rgba(8,6,5,0.12)_18%,rgba(8,6,5,0.04)_48%,rgba(8,6,5,0.26)_100%)]" />
 
-      <div className="relative flex min-h-[100svh] w-full flex-col px-6 pt-8 pb-[calc(env(safe-area-inset-bottom)+6rem)] sm:px-8 lg:px-14 lg:pb-[calc(env(safe-area-inset-bottom)+1.2rem)] xl:px-16">
+      <div className="relative flex min-h-[100svh] w-full flex-col px-6 pt-8 pb-[calc(env(safe-area-inset-bottom)+4.75rem)] sm:px-8 sm:pb-[calc(env(safe-area-inset-bottom)+6rem)] lg:px-14 lg:pb-[calc(env(safe-area-inset-bottom)+1.2rem)] xl:px-16">
         <div className="flex items-start justify-between gap-4">
           <Image
             src="/images/ikman.png"
@@ -249,7 +253,7 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
           <HeroSocialRail socials={heroSocials} accentColor={profile.accentColor} />
         </div>
 
-        <div className="mt-auto max-w-[16.75rem] pb-24 text-left sm:max-w-[18.25rem] lg:max-w-[20rem] lg:pb-24">
+        <div className="mt-auto max-w-[16.75rem] translate-y-8 pb-16 text-left sm:max-w-[18.25rem] sm:translate-y-0 sm:pb-24 lg:max-w-[20rem] lg:pb-24">
           <p className="reveal text-[0.66rem] font-semibold uppercase tracking-[0.5em] text-[#c89a5a]">
             {profile.serviceType}
           </p>
@@ -277,17 +281,10 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
             </div>
           ) : null}
 
-          <div className="reveal reveal-delay-3 mt-6 hidden w-fit lg:hidden">
-            <SwipeIndicator href="#link-hub" label={profile.swipeIndicatorLabel} />
-          </div>
         </div>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+7.6rem)] flex justify-center lg:hidden">
-          <SwipeIndicator
-            href="#link-hub"
-            label={profile.swipeIndicatorLabel}
-            className="pointer-events-auto bg-[#120d0a]/76 px-3 shadow-[0_16px_34px_-22px_rgba(0,0,0,0.72)] backdrop-blur-sm"
-          />
+        <div className="reveal reveal-delay-3 mt-3 flex w-full justify-center lg:hidden">
+          <SwipeIndicator href="#link-hub" label={profile.swipeIndicatorLabel} />
         </div>
 
         <div className="pointer-events-none absolute inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+1.9rem)] hidden justify-center lg:flex">

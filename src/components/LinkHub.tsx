@@ -1,4 +1,5 @@
-﻿import Image from "next/image";
+// Ana icerik merkezi: harita, yorumlar, hakkimda ve footer bolumlerini toplar.
+import Image from "next/image";
 
 import type { BrandActionLink, BrandProfile } from "@/data/brand-profile";
 import type { CSSProperties } from "react";
@@ -33,6 +34,7 @@ type HeroQuickNavProps = {
 
 
 function AnimatedHeroTitle({ lines, accentLine }: AnimatedHeroTitleProps) {
+  // Baslik karakterleri gecikmeli animasyonla satir satir gosterilir.
   return (
     <h2 className="font-display w-full max-w-[96vw] text-left text-[clamp(1.64rem,9.1vw,2.7rem)] font-extrabold leading-[1] tracking-[-0.034em] text-white uppercase sm:max-w-[26rem] sm:text-[clamp(1.95rem,6.8vw,3.35rem)] sm:tracking-[-0.042em] lg:max-w-[31rem] lg:text-[clamp(2.15rem,3.2vw,3.75rem)] lg:leading-[0.96] lg:tracking-[-0.05em]">
       {lines.map((line, lineIndex) => (
@@ -208,7 +210,8 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
           { value: "15+", label: "INTERNATIONAL AWARDS" },
         ];
   const aboutLead = profile.aboutParagraphs[0];
-  const aboutSupport = profile.aboutParagraphs[3] ?? profile.aboutParagraphs[1] ?? "";
+  // Ikinci paragraf destekleyici metin olarak kullanilir.
+  const aboutSupport = profile.aboutParagraphs[1] ?? "";
   const aboutHeading =
     profile.locale === "tr"
       ? {
@@ -306,6 +309,7 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
 }
 
 export function LinkHub({ profile }: LinkHubProps) {
+  // Profil linklerinden harita ve randevu baglantilari secilir.
   const mapLink = profile.links.find((link) => link.id === "location");
   const mapExternal = mapLink ? isExternalHref(mapLink.href) : false;
   const appointmentLink = profile.links.find((link) => link.id === "appointment");

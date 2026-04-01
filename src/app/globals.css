@@ -1,3 +1,4 @@
+/* Global tema degiskenleri, resetler ve ortak animasyon siniflari. */
 @import "tailwindcss";
 
 :root {
@@ -469,3 +470,4 @@ img {
     scroll-snap-type: none;
   }
 }
+

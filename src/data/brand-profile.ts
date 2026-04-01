@@ -1,3 +1,4 @@
+// Uygulamanin lokalizasyon ve icerik tip tanimlari.
 export type Locale = "tr" | "en";
 
 export type BrandSocialPlatform =
@@ -101,6 +102,7 @@ type SocialSeed = {
 
 export const defaultLocale: Locale = "tr";
 
+// Diller arasi ortak profil alanlari.
 const sharedProfile = {
   brandName: "İlkan Kaymak",
   brandBadge: "İK",
@@ -392,6 +394,7 @@ const reviewSeeds: ReviewSeed[] = [
   },
 ];
 
+// Locale'e gore dogru href degeri secilir.
 function getLocalizedHref(
   href: Record<Locale, string> | string,
   locale: Locale,
@@ -399,6 +402,7 @@ function getLocalizedHref(
   return typeof href === "string" ? href : href[locale];
 }
 
+// Butonlar locale'e gore derlenir.
 function buildLinks(locale: Locale): BrandActionLink[] {
   return linkSeeds.map((link) => ({
     id: link.id,
@@ -407,6 +411,7 @@ function buildLinks(locale: Locale): BrandActionLink[] {
   }));
 }
 
+// Sosyal linkler locale'e gore derlenir.
 function buildSocials(locale: Locale): BrandSocialLink[] {
   return socialSeeds.map((social) => ({
     platform: social.platform,
@@ -414,6 +419,7 @@ function buildSocials(locale: Locale): BrandSocialLink[] {
   }));
 }
 
+// Yorumlar locale'e gore derlenir.
 function buildReviews(locale: Locale): BrandReview[] {
   return reviewSeeds.map((review) => ({
     author: review.author,
@@ -425,6 +431,7 @@ function buildReviews(locale: Locale): BrandReview[] {
   }));
 }
 
+// Tum locale profilleri tek kaynaktan tanimlanir.
 export const brandProfiles: Record<Locale, BrandProfile> = {
   tr: {
     ...sharedProfile,
@@ -508,8 +515,7 @@ export const brandProfiles: Record<Locale, BrandProfile> = {
   },
 };
 
-export const brandProfile = brandProfiles[defaultLocale];
-
+// URL parametresinden locale degeri normalize edilir.
 export function getLocaleFromSearchParam(
   input: string | string[] | undefined,
 ): Locale {
@@ -517,6 +523,7 @@ export function getLocaleFromSearchParam(
   return value === "en" ? "en" : "tr";
 }
 
+// Sayfanin kullanacagi profil verisini dondurur.
 export function getBrandProfile(locale: Locale) {
   return brandProfiles[locale];
 }

@@ -1,3 +1,4 @@
+// Uygulamanin kok layout'u: global fontlar, tema ve metadata burada tanimlanir.
 import type { Metadata } from "next";
 import { Inter, Libre_Baskerville, Manrope } from "next/font/google";
 
@@ -5,6 +6,7 @@ import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
 
+// Projede kullanilan fontlar CSS degiskenlerine baglanir.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -21,6 +23,7 @@ const manrope = Manrope({
   subsets: ["latin", "latin-ext"],
 });
 
+// Sayfa paylasim/SEO bilgileri burada tek noktadan yonetilir.
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -56,6 +59,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Butun sayfalar bu HTML govdesi icinde render edilir.
   return (
     <html
       lang="tr"

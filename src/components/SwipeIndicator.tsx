@@ -1,3 +1,4 @@
+// Bir sonraki bolume gecis icin asagi yonlendiren mini kontrol.
 type SwipeIndicatorProps = {
   href: string;
   label?: string;
