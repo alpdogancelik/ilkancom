@@ -1,23 +1,15 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 
 import type { BrandActionLink, BrandProfile } from "@/data/brand-profile";
 import { isExternalHref } from "@/lib/utils";
 
-import { LinkButton } from "./LinkButton";
 import { BrandFooter } from "./BrandFooter";
 import LineWaves from "./linewaves";
 import { RevealOnView } from "./RevealOnView";
 import { ReviewCarousel } from "./ReviewCarousel";
-import { SocialRow } from "./SocialRow";
 
 type LinkHubProps = {
   profile: BrandProfile;
-};
-
-type LinkHubHeaderProps = {
-  profile: BrandProfile;
-  appointmentLink?: BrandActionLink;
-  appointmentExternal: boolean;
 };
 
 type MapCardProps = {
@@ -27,115 +19,73 @@ type MapCardProps = {
   desktop?: boolean;
 };
 
-function LinkHubHeader({
-  profile,
-  appointmentLink,
-  appointmentExternal,
-}: LinkHubHeaderProps) {
-  return (
-    <div className="flex items-start justify-between gap-6">
-      <div className="max-w-[16rem] sm:max-w-[19rem] lg:max-w-[24rem]">
-        <p className="text-[0.66rem] font-semibold uppercase tracking-[0.5em] text-[#c89a5a]">
-          {profile.serviceType}
-        </p>
-        <h2 className="mt-3 text-[2.1rem] font-[760] leading-[0.95] tracking-[-0.05em] text-[#f5efe8] sm:text-[2.5rem] lg:text-[3rem] xl:text-[3.15rem]">
-          {profile.brandName}
-        </h2>
-        <p className="mt-4 max-w-[15.5rem] text-[0.9rem] leading-[1.7] text-[rgba(245,239,232,0.7)] sm:max-w-[17rem] lg:max-w-[21rem] lg:text-[1rem]">
-          {profile.hubDescription}
-        </p>
-      </div>
-
-      <details className="group relative">
-        <summary className="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-full border border-white/12 bg-[#1a120f] text-[#d7b48f] transition hover:bg-[#211713] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c29563]">
-          <span className="sr-only">{profile.menuToggleLabel}</span>
-          <span className="flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-current" />
-            <span className="h-1.5 w-1.5 rounded-full bg-current" />
-            <span className="h-1.5 w-1.5 rounded-full bg-current" />
-          </span>
-        </summary>
-
-        {appointmentLink ? (
-          <div className="absolute top-14 right-0 z-10 w-52 overflow-hidden rounded-[1.2rem] border border-white/10 bg-[#17100c]/96 p-2 shadow-[0_24px_60px_-26px_rgba(0,0,0,0.75)] backdrop-blur-md">
-            <a
-              href={appointmentLink.href}
-              target={appointmentExternal ? "_blank" : undefined}
-              rel={appointmentExternal ? "noreferrer noopener" : undefined}
-              className="flex items-center justify-between rounded-[0.95rem] px-4 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-[#f5ebe0] transition hover:bg-white/6"
-            >
-              <span>{profile.appointmentMenuLabel}</span>
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden
-                className="h-4 w-4 fill-none stroke-current stroke-[2] text-[#c29563]"
-              >
-                <path d="M5 12H19" />
-                <path d="M12 5L19 12L12 19" />
-              </svg>
-            </a>
-          </div>
-        ) : null}
-      </details>
-    </div>
-  );
-}
-
 function MapCard({ profile, mapLink, mapExternal, desktop = false }: MapCardProps) {
   if (!mapLink) {
     return null;
   }
 
-  return (
-    <div className="overflow-hidden rounded-[1.45rem] border border-[#c29563]/18 bg-[#17110d] shadow-[0_22px_48px_-28px_rgba(0,0,0,0.62)]">
-      <div className="flex items-center justify-between gap-3 border-b border-white/8 px-4 py-3">
-        <div>
-          <p className="text-[0.66rem] font-semibold uppercase tracking-[0.28em] text-[#c89a5a]">
-            {profile.locationLabel}
-          </p>
-          <p className="mt-1 text-sm font-medium text-[#f5efe8]">{profile.locationName}</p>
-        </div>
-        <a
-          href={mapLink.href}
-          target={mapExternal ? "_blank" : undefined}
-          rel={mapExternal ? "noreferrer noopener" : undefined}
-          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#c29563]/28 bg-[#1a120f] text-[#c89a5a] transition hover:bg-[#221711] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c29563]"
-          aria-label={profile.mapButtonLabel}
-        >
-          <svg
-            viewBox="0 0 24 24"
-            aria-hidden
-            className="h-4 w-4 fill-none stroke-current stroke-[2]"
-          >
-            <path d="M5 12H19" />
-            <path d="M12 5L19 12L12 19" />
-          </svg>
-        </a>
-      </div>
+  const mapUiCopy =
+    profile.locale === "tr"
+      ? {
+          routeLabel: "YOL TARIFI AL",
+        }
+      : {
+          routeLabel: "GET DIRECTIONS",
+        };
 
-      {profile.mapEmbedUrl ? (
+  return (
+    <div
+      className={`${
+        desktop ? "aspect-auto h-[12rem] sm:h-[13rem] lg:h-[14rem] xl:h-[15rem]" : "aspect-[16/10] lg:aspect-[16/7]"
+      } flex`}
+    >
+      <div className="bento-item group relative flex h-full w-full flex-col overflow-hidden rounded-[48px]">
+        <div className="absolute top-7 left-8 z-20 md:top-8 md:left-9">
+          <span className="mb-2 block text-[10px] font-bold tracking-[0.4em] uppercase text-[#C7A17A]">
+            {profile.locationLabel}
+          </span>
+          <h3 className="text-3xl font-medium tracking-tight text-white">{profile.locationName}</h3>
+        </div>
+
+        <div className="absolute inset-0 z-0 opacity-40 transition-opacity duration-1000 group-hover:opacity-60">
+          {profile.mapEmbedUrl ? (
+            <iframe
+              src={profile.mapEmbedUrl}
+              title={`${profile.brandName} ${profile.locationName}`}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="premium-map h-full w-full scale-150 border-0"
+              allowFullScreen
+            />
+          ) : null}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60" />
+        </div>
+
+        <div className="pointer-events-none absolute top-1/2 left-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center">
+          <div className="berber-pole mb-1 shadow-[0_0_25px_rgba(199,161,122,0.4)]" />
+          <div className="h-2 w-2 rounded-full bg-[#C7A17A] shadow-[0_0_15px_#C7A17A]" />
+        </div>
+
         <div
-          className={`relative bg-[#120d0a] ${
-            desktop ? "aspect-auto h-[24rem] xl:h-[27rem]" : "aspect-[16/10] lg:aspect-[16/7]"
+          className={`z-20 flex justify-end ${
+            desktop
+              ? "pointer-events-none absolute inset-y-0 right-5 items-center md:right-7"
+              : "mt-auto p-10"
           }`}
         >
-          <iframe
-            src={profile.mapEmbedUrl}
-            title={`${profile.brandName} ${profile.locationName}`}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="absolute inset-0 h-full w-full border-0"
-            allowFullScreen
-          />
           <a
             href={mapLink.href}
             target={mapExternal ? "_blank" : undefined}
             rel={mapExternal ? "noreferrer noopener" : undefined}
-            aria-label={profile.mapOverlayLabel}
-            className="absolute inset-0"
-          />
+            className={`cursor-pointer rounded-full border border-white/10 bg-white/5 text-[10px] font-bold tracking-[0.2em] text-white/80 uppercase backdrop-blur-md transition-all hover:border-[#C7A17A] hover:text-[#C7A17A] ${
+              desktop ? "pointer-events-auto px-9 py-4" : "px-10 py-5"
+            }`}
+            aria-label={profile.mapButtonLabel}
+          >
+            {mapUiCopy.routeLabel}
+          </a>
         </div>
-      ) : null}
+      </div>
     </div>
   );
 }
@@ -220,13 +170,23 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
 }
 
 export function LinkHub({ profile }: LinkHubProps) {
-  const appointmentLink = profile.links.find((link) => link.id === "appointment");
   const mapLink = profile.links.find((link) => link.id === "location");
-  const visibleLinks = profile.links.filter(
-    (link) => link.id !== "appointment" && link.id !== "location",
-  );
-  const appointmentExternal = appointmentLink ? isExternalHref(appointmentLink.href) : false;
   const mapExternal = mapLink ? isExternalHref(mapLink.href) : false;
+
+  const headingCopy =
+    profile.locale === "tr"
+      ? {
+          line1: "KAFAMIZA G\u00d6RE",
+          line2: "DE\u011e\u0130L",
+          line3: "KAFANIZA G\u00d6RE",
+          line4: "KES\u0130YORUZ.",
+        }
+      : {
+          line1: "WE CUT",
+          line2: "ACCORDING TO",
+          line3: "YOUR WILL,",
+          line4: "NOT OURS.",
+        };
 
   return (
     <>
@@ -251,90 +211,49 @@ export function LinkHub({ profile }: LinkHubProps) {
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,4,3,0.34)_0%,rgba(5,4,3,0.16)_24%,rgba(7,5,4,0.58)_100%)] lg:bg-[linear-gradient(90deg,rgba(7,5,4,0.62)_0%,rgba(7,5,4,0.18)_28%,rgba(7,5,4,0.08)_56%,rgba(7,5,4,0.54)_100%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,transparent_34%,rgba(5,4,3,0.16)_72%,rgba(5,4,3,0.34)_100%)]" />
 
-        <div className="relative mx-auto flex min-h-[100svh] w-full max-w-7xl items-start px-3 pt-[max(0.7rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom)+1rem)] sm:px-6 sm:pt-5 sm:pb-6 lg:max-w-[96rem] lg:px-14 lg:py-10 xl:max-w-[108rem] xl:px-20">
-          <div
-            className="mx-auto flex w-full max-w-[40rem] flex-col rounded-[2rem] border border-white/10 px-5 pt-5 pb-5 shadow-[0_30px_90px_-40px_rgba(0,0,0,0.78)] sm:px-6 sm:pt-6 sm:pb-6 lg:max-w-[74rem] lg:rounded-[2.2rem] lg:px-10 lg:pt-8 lg:pb-8 xl:max-w-[78rem]"
-            style={{ backgroundColor: profile.surfaceColor }}
-          >
-            <div className="mx-auto h-1.5 w-16 rounded-full bg-white/12 lg:hidden" />
-
-            <div className="flex flex-col">
-              <div className="lg:grid lg:grid-cols-[minmax(0,0.82fr)_minmax(25rem,1fr)] lg:gap-8 xl:grid-cols-[minmax(0,0.8fr)_minmax(27rem,1fr)]">
-                <div className="lg:flex lg:flex-col">
-                  <RevealOnView className="mt-5 lg:mt-0">
-                    <LinkHubHeader
-                      profile={profile}
-                      appointmentLink={appointmentLink}
-                      appointmentExternal={appointmentExternal}
-                    />
-                  </RevealOnView>
-
-                  <div className="mt-7 hidden lg:block">
-                    <SocialRow socials={profile.socials} accentColor={profile.accentColor} />
-                  </div>
-
-                  <div className="mt-8 space-y-2.5 lg:mt-10">
-                    {visibleLinks.map((link, index) => (
-                      <RevealOnView key={link.id} delayMs={index * 70 + 80}>
-                        <LinkButton
-                          id={link.id}
-                          label={link.label}
-                          href={link.href}
-                          accentColor={profile.accentColor}
-                          backgroundColor={profile.buttonBackground}
-                          textColor={profile.buttonText}
-                        />
-                      </RevealOnView>
-                    ))}
-                  </div>
-                </div>
-
-                <RevealOnView
-                  delayMs={visibleLinks.length * 70 + 80}
-                  className="mt-8 lg:mt-0 lg:self-stretch"
-                >
-                  <MapCard
-                    profile={profile}
-                    mapLink={mapLink}
-                    mapExternal={mapExternal}
-                    desktop
-                  />
-                </RevealOnView>
-              </div>
-
-              <RevealOnView
-                delayMs={visibleLinks.length * 70 + 120}
-                className="mt-8 lg:mt-9"
-              >
-                <ReviewCarousel
-                  reviews={profile.reviews}
-                  accentColor={profile.accentColor}
-                  eyebrow={profile.reviewEyebrow}
-                  title={profile.reviewTitle}
-                  ownerReplyLabel={profile.ownerReplyLabel}
-                  guestExperienceLabel={profile.reviewTitle}
-                />
+        <div className="relative mx-auto flex min-h-[100svh] w-full max-w-[108rem] items-start px-3 pt-[max(0.7rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom)+1rem)] sm:px-6 sm:pt-5 sm:pb-6 lg:px-14 lg:py-12 xl:px-20">
+          <div className="mx-auto flex w-full max-w-[96rem] flex-col">
+            <div className="grid gap-6 lg:grid-cols-12 lg:items-start">
+              <RevealOnView delayMs={40} className="lg:col-span-5">
+                <h2 className="max-w-[40rem] text-left text-[clamp(3rem,5.6vw,6.2rem)] font-bold leading-[0.98] tracking-[-0.045em] text-white uppercase">
+                  <span className="block">{headingCopy.line1}</span>
+                  <span className="block">{headingCopy.line2}</span>
+                  <span className="block">{headingCopy.line3}</span>
+                  <span className="block bg-[linear-gradient(90deg,#c7a17a_0%,#f3ddba_45%,#a47b4f_100%)] bg-clip-text text-transparent">
+                    {headingCopy.line4}
+                  </span>
+                </h2>
               </RevealOnView>
 
-              <RevealOnView
-                delayMs={visibleLinks.length * 70 + 160}
-                className="mt-6 border-t border-white/10 pt-5 lg:hidden"
-              >
-                <SocialRow socials={profile.socials} accentColor={profile.accentColor} />
-              </RevealOnView>
-
-              <RevealOnView delayMs={visibleLinks.length * 70 + 200} className="mt-8 lg:mt-10">
-                <AboutSection profile={profile} />
-              </RevealOnView>
-
-              <RevealOnView delayMs={visibleLinks.length * 70 + 220} className="mt-8 lg:hidden">
-                <div className="overflow-hidden py-8 text-center">
-                  <p className="text-[0.9rem] font-semibold uppercase tracking-[0.34em] text-[#d5baa0]/72">
-                    {profile.locationName}
-                  </p>
-                </div>
+              <RevealOnView delayMs={80} className="mt-2 lg:col-span-7 lg:mt-0 lg:pl-2 xl:pl-4">
+                <MapCard profile={profile} mapLink={mapLink} mapExternal={mapExternal} desktop />
               </RevealOnView>
             </div>
+
+            <RevealOnView delayMs={120} className="mt-10 lg:mt-12">
+              <ReviewCarousel
+                reviews={profile.reviews}
+                accentColor={profile.accentColor}
+                eyebrow={profile.reviewEyebrow}
+                title={profile.reviewTitle}
+                ownerReplyLabel={profile.ownerReplyLabel}
+                guestExperienceLabel={profile.reviewTitle}
+              />
+            </RevealOnView>
+
+            <RevealOnView delayMs={200} className="mt-8 lg:mt-10">
+              <div id="about-section">
+                <AboutSection profile={profile} />
+              </div>
+            </RevealOnView>
+
+            <RevealOnView delayMs={220} className="mt-8 lg:hidden">
+              <div className="overflow-hidden py-8 text-center">
+                <p className="text-[0.9rem] font-semibold uppercase tracking-[0.34em] text-[#d5baa0]/72">
+                  {profile.locationName}
+                </p>
+              </div>
+            </RevealOnView>
           </div>
         </div>
       </section>
