@@ -299,7 +299,7 @@ export function BrandFooter({ profile }: BrandFooterProps) {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-[#222] pt-6 text-[#444] md:mt-10 md:flex-row md:pt-8 lg:pr-[18rem]">
+          <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-[#222] pt-6 text-[#444] md:mt-10 md:flex-row md:pt-8 lg:pr-[12rem]">
             <div className="text-[10px] tracking-widest uppercase sm:text-xs">© {currentYear}</div>
             <div className="flex items-center gap-4 text-[10px] sm:text-xs">
               <span className="tracking-[0.2em] uppercase">{copy.rightsLabel}</span>

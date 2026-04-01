@@ -91,78 +91,107 @@ function MapCard({ profile, mapLink, mapExternal, desktop = false }: MapCardProp
 }
 
 function AboutSection({ profile }: { profile: BrandProfile }) {
-  const splitIndex = Math.ceil(profile.aboutParagraphs.length / 2);
-  const aboutParagraphColumns = [
-    profile.aboutParagraphs.slice(0, splitIndex),
-    profile.aboutParagraphs.slice(splitIndex),
-  ].filter((column) => column.length > 0);
+  const aboutStats =
+    profile.locale === "tr"
+      ? [
+          { value: "22", label: "YILLIK TECRUBE" },
+          { value: "15+", label: "ULUSLARARASI ODUL" },
+        ]
+      : [
+          { value: "22", label: "YEARS EXPERIENCE" },
+          { value: "15+", label: "INTERNATIONAL AWARDS" },
+        ];
+  const aboutLead = profile.aboutParagraphs[0];
+  const aboutSupport = profile.aboutParagraphs[3] ?? profile.aboutParagraphs[1] ?? "";
+  const aboutHeading =
+    profile.locale === "tr"
+      ? {
+          line1: "Kişisel yaklaşım, güçlü teknik altyapı",
+          line2: "ve rafine erkek bakımı.",
+        }
+      : {
+          line1: "Personal approach, strong technical foundation",
+          line2: "and refined men's grooming.",
+        };
 
   return (
-    <div className="relative overflow-hidden rounded-[1.8rem] border border-white/10 bg-[linear-gradient(180deg,rgba(28,19,14,0.92)_0%,rgba(16,11,8,0.98)_100%)] p-4 shadow-[0_28px_70px_-34px_rgba(0,0,0,0.72)] sm:p-5 lg:p-5 xl:p-6">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(194,149,99,0.14),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.03),transparent_42%)]" />
+    <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#050505] p-4 shadow-[0_28px_70px_-34px_rgba(0,0,0,0.72)] sm:p-6 lg:p-8 xl:p-10">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(194,149,99,0.1),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.03),transparent_46%)]" />
 
-      <div className="relative grid gap-5 lg:grid-cols-[minmax(16rem,0.56fr)_minmax(0,1fr)] lg:gap-6 xl:grid-cols-[minmax(17rem,0.54fr)_minmax(0,1fr)]">
-        <div>
-          <div className="relative overflow-hidden rounded-[1.65rem] border border-white/10 bg-[#0f0a08] shadow-[0_20px_48px_-28px_rgba(0,0,0,0.78)]">
-            <Image
-              src="/images/ilkankaymakcup.png"
-              alt={`${profile.brandName} portrait`}
-              width={1600}
-              height={2000}
-              sizes="(min-width: 1280px) 20rem, (min-width: 1024px) 18rem, 100vw"
-              quality={92}
-              className="h-full max-h-[25rem] w-full object-cover object-center lg:max-h-[34rem] xl:max-h-[36rem]"
-            />
+      <div className="relative grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+        <div className="order-2 flex flex-col gap-4 sm:gap-6 lg:order-1 lg:col-span-5">
+          <RevealOnView>
+            <div className="bento-item p-2">
+              <div className="relative aspect-square overflow-hidden rounded-[18px] sm:aspect-[4/5] sm:rounded-[24px]">
+                <Image
+                  src="/images/hakkimdapic.jpg"
+                  alt={`${profile.brandName} about portrait`}
+                  fill
+                  sizes="(min-width: 1024px) 34vw, 100vw"
+                  quality={95}
+                  className="object-cover object-center"
+                />
+              </div>
+            </div>
+          </RevealOnView>
+
+          <div className="grid grid-cols-2 gap-4 sm:gap-6">
+            {aboutStats.map((stat, index) => (
+              <RevealOnView key={stat.label} delayMs={100 + index * 100}>
+                <div className="bento-item flex h-full flex-col items-center justify-center p-4 text-center sm:p-6">
+                  <span className="bg-[linear-gradient(180deg,#f3d2b3_0%,#c7a17a_58%,#8b6f4d_100%)] bg-clip-text text-[2.15rem] font-bold tracking-[-0.05em] text-transparent sm:text-[2.8rem] md:text-[3.2rem]">
+                    {stat.value}
+                  </span>
+                  <span className="mt-2 text-[8px] tracking-[0.24em] text-[#8f8f96] uppercase sm:text-[10px]">
+                    {stat.label}
+                  </span>
+                </div>
+              </RevealOnView>
+            ))}
           </div>
         </div>
 
-        <div className="flex flex-col">
-          <p className="text-[0.66rem] font-semibold uppercase tracking-[0.36em] text-[#c89a5a]">
-            {profile.aboutEyebrow}
-          </p>
-          <h3 className="mt-3 max-w-[48rem] text-[1.9rem] font-[760] leading-[0.94] tracking-[-0.045em] text-[#f5efe8] sm:text-[2.15rem] lg:text-[2.35rem] xl:text-[2.65rem]">
-            {profile.aboutTitle}
-          </h3>
+        <div className="order-1 flex flex-col justify-center lg:order-2 lg:col-span-7">
+          <div className="mb-6 sm:mb-10">
+            <RevealOnView delayMs={150}>
+              <span className="mb-3 block text-[9px] font-bold tracking-[0.4em] text-[#C7A17A] uppercase sm:mb-4 sm:text-[10px]">
+                {profile.aboutEyebrow}
+              </span>
+            </RevealOnView>
+            <RevealOnView delayMs={250}>
+              <h3 className="max-w-[54rem] text-[2.1rem] font-[780] leading-[1.02] tracking-[-0.05em] text-white sm:text-[2.65rem] lg:text-[3.6rem]">
+                {aboutHeading.line1}
+                <br className="hidden sm:block" />
+                <span className="bg-[linear-gradient(90deg,#ffffff_0%,#a3a3a3_100%)] bg-clip-text text-transparent">
+                  {" "}
+                  {aboutHeading.line2}
+                </span>
+              </h3>
+            </RevealOnView>
+          </div>
 
-          <div className="mt-5 grid gap-4 lg:grid-cols-2 lg:gap-5">
-            {aboutParagraphColumns.map((column, columnIndex) => (
-              <div key={columnIndex} className="space-y-3">
-                {column.map((paragraph) => (
-                  <p
-                    key={paragraph.slice(0, 32)}
-                    className="text-[0.92rem] leading-[1.78] text-[#eadfce]/80 lg:text-[0.86rem] lg:leading-[1.72] xl:text-[0.9rem]"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
+          <div className="mb-8 flex max-w-2xl flex-col gap-4 text-sm leading-relaxed font-light text-[#A1A1AA] sm:mb-12 sm:gap-6 sm:text-base">
+            <RevealOnView delayMs={350}>
+              <p>{aboutLead}</p>
+            </RevealOnView>
+            <RevealOnView delayMs={450}>
+              <p className="hidden sm:block">{aboutSupport}</p>
+            </RevealOnView>
+          </div>
+
+          <RevealOnView delayMs={650}>
+            <div className="bento-item relative overflow-hidden border-l-4 border-l-[#C7A17A] bg-gradient-to-r from-[#C7A17A]/5 to-transparent p-6 sm:p-8">
+              <p className="about-shiny-text text-sm leading-relaxed font-light italic sm:text-base md:text-lg">
+                &quot;{profile.aboutClosing}&quot;
+              </p>
+              <div className="relative z-10 mt-4 flex items-center gap-3 sm:mt-6">
+                <div className="h-px w-6 bg-[#C7A17A] sm:w-8" />
+                <span className="text-[9px] font-bold tracking-[0.28em] text-[#C7A17A] uppercase sm:text-[10px]">
+                  {profile.aboutSignature.replace(/^.*?,\s*/u, "")}
+                </span>
               </div>
-            ))}
-          </div>
-
-          <div className="mt-5 rounded-[1.35rem] border border-[#c29563]/18 bg-black/16 px-4 py-4">
-            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-[#c89a5a]">
-              {profile.aboutTrainingTitle}
-            </p>
-            <div className="mt-4 grid gap-2.5 sm:grid-cols-3">
-              {profile.aboutTrainingItems.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-[1rem] border border-white/8 bg-white/[0.03] px-3 py-3 text-[0.82rem] leading-[1.55] text-[#f0e5d8]/84 lg:text-[0.76rem]"
-                >
-                  {item}
-                </div>
-              ))}
             </div>
-          </div>
-
-          <div className="mt-5 rounded-[1.35rem] border border-white/8 bg-[linear-gradient(135deg,rgba(194,149,99,0.12),rgba(255,255,255,0.02))] px-4 py-4">
-            <p className="text-[0.94rem] leading-[1.8] text-[#f4ebdf]/84 lg:text-[0.84rem] lg:leading-[1.72] xl:text-[0.88rem]">
-              {profile.aboutClosing}
-            </p>
-            <p className="mt-4 text-[0.76rem] font-semibold uppercase tracking-[0.28em] text-[#d8c0a5]/68">
-              {profile.aboutSignature}
-            </p>
-          </div>
+          </RevealOnView>
         </div>
       </div>
     </div>
