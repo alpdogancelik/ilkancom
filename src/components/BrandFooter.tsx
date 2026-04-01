@@ -103,7 +103,7 @@ export function BrandFooter({ profile }: BrandFooterProps) {
             }`}
         >
           <div className="mb-8 grid grid-cols-1 gap-6 lg:mb-10 lg:grid-cols-3">
-            <div className="group relative flex flex-col justify-between overflow-visible rounded-[32px] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.028)_0%,rgba(255,255,255,0.01)_46%,rgba(255,255,255,0.014)_100%)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.32),inset_0_-1px_0_rgba(255,255,255,0.05),0_18px_48px_-36px_rgba(0,0,0,0.72)] backdrop-blur-[22px] backdrop-saturate-[165%] sm:p-10 lg:col-span-2">
+            <div className="group relative flex flex-col justify-between overflow-visible rounded-[32px] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.006)_46%,rgba(255,255,255,0.01)_100%)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.32),inset_0_-1px_0_rgba(255,255,255,0.05),0_18px_48px_-36px_rgba(0,0,0,0.72)] sm:p-10 lg:col-span-2">
               <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_24%),radial-gradient(circle_at_78%_18%,rgba(163,196,255,0.08),transparent_22%),linear-gradient(135deg,rgba(255,255,255,0.09)_0%,transparent_30%,transparent_68%,rgba(255,255,255,0.045)_100%)] opacity-95" />
               <div className="relative mb-10 sm:mb-12 lg:mb-16">
                 <h2 className="max-w-[19rem] text-[clamp(1.95rem,7.2vw,2.75rem)] leading-[1.08] font-medium tracking-tight sm:max-w-none sm:text-4xl">
@@ -171,10 +171,10 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                   <div className="grid gap-3 sm:max-w-[24rem]">
                     <a
                       href="#about-section"
-                      className="group flex items-center justify-between gap-4 rounded-2xl border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.026)_0%,rgba(255,255,255,0.008)_100%)] px-4 py-3 backdrop-blur-[18px] backdrop-saturate-[155%] transition-all hover:border-[#c7a17a]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.045)_0%,rgba(255,255,255,0.016)_100%)]"
+                      className="group flex items-center justify-between gap-4 rounded-2xl border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.018)_0%,rgba(255,255,255,0.006)_100%)] px-4 py-3 transition-all hover:border-[#c7a17a]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.034)_0%,rgba(255,255,255,0.012)_100%)]"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/16 bg-[rgba(255,255,255,0.03)] backdrop-blur-[18px]">
+                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/16 bg-[rgba(255,255,255,0.02)]">
                           <svg
                             aria-hidden
                             viewBox="0 0 24 24"
@@ -210,10 +210,10 @@ export function BrandFooter({ profile }: BrandFooterProps) {
 
                     <a
                       href="#location-section"
-                      className="group flex items-center justify-between gap-4 rounded-2xl border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.026)_0%,rgba(255,255,255,0.008)_100%)] px-4 py-3 backdrop-blur-[18px] backdrop-saturate-[155%] transition-all hover:border-[#c7a17a]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.045)_0%,rgba(255,255,255,0.016)_100%)]"
+                      className="group flex items-center justify-between gap-4 rounded-2xl border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.018)_0%,rgba(255,255,255,0.006)_100%)] px-4 py-3 transition-all hover:border-[#c7a17a]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.034)_0%,rgba(255,255,255,0.012)_100%)]"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/16 bg-[rgba(255,255,255,0.03)] backdrop-blur-[18px]">
+                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/16 bg-[rgba(255,255,255,0.02)]">
                           <svg
                             aria-hidden
                             viewBox="0 0 24 24"
@@ -253,7 +253,7 @@ export function BrandFooter({ profile }: BrandFooterProps) {
             </div>
 
             <div className="flex flex-col gap-6">
-              <div className="relative flex flex-grow flex-col justify-between rounded-[32px] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.028)_0%,rgba(255,255,255,0.01)_46%,rgba(255,255,255,0.014)_100%)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.32),inset_0_-1px_0_rgba(255,255,255,0.05),0_18px_48px_-36px_rgba(0,0,0,0.72)] backdrop-blur-[22px] backdrop-saturate-[165%] sm:p-10">
+              <div className="relative flex flex-grow flex-col justify-between rounded-[32px] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.006)_46%,rgba(255,255,255,0.01)_100%)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.32),inset_0_-1px_0_rgba(255,255,255,0.05),0_18px_48px_-36px_rgba(0,0,0,0.72)] sm:p-10">
                 <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_24%),radial-gradient(circle_at_78%_18%,rgba(163,196,255,0.08),transparent_22%),linear-gradient(135deg,rgba(255,255,255,0.09)_0%,transparent_30%,transparent_68%,rgba(255,255,255,0.045)_100%)] opacity-95" />
                 <div className="mb-5">
                   {copy.contactEyebrow ? (
@@ -318,7 +318,7 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                 <div className="relative space-y-4">
                   <a
                     href={phoneHref}
-                    className={`group flex items-center gap-4 rounded-2xl border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.028)_0%,rgba(255,255,255,0.01)_100%)] p-4 backdrop-blur-[18px] backdrop-saturate-[155%] transition-all hover:border-[#c7a17a]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.046)_0%,rgba(255,255,255,0.016)_100%)] ${styles.animateShake}`}
+                    className={`group flex items-center gap-4 rounded-2xl border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.008)_100%)] p-4 transition-all hover:border-[#c7a17a]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.036)_0%,rgba(255,255,255,0.012)_100%)] ${styles.animateShake}`}
                   >
                     <svg
                       className="h-6 w-6 fill-[#c7a17a] group-hover:fill-white"
@@ -348,7 +348,7 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                   href={tiktokHref}
                   target={isExternalHref(tiktokHref) ? "_blank" : undefined}
                   rel={isExternalHref(tiktokHref) ? "noreferrer noopener" : undefined}
-                  className="group flex aspect-square items-center justify-center rounded-[24px] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.026)_0%,rgba(255,255,255,0.008)_100%)] backdrop-blur-[18px] backdrop-saturate-[155%] transition-all hover:border-[#c7a17a]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.042)_0%,rgba(255,255,255,0.014)_100%)]"
+                  className="group flex aspect-square items-center justify-center rounded-[24px] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.018)_0%,rgba(255,255,255,0.006)_100%)] transition-all hover:border-[#c7a17a]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.032)_0%,rgba(255,255,255,0.01)_100%)]"
                 >
                   <svg
                     className="h-7 w-7 fill-[#c7a17a] transition-transform group-hover:scale-110 group-hover:fill-white sm:h-8 sm:w-8"
@@ -363,7 +363,7 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                     href={instagramHref}
                     target={isExternalHref(instagramHref) ? "_blank" : undefined}
                     rel={isExternalHref(instagramHref) ? "noreferrer noopener" : undefined}
-                    className="flex h-full w-full items-center justify-center rounded-[24px] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.026)_0%,rgba(255,255,255,0.008)_100%)] backdrop-blur-[18px] backdrop-saturate-[155%] transition-all group-hover:scale-110 hover:border-[#c7a17a]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.042)_0%,rgba(255,255,255,0.014)_100%)]"
+                    className="flex h-full w-full items-center justify-center rounded-[24px] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.018)_0%,rgba(255,255,255,0.006)_100%)] transition-all group-hover:scale-110 hover:border-[#c7a17a]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.032)_0%,rgba(255,255,255,0.01)_100%)]"
                   >
                     <svg className="h-7 w-7 fill-[#c7a17a] group-hover:fill-white sm:h-8 sm:w-8" viewBox="0 0 24 24">
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069Zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073Zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162Zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4Zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44Z" />
@@ -378,7 +378,7 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                   href={whatsappHref}
                   target={isExternalHref(whatsappHref) ? "_blank" : undefined}
                   rel={isExternalHref(whatsappHref) ? "noreferrer noopener" : undefined}
-                  className="group flex aspect-square items-center justify-center rounded-[24px] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.026)_0%,rgba(255,255,255,0.008)_100%)] backdrop-blur-[18px] backdrop-saturate-[155%] transition-all hover:border-[#25d366]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.042)_0%,rgba(255,255,255,0.014)_100%)]"
+                  className="group flex aspect-square items-center justify-center rounded-[24px] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.018)_0%,rgba(255,255,255,0.006)_100%)] transition-all hover:border-[#25d366]/45 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.032)_0%,rgba(255,255,255,0.01)_100%)]"
                 >
                   <svg
                     className="h-8 w-8 fill-[#c7a17a] transition-transform group-hover:scale-110 group-hover:fill-[#25d366] sm:h-9 sm:w-9"
