@@ -478,6 +478,9 @@ export function LinkHub({ profile }: LinkHubProps) {
   return (
     <>
       <section id="link-hub" className="snap-panel relative overflow-hidden bg-[#050402]">
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-8 bg-[linear-gradient(180deg,rgba(7,5,4,0.72)_0%,rgba(7,5,4,0.3)_48%,transparent_100%)] sm:h-10 lg:h-12" />
+        <div className="pointer-events-none absolute inset-x-[10%] top-0 z-[1] h-10 rounded-b-[1.8rem] bg-[radial-gradient(circle_at_center_top,rgba(244,232,214,0.08)_0%,rgba(117,90,66,0.05)_34%,rgba(8,6,5,0)_72%)] blur-xl sm:inset-x-[16%] sm:h-12 sm:rounded-b-[2.2rem] lg:inset-x-[24%] lg:h-14 lg:rounded-b-[2.6rem]" />
+        <div className="pointer-events-none absolute inset-x-[14%] top-0 z-[1] h-px bg-[linear-gradient(90deg,transparent_0%,rgba(231,210,183,0.14)_18%,rgba(231,210,183,0.24)_50%,rgba(231,210,183,0.14)_82%,transparent_100%)] opacity-60" />
         <div className="pointer-events-none absolute inset-0">
           <ColorBends
             className="h-full w-full"
@@ -497,7 +500,7 @@ export function LinkHub({ profile }: LinkHubProps) {
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,5,14,0.36)_0%,rgba(7,4,12,0.18)_24%,rgba(5,3,10,0.16)_42%,rgba(4,3,7,0.58)_78%,rgba(0,0,0,0.82)_100%)] lg:bg-[linear-gradient(90deg,rgba(5,3,10,0.68)_0%,rgba(5,3,10,0.28)_26%,rgba(5,3,10,0.12)_54%,rgba(2,1,4,0.76)_100%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,transparent_42%,rgba(0,0,0,0.14)_74%,rgba(0,0,0,0.34)_100%)]" />
 
-        <div className="relative mx-auto flex min-h-[100svh] w-full max-w-[108rem] items-start px-3 pt-[max(0.9rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom)+1rem)] sm:px-6 sm:pt-5 sm:pb-6 lg:px-14 lg:pt-8 lg:pb-8 xl:px-20">
+        <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[108rem] items-start px-3 pt-[max(0.9rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom)+1rem)] sm:px-6 sm:pt-5 sm:pb-6 lg:px-14 lg:pt-8 lg:pb-8 xl:px-20">
           <div className="mx-auto flex w-full max-w-[96rem] flex-col">
             <div className="grid gap-5 lg:grid-cols-12 lg:items-start">
               <RevealOnView delayMs={40} className="lg:col-span-5">
