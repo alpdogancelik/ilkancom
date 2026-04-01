@@ -2,6 +2,7 @@
 
 // Yorumlari otomatik kayan ve suruklenebilir bir bantta gosterir.
 import {
+  Fragment,
   useEffect,
   useMemo,
   useRef,
@@ -29,17 +30,39 @@ type ReviewCardProps = {
 
 function TypingText({ text, delay = 0 }: { text: string; delay?: number }) {
   // Baslik metinlerinde karakter karakter gorunme efekti.
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const wordStarts = words.reduce<number[]>((starts, word, index) => {
+    if (index === 0) {
+      return [0];
+    }
+
+    const previousWord = words[index - 1] ?? "";
+    const previousStart = starts[index - 1] ?? 0;
+    return [...starts, previousStart + previousWord.length + 1];
+  }, []);
+
   return (
     <span className="inline-block">
-      {text.split("").map((char, index) => (
-        <span
-          key={`${char}-${index}`}
-          className="char-reveal inline-block"
-          style={{ animationDelay: `${delay + index * 0.035}s` }}
-        >
-          {char === " " ? "\u00A0" : char}
-        </span>
-      ))}
+      {words.map((word, wordIndex) => {
+        const wordStart = wordStarts[wordIndex] ?? 0;
+
+        return (
+          <Fragment key={`${word}-${wordIndex}`}>
+            <span className="inline-block whitespace-nowrap">
+              {word.split("").map((char, charIndex) => (
+                <span
+                  key={`${char}-${wordIndex}-${charIndex}`}
+                  className="char-reveal inline-block"
+                  style={{ animationDelay: `${delay + (wordStart + charIndex) * 0.035}s` }}
+                >
+                  {char}
+                </span>
+              ))}
+            </span>
+            {wordIndex < words.length - 1 ? " " : null}
+          </Fragment>
+        );
+      })}
     </span>
   );
 }

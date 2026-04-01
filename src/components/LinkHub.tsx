@@ -286,7 +286,7 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
               <p>{aboutLead}</p>
             </RevealOnView>
             <RevealOnView delayMs={450}>
-              <p className="hidden sm:block lg:max-w-[36rem]">{aboutSupport}</p>
+              <p className="lg:max-w-[36rem]">{aboutSupport}</p>
             </RevealOnView>
           </div>
 
