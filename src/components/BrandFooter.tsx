@@ -82,21 +82,24 @@ export function BrandFooter({ profile }: BrandFooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden bg-black px-4 pt-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] font-sans text-[#fdfdfd] sm:px-8 sm:pt-8 sm:pb-8 lg:pb-10">
-      <div className="relative mx-auto flex w-full items-start justify-center overflow-hidden">
-        <img
-          src="https://i.hizliresim.com/p6nkv01.png"
-          alt=""
-          aria-hidden
-          className={`pointer-events-none absolute -left-20 -bottom-20 z-0 w-[400px] opacity-30 mix-blend-screen sm:w-[600px] ${styles.leftFloat}`}
-        />
-        <img
-          src="https://i.hizliresim.com/mbrjyhb.png"
-          alt=""
-          aria-hidden
-          className={`pointer-events-none absolute -top-20 -right-20 z-0 w-[400px] opacity-30 mix-blend-screen sm:w-[600px] ${styles.rightFloat}`}
-        />
+    <footer
+      id="site-footer"
+      className="relative overflow-hidden bg-black px-4 pt-4 pb-[max(env(safe-area-inset-bottom),0.6rem)] font-sans text-[#fdfdfd] sm:px-8 sm:pt-8 sm:pb-5 lg:pb-6"
+    >
+      <img
+        src="https://i.hizliresim.com/p6nkv01.png"
+        alt=""
+        aria-hidden
+        className={`pointer-events-none absolute -left-24 bottom-0 z-0 w-[400px] max-w-none opacity-30 mix-blend-screen sm:-left-20 sm:w-[600px] ${styles.leftFloat}`}
+      />
+      <img
+        src="https://i.hizliresim.com/mbrjyhb.png"
+        alt=""
+        aria-hidden
+        className={`pointer-events-none absolute top-0 -right-24 z-0 w-[400px] max-w-none opacity-30 mix-blend-screen sm:-right-20 sm:w-[600px] ${styles.rightFloat}`}
+      />
 
+      <div className="relative z-10 mx-auto flex w-full items-start justify-center">
         <div
           ref={domRef}
           className={`z-10 w-full max-w-[1100px] transform transition-all duration-1000 ease-out ${isVisible ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"
@@ -223,19 +226,9 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                             <path d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                           </svg>
                         </span>
-                        <SplitText
-                          text={copy.locationLabel}
-                          tag="span"
-                          splitType="chars"
-                          delay={14}
-                          duration={0.75}
-                          threshold={0.16}
-                          rootMargin="-40px"
-                          textAlign="left"
-                          className="text-sm font-medium text-[#e2dfda]"
-                          from={{ opacity: 0, y: 12 }}
-                          to={{ opacity: 1, y: 0 }}
-                        />
+                        <span className="text-sm font-medium text-[#e2dfda]">
+                          {copy.locationLabel}
+                        </span>
                       </div>
                       <svg
                         aria-hidden
@@ -391,9 +384,9 @@ export function BrandFooter({ profile }: BrandFooterProps) {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-[#222] pt-6 text-[#444] md:mt-10 md:flex-row md:pt-8 lg:pr-[12rem]">
-            <div className="text-[10px] tracking-widest uppercase sm:text-xs">© {currentYear}</div>
-            <div className="flex items-center gap-4 text-[10px] sm:text-xs">
+          <div className="mt-6 flex flex-col items-center gap-4 border-t border-[#222] pt-5 text-[#444] md:mt-8 md:flex-row md:pt-6">
+            <div className="text-[10px] tracking-widest uppercase sm:text-xs md:mr-auto">© {currentYear}</div>
+            <div className="flex items-center gap-4 text-[10px] sm:text-xs md:ml-auto">
               <span className="tracking-[0.2em] uppercase">{copy.rightsLabel}</span>
               <div className="flex items-center font-bold tracking-tighter">
                 <span className={`${styles.metalicText} uppercase`}>{profile.footerTag}</span>

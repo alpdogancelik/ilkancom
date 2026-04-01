@@ -1,4 +1,8 @@
 // Mobil/desktop icin sabit bir "ara" butonu sunar.
+"use client";
+
+import { useEffect, useState } from "react";
+
 import Image from "next/image";
 
 const phoneHref = "tel:+905531283843";
@@ -12,8 +16,37 @@ export function FloatingWhatsAppButton({
   ariaLabel,
   label,
 }: FloatingWhatsAppButtonProps) {
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+
+  useEffect(() => {
+    const footer = document.getElementById("site-footer");
+
+    if (!footer) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.08,
+      }
+    );
+
+    observer.observe(footer);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <div className="fixed right-3 bottom-[calc(env(safe-area-inset-bottom)+1rem)] z-50 sm:right-5 lg:right-8 lg:bottom-8">
+    <div
+      className={`fixed right-3 bottom-[calc(env(safe-area-inset-bottom)+1rem)] z-50 transition-opacity duration-300 sm:right-5 lg:right-8 lg:bottom-8 ${
+        isFooterVisible ? "pointer-events-none opacity-0" : "opacity-100"
+      }`}
+    >
       {/* Mobilde sadece ikon gorunen hizli arama butonu */}
       <a
         href={phoneHref}
