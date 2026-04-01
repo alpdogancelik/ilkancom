@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Libre_Baskerville } from "next/font/google";
+import { Inter, Libre_Baskerville, Manrope } from "next/font/google";
 
 import { siteConfig } from "@/lib/site";
 
@@ -14,6 +14,11 @@ const libreBaskerville = Libre_Baskerville({
   variable: "--font-libre-baskerville",
   subsets: ["latin"],
   weight: ["400", "700"],
+});
+
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin", "latin-ext"],
 });
 
 export const metadata: Metadata = {
@@ -56,7 +61,7 @@ export default function RootLayout({
       lang="tr"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${libreBaskerville.variable} bg-background antialiased`}
+      className={`${inter.variable} ${libreBaskerville.variable} ${manrope.variable} bg-background antialiased`}
     >
       <body className="min-h-screen bg-background text-foreground">
         {children}

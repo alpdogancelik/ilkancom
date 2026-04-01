@@ -13,7 +13,7 @@
   --color-muted: var(--muted);
   --color-line: var(--line);
   --font-sans: var(--font-inter);
-  --font-display: var(--font-inter);
+  --font-display: var(--font-manrope);
 }
 
 * {
@@ -249,6 +249,60 @@ img {
   animation: reveal-char 0.4s ease-out forwards;
 }
 
+@keyframes hero-char-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0.8em, 0) scale(0.98);
+    filter: blur(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-accent-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.hero-title-line {
+  display: block;
+  overflow: visible;
+  white-space: nowrap;
+}
+
+.hero-title-char {
+  display: inline-block;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+  animation: hero-char-in 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--hero-delay, 0ms);
+}
+
+.hero-title-char-accent {
+  background: linear-gradient(90deg, #cba271 0%, #f3deba 48%, #a77a4c 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    hero-char-in 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    hero-accent-shift 8s ease-in-out infinite;
+  animation-delay: var(--hero-delay, 0ms), calc(var(--hero-delay, 0ms) + 0.82s);
+}
+
 @keyframes reveal-and-fill-char {
   from {
     opacity: 0;
@@ -392,7 +446,9 @@ img {
   .premium-ambient-bg,
   .premium-ambient-noise,
   .premium-ambient-orb,
-  .premium-ambient-orb-slow {
+  .premium-ambient-orb-slow,
+  .hero-title-char,
+  .hero-title-char-accent {
     animation: none !important;
   }
 
@@ -400,6 +456,13 @@ img {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+
+  .hero-title-char,
+  .hero-title-char-accent {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
   }
 
   .snap-shell {

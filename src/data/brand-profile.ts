@@ -450,12 +450,8 @@ export const brandProfiles: Record<Locale, BrandProfile> = {
     aboutEyebrow: "Hakkımda",
     aboutTitle: "Kişisel yaklaşım, güçlü teknik altyapı ve rafine erkek bakımı.",
     aboutParagraphs: [
-      "Ben İlkan Kaymak. 19.08.1991 İzmir / Ödemiş doğumluyum. Erkek kuaförlüğü ve saç tasarımı mesleğini 22 yıldır severek ve tutkuyla yapıyorum.",
-      "Saça olan ilgim çok küçük yaşlarda başladı. Kendi saçımla sürekli ilgilenir, arkadaşlarımın saçlarını yapardım. Hatta lise döneminde saçımı istediğim gibi yapamadığım günlerde okula gitmediğim bile olurdu. O zamanlar fark ettim ki, bu benim için sadece bir hobi değil, gerçek bir tutku ve hayatımın odak noktası.",
-      "Zamanla erkek berberliğinin ve vizyoner saç tasarımının benim için en doğru meslek olduğunu anlayarak bu yola girdim. Çıraklık ve kalfalık dönemlerimde kendimi sürekli geliştirmeye odaklandım. Mesleğin akademik eğitimini alarak kalfalık, ustalık ve usta öğreticilik belgelerimi tamamladım ve sektörel altyapımı sağlamlaştırdım.",
-      "Meslek hayatım boyunca gelişimi hiç bırakmadım. Ulusal ve uluslararası organizasyonlara katılarak farklı bakış açıları kazandım, çeşitli sahne şovlarında ve yarışmalarda yer alarak dereceler elde ettim ve uluslararası sertifikalar kazandım. Bu tecrübeler, dünya standartlarını yakından takip edip İzmir'e taşımamı sağladı.",
-      "Dünya markası saç bakım ürünleri ve şampuanlar üzerine eğitimler alarak her saç tipine uygun doğru ürünü belirleme konusunda uzmanlaştım. Bugün müşterilerime sadece bir saç kesimi değil; doğru analiz, doğru teknik ve doğru ürün kombinasyonunu sunuyorum.",
-      "Mesleğimde her zaman yeniliği ve kaliteyi ön planda tutuyorum. Gerek salon dekorasyonu gerek uyguladığım modern kesim teknikleri ile kendimi sürekli güncelliyor, koltuğuma oturan her misafirimin salonumdan özgüvenle ayrılması için gelişmeye devam ediyorum.",
+      "Erkek kuaförlüğü ve saç tasarımı mesleğini 22 yıldır büyük bir tutkuyla icra ediyorum. Küçük yaşlarda başlayan bu ilgi, zamanla vizyoner bir saç tasarımı kariyerine dönüştü. Mesleki eğitimimi ustalık ve usta öğreticilik belgeleriyle tamamlayarak sektörel altyapımı uluslararası standartlara taşıdım.",
+      "Kariyerim boyunca ulusal ve uluslararası organizasyonlarda sahneler alıp dereceler elde ettim. Bugün, dünya markası ürünlerle desteklediğim modern kesim tekniklerini kullanarak, misafirlerime kişisel ve rafine bir deneyim sunuyorum.",
     ],
     aboutTrainingTitle: "İleri Düzey Eğitimler",
     aboutTrainingItems: [
@@ -464,7 +460,7 @@ export const brandProfiles: Record<Locale, BrandProfile> = {
       "Anatomik saç kesim teknikleri",
     ],
     aboutClosing:
-      "Kalite, hijyen ve müşteri memnuniyeti bizim için vazgeçilmezdir. Her zaman en iyi ürünleri kullanarak hizmet standartlarımızı en üst seviyede tutuyoruz. Sizi de bu ayrıcalıklı deneyimi yaşamak için salonumuza bekliyoruz.",
+      "Kalite, hijyen ve misafir memnuniyeti bizim için vazgeçilmezdir. Her zaman en iyi ürünleri kullanarak hizmet standartlarımızı en üst seviyede tutuyoruz. Sizi bu ayrıcalıklı deneyimi yaşamak için salonumuza bekliyoruz.",
     aboutSignature: "Saygılarımla, İlkan Kaymak",
     links: buildLinks("tr"),
     socials: buildSocials("tr"),
@@ -494,12 +490,8 @@ export const brandProfiles: Record<Locale, BrandProfile> = {
     aboutEyebrow: "About",
     aboutTitle: "Personal approach, strong technical foundation, and refined men's grooming.",
     aboutParagraphs: [
-      "I am İlkan Kaymak. I was born on August 19, 1991, in Ödemiş / İzmir. I have been practicing men's hairdressing and hair design with passion and dedication for 22 years.",
-      "My interest in hair started at a very young age. I was constantly styling my own hair and doing my friends' hair. In fact, during high school there were days I would not go to school if I could not style my hair the way I wanted. That was when I realized this was not just a hobby for me, but a true passion and the focus of my life.",
-      "Over time, I understood that men's barbering and visionary hair design were the right profession for me, and I committed myself to this path. During my apprenticeship and journeyman years, I focused on continuously improving myself. I completed my journeyman, master craftsman, and master instructor certifications through formal vocational training and built a solid professional foundation.",
-      "I have never stopped improving throughout my career. By taking part in national and international organizations, I gained different perspectives, participated in various stage shows and competitions, earned awards, and obtained international certificates. These experiences enabled me to closely follow global standards and bring them to İzmir.",
-      "I also trained in world-renowned hair care products and shampoos, becoming specialized in identifying the right product for every hair type. Today, I offer my clients not just a haircut, but the combination of correct analysis, correct technique, and correct products.",
-      "I always prioritize innovation and quality in my profession. From the salon atmosphere to the modern cutting techniques I apply, I keep myself up to date and continue to improve so that every guest who sits in my chair leaves the salon with confidence.",
+      "I have been practicing men's hairdressing and hair design with great passion for 22 years. What began as an early interest evolved into a visionary career in hair design. I completed my professional training with master craftsman and master instructor certifications, building a technical foundation aligned with international standards.",
+      "Throughout my career, I have taken the stage at national and international organizations and earned distinctions. Today, I use modern cutting techniques supported by world-class products to offer my guests a personal and refined experience.",
     ],
     aboutTrainingTitle: "Advanced Training",
     aboutTrainingItems: [
@@ -508,7 +500,7 @@ export const brandProfiles: Record<Locale, BrandProfile> = {
       "Anatomical haircut techniques",
     ],
     aboutClosing:
-      "Quality, hygiene, and customer satisfaction are non-negotiable for us. By always using the best products, we keep our service standards at the highest level. We would be pleased to welcome you to our salon for this privileged experience.",
+      "Quality, hygiene, and customer satisfaction are paramount to us. We always use the best products to maintain the highest standards of service. We would be delighted to invite you to our salon for this privileged experience.",
     aboutSignature: "Respectfully, İlkan Kaymak",
     links: buildLinks("en"),
     socials: buildSocials("en"),

@@ -1,6 +1,7 @@
 ﻿import Image from "next/image";
 
 import type { BrandActionLink, BrandProfile } from "@/data/brand-profile";
+import type { CSSProperties } from "react";
 import { isExternalHref } from "@/lib/utils";
 
 import { BrandFooter } from "./BrandFooter";
@@ -19,6 +20,109 @@ type MapCardProps = {
   desktop?: boolean;
 };
 
+type AnimatedHeroTitleProps = {
+  lines: string[];
+  accentLine?: number;
+};
+
+type HeroQuickNavProps = {
+  profile: BrandProfile;
+  appointmentLink?: BrandActionLink;
+  appointmentExternal: boolean;
+};
+
+
+function AnimatedHeroTitle({ lines, accentLine }: AnimatedHeroTitleProps) {
+  return (
+    <h2 className="font-display w-full max-w-[96vw] text-left text-[clamp(1.64rem,9.1vw,2.7rem)] font-extrabold leading-[1] tracking-[-0.034em] text-white uppercase sm:max-w-[26rem] sm:text-[clamp(1.95rem,6.8vw,3.35rem)] sm:tracking-[-0.042em] lg:max-w-[31rem] lg:text-[clamp(2.15rem,3.2vw,3.75rem)] lg:leading-[0.96] lg:tracking-[-0.05em]">
+      {lines.map((line, lineIndex) => (
+        <span key={`${line}-${lineIndex}`} className="hero-title-line">
+          {Array.from(line).map((character, characterIndex) => {
+            const style = {
+              "--hero-delay": `${lineIndex * 140 + characterIndex * 24}ms`,
+            } as CSSProperties;
+            const className =
+              lineIndex === accentLine ? "hero-title-char hero-title-char-accent" : "hero-title-char";
+
+            return (
+              <span
+                key={`${lineIndex}-${characterIndex}-${character}`}
+                className={className}
+                style={style}
+              >
+                {character === " " ? "\u00A0" : character}
+              </span>
+            );
+          })}
+        </span>
+      ))}
+    </h2>
+  );
+}
+
+function HeroQuickNav({ profile, appointmentLink, appointmentExternal }: HeroQuickNavProps) {
+  const isTurkish = profile.locale === "tr";
+  const items = [
+    { label: isTurkish ? "Hakkımızda" : "About", href: "#about-section", external: false, soon: false },
+    {
+      label: isTurkish ? "Randevu Oluştur" : "Book Appointment",
+      href: appointmentLink?.href ?? "#",
+      external: appointmentExternal,
+      soon: !appointmentLink,
+    },
+    {
+      label: isTurkish ? "Kozmetik Ürünleri" : "Cosmetic Products",
+      href: "#",
+      external: false,
+      soon: true,
+    },
+  ];
+
+  return (
+    <div className="mt-5 hidden w-full max-w-[28rem] flex-col gap-2.5 lg:flex">
+      {items.map((item) =>
+        item.soon ? (
+          <div
+            key={item.label}
+            aria-disabled="true"
+            className="group flex h-[3.45rem] cursor-default items-center justify-between rounded-[1.1rem] border border-[#1f1f1f] bg-[#090909]/72 px-4 text-[#e7e7e7] opacity-70"
+          >
+            <span className="flex items-baseline gap-2.5">
+              <span className="text-[1.18rem] font-medium tracking-[-0.016em]">{item.label}</span>
+              <span className="text-[0.56rem] font-semibold tracking-[0.12em] text-[#5f5f5f] uppercase">
+                {isTurkish ? "(yakında)" : "(soon)"}
+              </span>
+            </span>
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#242424] bg-black/36 text-[#a48663]">
+              <svg viewBox="0 0 24 24" aria-hidden className="h-[0.62rem] w-[0.62rem] fill-none stroke-current stroke-[2.4]">
+                <path d="M7 12h10" />
+                <path d="M13 8l4 4-4 4" />
+              </svg>
+            </span>
+          </div>
+        ) : (
+          <a
+            key={item.label}
+            href={item.href}
+            target={item.external ? "_blank" : undefined}
+            rel={item.external ? "noreferrer noopener" : undefined}
+            className="group flex h-[3.45rem] items-center justify-between rounded-[1.1rem] border border-[#1f1f1f] bg-[#090909]/72 px-4 text-[#e7e7e7] transition-[transform,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[#2f2f2f] hover:bg-[#0d0d0d]/88"
+          >
+            <span className="text-[1.18rem] font-medium tracking-[-0.016em]">{item.label}</span>
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#242424] bg-black/36 text-[#a48663] transition-colors duration-300 group-hover:border-[#3b3b3b] group-hover:text-[#cfac84]">
+              <svg viewBox="0 0 24 24" aria-hidden className="h-[0.62rem] w-[0.62rem] fill-none stroke-current stroke-[2.4]">
+                <path d="M7 12h10" />
+                <path d="M13 8l4 4-4 4" />
+              </svg>
+            </span>
+          </a>
+        ),
+      )}
+    </div>
+  );
+}
+
+
 function MapCard({ profile, mapLink, mapExternal, desktop = false }: MapCardProps) {
   if (!mapLink) {
     return null;
@@ -36,15 +140,17 @@ function MapCard({ profile, mapLink, mapExternal, desktop = false }: MapCardProp
   return (
     <div
       className={`${
-        desktop ? "aspect-auto h-[12rem] sm:h-[13rem] lg:h-[14rem] xl:h-[15rem]" : "aspect-[16/10] lg:aspect-[16/7]"
+        desktop ? "aspect-square w-full" : "aspect-[16/10] lg:aspect-[16/7]"
       } flex`}
     >
-      <div className="bento-item group relative flex h-full w-full flex-col overflow-hidden rounded-[48px]">
-        <div className="absolute top-7 left-8 z-20 md:top-8 md:left-9">
+      <div className="bento-item group relative flex h-full w-full flex-col overflow-hidden rounded-[38px] sm:rounded-[48px]">
+        <div className="absolute top-6 left-6 z-20 sm:top-7 sm:left-8 md:top-8 md:left-9">
           <span className="mb-2 block text-[10px] font-bold tracking-[0.4em] uppercase text-[#C7A17A]">
             {profile.locationLabel}
           </span>
-          <h3 className="text-3xl font-medium tracking-tight text-white">{profile.locationName}</h3>
+          <h3 className="text-[2rem] font-medium tracking-tight text-white sm:text-[2.2rem] lg:text-[2.45rem]">
+            {profile.locationName}
+          </h3>
         </div>
 
         <div className="absolute inset-0 z-0 opacity-40 transition-opacity duration-1000 group-hover:opacity-60">
@@ -69,16 +175,16 @@ function MapCard({ profile, mapLink, mapExternal, desktop = false }: MapCardProp
         <div
           className={`z-20 flex justify-end ${
             desktop
-              ? "pointer-events-none absolute inset-y-0 right-5 items-center md:right-7"
-              : "mt-auto p-10"
+              ? "pointer-events-none absolute right-5 bottom-5 md:right-7 md:bottom-7"
+              : "mt-auto p-6 sm:p-10"
           }`}
         >
           <a
             href={mapLink.href}
             target={mapExternal ? "_blank" : undefined}
             rel={mapExternal ? "noreferrer noopener" : undefined}
-            className={`cursor-pointer rounded-full border border-white/10 bg-white/5 text-[10px] font-bold tracking-[0.2em] text-white/80 uppercase backdrop-blur-md transition-all hover:border-[#C7A17A] hover:text-[#C7A17A] ${
-              desktop ? "pointer-events-auto px-9 py-4" : "px-10 py-5"
+            className={`cursor-pointer rounded-full border border-white/10 bg-white/5 text-[9px] font-bold tracking-[0.2em] text-white/80 uppercase backdrop-blur-md transition-all hover:border-[#C7A17A] hover:text-[#C7A17A] sm:text-[10px] ${
+              desktop ? "pointer-events-auto px-9 py-4" : "px-6 py-3.5 sm:px-10 sm:py-5"
             }`}
             aria-label={profile.mapButtonLabel}
           >
@@ -94,8 +200,8 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
   const aboutStats =
     profile.locale === "tr"
       ? [
-          { value: "22", label: "YILLIK TECRUBE" },
-          { value: "15+", label: "ULUSLARARASI ODUL" },
+          { value: "22", label: "YILLIK TECRÜBE" },
+          { value: "15+", label: "ULUSLARARASI ÖDÜL" },
         ]
       : [
           { value: "22", label: "YEARS EXPERIENCE" },
@@ -115,19 +221,19 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
         };
 
   return (
-    <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#050505] p-4 shadow-[0_28px_70px_-34px_rgba(0,0,0,0.72)] sm:p-6 lg:p-8 xl:p-10">
+    <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#050505] p-4 shadow-[0_28px_70px_-34px_rgba(0,0,0,0.72)] sm:p-6 lg:p-7 xl:p-8">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(194,149,99,0.1),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.03),transparent_46%)]" />
 
-      <div className="relative grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-        <div className="order-2 flex flex-col gap-4 sm:gap-6 lg:order-1 lg:col-span-5">
+      <div className="relative grid items-start gap-7 lg:grid-cols-12 lg:gap-8 xl:gap-10">
+        <div className="order-1 flex flex-col gap-4 sm:gap-6 lg:order-1 lg:col-span-4">
           <RevealOnView>
-            <div className="bento-item p-2">
-              <div className="relative aspect-square overflow-hidden rounded-[18px] sm:aspect-[4/5] sm:rounded-[24px]">
+            <div className="bento-item rounded-[24px] p-2 sm:rounded-[30px]">
+              <div className="relative aspect-square overflow-hidden rounded-[18px] sm:aspect-[4/5] sm:rounded-[24px] lg:min-h-[25.5rem] xl:min-h-[27.5rem]">
                 <Image
                   src="/images/hakkimdapic.jpg"
                   alt={`${profile.brandName} about portrait`}
                   fill
-                  sizes="(min-width: 1024px) 34vw, 100vw"
+                  sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 25vw, 100vw"
                   quality={95}
                   className="object-cover object-center"
                 />
@@ -138,7 +244,7 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
           <div className="grid grid-cols-2 gap-4 sm:gap-6">
             {aboutStats.map((stat, index) => (
               <RevealOnView key={stat.label} delayMs={100 + index * 100}>
-                <div className="bento-item flex h-full flex-col items-center justify-center p-4 text-center sm:p-6">
+                <div className="bento-item rounded-[1.55rem] border border-white/10 bg-[linear-gradient(180deg,rgba(20,20,20,0.78)_0%,rgba(12,12,12,0.92)_100%)] flex h-full flex-col items-center justify-center p-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:rounded-[1.75rem] sm:p-5">
                   <span className="bg-[linear-gradient(180deg,#f3d2b3_0%,#c7a17a_58%,#8b6f4d_100%)] bg-clip-text text-[2.15rem] font-bold tracking-[-0.05em] text-transparent sm:text-[2.8rem] md:text-[3.2rem]">
                     {stat.value}
                   </span>
@@ -151,15 +257,15 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
           </div>
         </div>
 
-        <div className="order-1 flex flex-col justify-center lg:order-2 lg:col-span-7">
-          <div className="mb-6 sm:mb-10">
+        <div className="order-2 flex flex-col justify-start lg:order-2 lg:col-span-8">
+          <div className="mb-6 sm:mb-9 lg:mb-8">
             <RevealOnView delayMs={150}>
               <span className="mb-3 block text-[9px] font-bold tracking-[0.4em] text-[#C7A17A] uppercase sm:mb-4 sm:text-[10px]">
                 {profile.aboutEyebrow}
               </span>
             </RevealOnView>
             <RevealOnView delayMs={250}>
-              <h3 className="max-w-[54rem] text-[2.1rem] font-[780] leading-[1.02] tracking-[-0.05em] text-white sm:text-[2.65rem] lg:text-[3.6rem]">
+              <h3 className="max-w-[43rem] text-[2.1rem] font-[780] leading-[1] tracking-[-0.05em] text-white sm:text-[2.45rem] lg:text-[2.95rem] xl:text-[3.3rem]">
                 {aboutHeading.line1}
                 <br className="hidden sm:block" />
                 <span className="bg-[linear-gradient(90deg,#ffffff_0%,#a3a3a3_100%)] bg-clip-text text-transparent">
@@ -170,17 +276,18 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
             </RevealOnView>
           </div>
 
-          <div className="mb-8 flex max-w-2xl flex-col gap-4 text-sm leading-relaxed font-light text-[#A1A1AA] sm:mb-12 sm:gap-6 sm:text-base">
+          <div className="mb-7 flex max-w-[36rem] flex-col gap-4 text-sm leading-[1.68] font-light text-[#A1A1AA] sm:mb-10 sm:gap-5 sm:text-base lg:text-[0.93rem]">
             <RevealOnView delayMs={350}>
               <p>{aboutLead}</p>
             </RevealOnView>
             <RevealOnView delayMs={450}>
-              <p className="hidden sm:block">{aboutSupport}</p>
+              <p className="hidden sm:block lg:max-w-[36rem]">{aboutSupport}</p>
             </RevealOnView>
           </div>
 
           <RevealOnView delayMs={650}>
-            <div className="bento-item relative overflow-hidden border-l-4 border-l-[#C7A17A] bg-gradient-to-r from-[#C7A17A]/5 to-transparent p-6 sm:p-8">
+            <div className="bento-item relative overflow-hidden rounded-[1.7rem] border border-[#c7a17a]/18 bg-[linear-gradient(135deg,rgba(27,23,20,0.92)_0%,rgba(15,14,13,0.96)_100%)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:rounded-[2rem] sm:p-7">
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-[3px] bg-gradient-to-b from-[#f0c898] via-[#c7a17a] to-[#7f5b38]" />
               <p className="about-shiny-text text-sm leading-relaxed font-light italic sm:text-base md:text-lg">
                 &quot;{profile.aboutClosing}&quot;
               </p>
@@ -201,6 +308,8 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
 export function LinkHub({ profile }: LinkHubProps) {
   const mapLink = profile.links.find((link) => link.id === "location");
   const mapExternal = mapLink ? isExternalHref(mapLink.href) : false;
+  const appointmentLink = profile.links.find((link) => link.id === "appointment");
+  const appointmentExternal = appointmentLink ? isExternalHref(appointmentLink.href) : false;
 
   const headingCopy =
     profile.locale === "tr"
@@ -227,31 +336,47 @@ export function LinkHub({ profile }: LinkHubProps) {
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,5,3,0.58)_0%,rgba(8,6,4,0.38)_28%,rgba(8,6,4,0.68)_100%)] lg:bg-[linear-gradient(90deg,rgba(8,6,4,0.74)_0%,rgba(8,6,4,0.4)_30%,rgba(8,6,4,0.28)_58%,rgba(8,6,4,0.72)_100%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,transparent_34%,rgba(5,4,3,0.16)_72%,rgba(5,4,3,0.34)_100%)]" />
 
-        <div className="relative mx-auto flex min-h-[100svh] w-full max-w-[108rem] items-start px-3 pt-[max(0.7rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom)+1rem)] sm:px-6 sm:pt-5 sm:pb-6 lg:px-14 lg:py-12 xl:px-20">
+        <div className="relative mx-auto flex min-h-[100svh] w-full max-w-[108rem] items-start px-3 pt-[max(0.9rem,env(safe-area-inset-top))] pb-[calc(env(safe-area-inset-bottom)+1rem)] sm:px-6 sm:pt-5 sm:pb-6 lg:px-14 lg:pt-8 lg:pb-8 xl:px-20">
           <div className="mx-auto flex w-full max-w-[96rem] flex-col">
-            <div className="grid gap-6 lg:grid-cols-12 lg:items-start">
+            <div className="grid gap-5 lg:grid-cols-12 lg:items-start">
               <RevealOnView delayMs={40} className="lg:col-span-5">
-                <div className="flex flex-col items-start">
-                  <h2 className="max-w-[40rem] text-left text-[clamp(3rem,5.6vw,6.2rem)] font-bold leading-[0.98] tracking-[-0.045em] text-white uppercase">
-                    <span className="block">{headingCopy.line1}</span>
-                    <span className="block">{headingCopy.line2}</span>
-                    <span className="block">{headingCopy.line3}</span>
-                    <span className="block bg-[linear-gradient(90deg,#c7a17a_0%,#f3ddba_45%,#a47b4f_100%)] bg-clip-text text-transparent">
-                      {headingCopy.line4}
-                    </span>
-                  </h2>
-
+                <div className="flex w-full flex-col items-start">
+                  <AnimatedHeroTitle
+                    lines={[
+                      headingCopy.line1,
+                      headingCopy.line2,
+                      headingCopy.line3,
+                      headingCopy.line4,
+                    ]}
+                    accentLine={3}
+                  />
                   <ServicePriceDialog
                     accentColor={profile.accentColor}
                     brandName={profile.brandName}
                     locale={profile.locale}
-                    className="mt-8 sm:mt-10"
+                    className="mt-5 sm:mt-7 lg:mt-8"
+                  />
+                  <HeroQuickNav
+                    profile={profile}
+                    appointmentLink={appointmentLink}
+                    appointmentExternal={appointmentExternal}
                   />
                 </div>
               </RevealOnView>
 
-              <RevealOnView delayMs={80} className="mt-2 lg:col-span-7 lg:mt-0 lg:pl-2 xl:pl-4">
-                <MapCard profile={profile} mapLink={mapLink} mapExternal={mapExternal} desktop />
+              <RevealOnView delayMs={80} className="mt-1 lg:hidden">
+                <div id="location-section" className="scroll-mt-24">
+                  <MapCard profile={profile} mapLink={mapLink} mapExternal={mapExternal} />
+                </div>
+              </RevealOnView>
+
+              <RevealOnView delayMs={80} className="mt-2 hidden lg:col-span-7 lg:mt-0 lg:block lg:pl-2 xl:pl-4">
+                <div
+                  id="location-section-desktop"
+                  className="scroll-mt-24 lg:ml-auto lg:w-full lg:max-w-[34rem] xl:max-w-[38rem]"
+                >
+                  <MapCard profile={profile} mapLink={mapLink} mapExternal={mapExternal} desktop />
+                </div>
               </RevealOnView>
             </div>
 
@@ -267,7 +392,7 @@ export function LinkHub({ profile }: LinkHubProps) {
             </RevealOnView>
 
             <RevealOnView delayMs={200} className="mt-8 lg:mt-10">
-              <div id="about-section">
+              <div id="about-section" className="scroll-mt-24">
                 <AboutSection profile={profile} />
               </div>
             </RevealOnView>

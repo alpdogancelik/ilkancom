@@ -83,11 +83,6 @@ export function BrandFooter({ profile }: BrandFooterProps) {
   const tiktokHref = findSocialHref(profile, "tiktok");
   const whatsappHref = findSocialHref(profile, "whatsapp");
   const phoneHref = DIRECT_PHONE_HREF;
-  const locationHref =
-    profile.links.find((link) => link.id === "location")?.href ??
-    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(profile.locationName)}`;
-  const locationExternal = isExternalHref(locationHref);
-
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0]?.isIntersecting) {
@@ -159,7 +154,7 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                 <div className="grid gap-4">
                   <div className="grid gap-3 sm:max-w-[24rem]">
                     <a
-                      href="#link-hub"
+                      href="#about-section"
                       className="group flex items-center justify-between gap-4 rounded-2xl border border-[#2a2a2a] bg-[#151515]/82 px-4 py-3 transition-all hover:border-[#c7a17a] hover:bg-[#191919]"
                     >
                       <div className="flex items-center gap-3">
@@ -186,9 +181,7 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                     </a>
 
                     <a
-                      href={locationHref}
-                      target={locationExternal ? "_blank" : undefined}
-                      rel={locationExternal ? "noreferrer noopener" : undefined}
+                      href="#location-section"
                       className="group flex items-center justify-between gap-4 rounded-2xl border border-[#2a2a2a] bg-[#151515]/82 px-4 py-3 transition-all hover:border-[#c7a17a] hover:bg-[#191919]"
                     >
                       <div className="flex items-center gap-3">
