@@ -172,7 +172,7 @@ function MapCard({ profile, mapLink, mapExternal, desktop = false }: MapCardProp
       className={`${
         desktop
           ? "aspect-square w-full"
-          : "aspect-[16/10] w-[calc(100%+0.75rem)] -mx-[0.375rem] sm:mx-0 sm:w-full lg:aspect-[16/7]"
+          : "h-[30rem] min-h-[30rem] w-[calc(100%+0.75rem)] -mx-[0.375rem] sm:mx-0 sm:h-[32rem] sm:min-h-[32rem] sm:w-full lg:h-auto lg:min-h-0 lg:aspect-[16/7]"
       } flex`}
     >
       <div className="bento-item group relative flex h-full w-full flex-col overflow-hidden rounded-[38px] border-2 sm:rounded-[48px] sm:border">
@@ -537,7 +537,7 @@ export function LinkHub({ profile }: LinkHubProps) {
               </RevealOnView>
             </div>
 
-            <RevealOnView delayMs={120} className="mt-10 lg:mt-12">
+            <RevealOnView delayMs={120} className="mt-2 lg:mt-12">
               <ReviewCarousel
                 reviews={profile.reviews}
                 accentColor={profile.accentColor}

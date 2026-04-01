@@ -321,14 +321,14 @@ export function ReviewCarousel({
           <SplitText
             text={title}
             tag="h3"
-            splitType="words, chars"
-            delay={18}
-            duration={1}
+            splitType="lines"
+            delay={120}
+            duration={0.92}
             threshold={0.18}
             rootMargin="-40px"
             startDelayMs={180}
             textAlign="left"
-            className="text-3xl font-light tracking-tighter text-white italic sm:text-4xl lg:hidden"
+            className="max-w-[16rem] text-[2.2rem] leading-[1.08] font-light tracking-[-0.045em] text-white italic sm:max-w-[24rem] sm:text-4xl lg:hidden"
             from={{ opacity: 0, y: 22 }}
             to={{ opacity: 1, y: 0 }}
           />
