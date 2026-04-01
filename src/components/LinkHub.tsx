@@ -36,7 +36,7 @@ type HeroQuickNavProps = {
 function AnimatedHeroTitle({ lines, accentLine }: AnimatedHeroTitleProps) {
   // Baslik karakterleri gecikmeli animasyonla satir satir gosterilir.
   return (
-    <h2 className="font-display w-full max-w-[96vw] text-left text-[clamp(1.64rem,9.1vw,2.7rem)] font-extrabold leading-[1] tracking-[-0.034em] text-white uppercase sm:max-w-[26rem] sm:text-[clamp(1.95rem,6.8vw,3.35rem)] sm:tracking-[-0.042em] lg:max-w-[31rem] lg:text-[clamp(2.15rem,3.2vw,3.75rem)] lg:leading-[0.96] lg:tracking-[-0.05em]">
+    <h2 className="font-display mx-auto w-full max-w-[96vw] text-center text-[clamp(1.64rem,9.1vw,2.7rem)] font-extrabold leading-[1] tracking-[-0.034em] text-white uppercase sm:max-w-[26rem] sm:text-[clamp(1.95rem,6.8vw,3.35rem)] sm:tracking-[-0.042em] lg:mx-0 lg:max-w-[31rem] lg:text-left lg:text-[clamp(2.15rem,3.2vw,3.75rem)] lg:leading-[0.96] lg:tracking-[-0.05em]">
       {lines.map((line, lineIndex) => (
         <span key={`${line}-${lineIndex}`} className="hero-title-line">
           {Array.from(line).map((character, characterIndex) => {
@@ -142,10 +142,12 @@ function MapCard({ profile, mapLink, mapExternal, desktop = false }: MapCardProp
   return (
     <div
       className={`${
-        desktop ? "aspect-square w-full" : "aspect-[16/10] lg:aspect-[16/7]"
+        desktop
+          ? "aspect-square w-full"
+          : "aspect-[16/10] w-[calc(100%+0.75rem)] -mx-[0.375rem] sm:mx-0 sm:w-full lg:aspect-[16/7]"
       } flex`}
     >
-      <div className="bento-item group relative flex h-full w-full flex-col overflow-hidden rounded-[38px] sm:rounded-[48px]">
+      <div className="bento-item group relative flex h-full w-full flex-col overflow-hidden rounded-[38px] border-2 sm:rounded-[48px] sm:border">
         <div className="absolute top-6 left-6 z-20 sm:top-7 sm:left-8 md:top-8 md:left-9">
           <span className="mb-2 block text-[10px] font-bold tracking-[0.4em] uppercase text-[#C7A17A]">
             {profile.locationLabel}
@@ -344,7 +346,7 @@ export function LinkHub({ profile }: LinkHubProps) {
           <div className="mx-auto flex w-full max-w-[96rem] flex-col">
             <div className="grid gap-5 lg:grid-cols-12 lg:items-start">
               <RevealOnView delayMs={40} className="lg:col-span-5">
-                <div className="flex w-full flex-col items-start">
+                <div className="flex w-full flex-col items-center lg:items-start">
                   <AnimatedHeroTitle
                     lines={[
                       headingCopy.line1,
