@@ -58,6 +58,9 @@ export default function SplitText({
 
   useEffect(() => {
     animationCompletedRef.current = false;
+    if (ref.current) {
+      ref.current.dataset.splitState = "idle";
+    }
   }, [text, splitType]);
 
   useEffect(() => {
@@ -102,11 +105,14 @@ export default function SplitText({
         return;
       }
 
+      const element = ref.current as SplitTextElement;
+
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        element.dataset.splitState = "complete";
         return;
       }
 
-      const element = ref.current as SplitTextElement;
+      element.dataset.splitState = "animating";
 
       if (element._rbsplitInstance) {
         try {
@@ -171,6 +177,7 @@ export default function SplitText({
             },
             onComplete: () => {
               animationCompletedRef.current = true;
+              element.dataset.splitState = "complete";
               onCompleteRef.current?.();
             },
             willChange: "transform, opacity",
@@ -194,6 +201,7 @@ export default function SplitText({
           // Revert may throw if the split instance is already cleaned up.
         }
 
+        delete element.dataset.splitState;
         element._rbsplitInstance = undefined;
       };
     },
@@ -217,7 +225,7 @@ export default function SplitText({
 
   const style: CSSProperties = {
     textAlign,
-    overflow: "hidden",
+    overflow: "visible",
     whiteSpace: "normal",
     lineHeight: "inherit",
     overflowWrap: "break-word",

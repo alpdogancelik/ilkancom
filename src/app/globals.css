@@ -253,6 +253,10 @@ img {
   animation: reveal-char 0.4s ease-out forwards;
 }
 
+.split-parent {
+  overflow: visible;
+}
+
 .split-parent .split-char,
 .split-parent .split-word {
   display: inline-block;
@@ -261,6 +265,13 @@ img {
 
 .split-parent .split-line {
   display: block;
+  overflow: visible;
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+  line-height: inherit;
+}
+
+.split-parent[data-split-state="animating"] .split-line {
   overflow: hidden;
 }
 
