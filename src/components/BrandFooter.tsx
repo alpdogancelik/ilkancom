@@ -187,19 +187,9 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                             <path d="M4 20c1.6-3.2 4.4-5 8-5s6.4 1.8 8 5" />
                           </svg>
                         </span>
-                        <SplitText
-                          text={copy.aboutLabel}
-                          tag="span"
-                          splitType="chars"
-                          delay={14}
-                          duration={0.75}
-                          threshold={0.16}
-                          rootMargin="-40px"
-                          textAlign="left"
-                          className="text-sm font-medium text-[#e2dfda]"
-                          from={{ opacity: 0, y: 12 }}
-                          to={{ opacity: 1, y: 0 }}
-                        />
+                        <span className="text-sm font-medium text-[#e2dfda]">
+                          {copy.aboutLabel}
+                        </span>
                       </div>
                       <svg
                         aria-hidden
