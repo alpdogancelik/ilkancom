@@ -5,6 +5,7 @@ import type { BrandActionLink, BrandProfile } from "@/data/brand-profile";
 import type { CSSProperties } from "react";
 import { isExternalHref } from "@/lib/utils";
 
+import { AnimatedCounter } from "./AnimatedCounter";
 import { BrandFooter } from "./BrandFooter";
 import { RevealOnView } from "./RevealOnView";
 import { ReviewCarousel } from "./ReviewCarousel";
@@ -250,9 +251,13 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
             {aboutStats.map((stat, index) => (
               <RevealOnView key={stat.label} delayMs={100 + index * 100}>
                 <div className="bento-item rounded-[1.55rem] border border-white/10 bg-[linear-gradient(180deg,rgba(20,20,20,0.78)_0%,rgba(12,12,12,0.92)_100%)] flex h-full flex-col items-center justify-center p-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:rounded-[1.75rem] sm:p-5">
-                  <span className="bg-[linear-gradient(180deg,#f3d2b3_0%,#c7a17a_58%,#8b6f4d_100%)] bg-clip-text text-[2.15rem] font-bold tracking-[-0.05em] text-transparent sm:text-[2.8rem] md:text-[3.2rem]">
-                    {stat.value}
-                  </span>
+                  <AnimatedCounter
+                    value={Number.parseInt(stat.value, 10)}
+                    suffix={stat.value.includes("+") ? "+" : ""}
+                    suffixAtEndOnly={stat.value.includes("+")}
+                    durationMs={stat.value.includes("+") ? 2400 : 1800}
+                    className="bg-[linear-gradient(180deg,#f3d2b3_0%,#c7a17a_58%,#8b6f4d_100%)] bg-clip-text text-[2.15rem] font-bold tracking-[-0.05em] text-transparent tabular-nums sm:text-[2.8rem] md:text-[3.2rem]"
+                  />
                   <span className="mt-2 text-[8px] tracking-[0.24em] text-[#8f8f96] uppercase sm:text-[10px]">
                     {stat.label}
                   </span>
