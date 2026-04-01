@@ -86,6 +86,9 @@ export function BrandFooter({ profile }: BrandFooterProps) {
       id="site-footer"
       className="relative overflow-hidden bg-black px-4 pt-4 pb-[max(env(safe-area-inset-bottom),0.6rem)] font-sans text-[#fdfdfd] sm:px-8 sm:pt-8 sm:pb-5 lg:pb-6"
     >
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-10 bg-[linear-gradient(180deg,rgba(6,4,4,0.92)_0%,rgba(6,4,4,0.46)_44%,transparent_100%)] sm:h-12 lg:h-14" />
+      <div className="pointer-events-none absolute inset-x-[6%] top-0 z-[1] h-14 rounded-b-[2.1rem] bg-[radial-gradient(circle_at_center_top,rgba(245,233,216,0.14)_0%,rgba(127,95,76,0.08)_30%,rgba(5,4,4,0)_72%)] blur-2xl sm:inset-x-[10%] sm:h-16 sm:rounded-b-[2.6rem] lg:inset-x-[16%] lg:h-20 lg:rounded-b-[3rem]" />
+      <div className="pointer-events-none absolute inset-x-[10%] top-0 z-[1] h-px bg-[linear-gradient(90deg,transparent_0%,rgba(231,210,183,0.16)_18%,rgba(231,210,183,0.3)_50%,rgba(231,210,183,0.16)_82%,transparent_100%)] opacity-80" />
       <img
         src="https://i.hizliresim.com/p6nkv01.png"
         alt=""

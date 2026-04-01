@@ -580,6 +580,9 @@ export function LinkHub({ profile }: LinkHubProps) {
             </RevealOnView>
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-12 bg-[linear-gradient(180deg,transparent_0%,rgba(4,3,3,0.38)_34%,rgba(4,3,3,0.86)_100%)] sm:h-16 lg:h-20" />
+        <div className="pointer-events-none absolute inset-x-[8%] bottom-0 z-20 h-14 rounded-t-[2rem] bg-[radial-gradient(circle_at_center_bottom,rgba(247,237,223,0.16)_0%,rgba(141,110,92,0.1)_28%,rgba(4,3,3,0)_72%)] blur-2xl sm:inset-x-[12%] sm:h-16 sm:rounded-t-[2.5rem] lg:inset-x-[18%] lg:h-20 lg:rounded-t-[3rem]" />
+        <div className="pointer-events-none absolute inset-x-[12%] bottom-0 z-20 h-px bg-[linear-gradient(90deg,transparent_0%,rgba(231,210,183,0.16)_18%,rgba(231,210,183,0.3)_50%,rgba(231,210,183,0.16)_82%,transparent_100%)] opacity-80" />
       </section>
 
       <BrandFooter profile={profile} />
