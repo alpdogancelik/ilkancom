@@ -452,7 +452,7 @@ export const brandProfiles: Record<Locale, BrandProfile> = {
     mapButtonLabel: "Google Maps'te aç",
     mapOverlayLabel: "Konumu Google Maps'te aç",
     reviewEyebrow: "Gerçek Deneyimler",
-    reviewTitle: "Bizi Misafirlerimizden Dinleyin",
+    reviewTitle: "Misafirlerimizden Dinleyin",
     ownerReplyLabel: "İşletme yanıtı",
     aboutEyebrow: "Hakkımda",
     aboutTitle: "Kişisel yaklaşım, güçlü teknik altyapı ve rafine erkek bakımı.",
