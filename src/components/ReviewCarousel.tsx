@@ -12,6 +12,8 @@ import {
 
 import type { BrandReview } from "@/data/brand-profile";
 
+import SplitText from "./splittext";
+
 type ReviewCarouselProps = {
   reviews: BrandReview[];
   accentColor: string;
@@ -28,7 +30,15 @@ type ReviewCardProps = {
   accentColor: string;
 };
 
-function TypingText({ text, delay = 0 }: { text: string; delay?: number }) {
+function TypingText({
+  text,
+  delay = 0,
+  animate,
+}: {
+  text: string;
+  delay?: number;
+  animate: boolean;
+}) {
   // Baslik metinlerinde karakter karakter gorunme efekti.
   const words = text.trim().split(/\s+/).filter(Boolean);
   const wordStarts = words.reduce<number[]>((starts, word, index) => {
@@ -52,7 +62,7 @@ function TypingText({ text, delay = 0 }: { text: string; delay?: number }) {
               {word.split("").map((char, charIndex) => (
                 <span
                   key={`${char}-${wordIndex}-${charIndex}`}
-                  className="char-reveal inline-block"
+                  className={`char-reveal inline-block ${animate ? "char-reveal-active" : ""}`}
                   style={{ animationDelay: `${delay + (wordStart + charIndex) * 0.035}s` }}
                 >
                   {char}
@@ -157,9 +167,11 @@ export function ReviewCarousel({
   const hoveredRef = useRef(false);
   const draggingRef = useRef(false);
   const pointerIdRef = useRef<number | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
   const startXRef = useRef(0);
   const dragOriginRef = useRef(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [typingReady, setTypingReady] = useState(false);
   const reviewsLoop = useMemo(() => [...reviews, ...reviews], [reviews]);
 
   useEffect(() => {
@@ -193,6 +205,57 @@ export function ReviewCarousel({
     return () => {
       if (rafRef.current) {
         window.cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    let frameId: number | null = null;
+
+    if (!section) {
+      return;
+    }
+
+    const startTyping = () => {
+      frameId = window.requestAnimationFrame(() => {
+        setTypingReady(true);
+      });
+    };
+
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !("IntersectionObserver" in window)
+    ) {
+      startTyping();
+
+      return () => {
+        if (frameId !== null) {
+          window.cancelAnimationFrame(frameId);
+        }
+      };
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0]?.isIntersecting) {
+          return;
+        }
+
+        startTyping();
+        observer.disconnect();
+      },
+      {
+        threshold: 0.3,
+      },
+    );
+
+    observer.observe(section);
+
+    return () => {
+      observer.disconnect();
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
       }
     };
   }, []);
@@ -235,14 +298,42 @@ export function ReviewCarousel({
   };
 
   return (
-    <section className="relative flex flex-col justify-center overflow-hidden py-16">
+    <section ref={sectionRef} className="relative flex flex-col justify-center overflow-hidden py-16">
       <div className="mb-14 w-full px-1 text-left select-none">
         <div className="flex flex-col gap-2">
-          <span className="text-[10px] font-bold tracking-[0.5em] uppercase text-[#C7A17A]">
-            <TypingText text={eyebrow} />
+          <SplitText
+            text={eyebrow}
+            tag="span"
+            splitType="chars"
+            delay={18}
+            duration={0.85}
+            threshold={0.18}
+            rootMargin="-40px"
+            textAlign="left"
+            className="block text-[10px] font-bold tracking-[0.5em] text-[#C7A17A] uppercase lg:hidden"
+            from={{ opacity: 0, y: 14 }}
+            to={{ opacity: 1, y: 0 }}
+          />
+          <span className="hidden text-[10px] font-bold tracking-[0.5em] uppercase text-[#C7A17A] lg:block">
+            <TypingText text={eyebrow} animate={typingReady} />
           </span>
-          <h3 className="text-3xl font-light tracking-tighter text-white italic sm:text-4xl lg:text-6xl">
-            <TypingText text={title} delay={0.6} />
+
+          <SplitText
+            text={title}
+            tag="h3"
+            splitType="words, chars"
+            delay={18}
+            duration={1}
+            threshold={0.18}
+            rootMargin="-40px"
+            startDelayMs={180}
+            textAlign="left"
+            className="text-3xl font-light tracking-tighter text-white italic sm:text-4xl lg:hidden"
+            from={{ opacity: 0, y: 22 }}
+            to={{ opacity: 1, y: 0 }}
+          />
+          <h3 className="hidden text-3xl font-light tracking-tighter text-white italic sm:text-4xl lg:block lg:text-6xl">
+            <TypingText text={title} delay={0.6} animate={typingReady} />
           </h3>
         </div>
       </div>

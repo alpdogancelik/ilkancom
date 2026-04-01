@@ -11,6 +11,7 @@ import {
 } from "@/data/brand-profile";
 import { isExternalHref } from "@/lib/utils";
 
+import SplitText from "./splittext";
 import { SwipeIndicator } from "./SwipeIndicator";
 
 type ProfileHeroProps = {
@@ -254,31 +255,117 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
         </div>
 
         <div className="mt-auto max-w-[16.75rem] translate-y-8 pb-16 text-left sm:max-w-[18.25rem] sm:translate-y-0 sm:pb-24 lg:max-w-[20rem] lg:pb-24">
-          <p className="reveal text-[0.66rem] font-semibold uppercase tracking-[0.5em] text-[#c89a5a]">
+          <SplitText
+            text={profile.serviceType}
+            tag="p"
+            splitType="chars"
+            delay={18}
+            duration={0.9}
+            threshold={0.18}
+            rootMargin="-60px"
+            textAlign="left"
+            className="text-[0.66rem] font-semibold tracking-[0.5em] text-[#c89a5a] uppercase lg:hidden"
+            from={{ opacity: 0, y: 18 }}
+            to={{ opacity: 1, y: 0 }}
+          />
+          <p className="reveal hidden text-[0.66rem] font-semibold uppercase tracking-[0.5em] text-[#c89a5a] lg:block">
             {profile.serviceType}
           </p>
-          <h1 className="reveal reveal-delay-1 mt-5 text-[clamp(3.8rem,12vw,6.8rem)] font-[790] leading-[0.88] tracking-[-0.065em] text-[#f5efe8] lg:mt-6 lg:text-[clamp(5rem,8vw,7.2rem)]">
+
+          <div className="mt-5 lg:hidden">
+            <h1 className="text-[clamp(3.8rem,12vw,6.8rem)] font-[790] leading-[0.88] tracking-[-0.065em] text-[#f5efe8]">
+              <SplitText
+                text={firstName}
+                tag="span"
+                splitType="chars"
+                delay={22}
+                duration={1}
+                threshold={0.18}
+                rootMargin="-60px"
+                textAlign="left"
+                className="block"
+                from={{ opacity: 0, y: 28 }}
+                to={{ opacity: 1, y: 0 }}
+              />
+              <SplitText
+                text={lastName}
+                tag="span"
+                splitType="chars"
+                delay={22}
+                duration={1}
+                threshold={0.18}
+                rootMargin="-60px"
+                startDelayMs={180}
+                textAlign="left"
+                className="mt-0.5 block"
+                from={{ opacity: 0, y: 28 }}
+                to={{ opacity: 1, y: 0 }}
+              />
+            </h1>
+          </div>
+          <h1 className="reveal reveal-delay-1 mt-5 hidden text-[clamp(3.8rem,12vw,6.8rem)] font-[790] leading-[0.88] tracking-[-0.065em] text-[#f5efe8] lg:mt-6 lg:block lg:text-[clamp(5rem,8vw,7.2rem)]">
             <span className="block">{firstName}</span>
             <span className="mt-0.5 block">{lastName}</span>
           </h1>
 
-          <div className="reveal reveal-delay-2 mt-4">
+          <div className="mt-4 lg:hidden">
+            <p className="inline-flex max-w-[16.5rem] items-center rounded-[0.38rem] border border-[#c89a5a]/18 bg-[linear-gradient(90deg,rgba(201,153,94,0.2)_0%,rgba(201,153,94,0.1)_58%,rgba(201,153,94,0.03)_100%)] px-3.5 py-2 text-[0.8rem] font-medium tracking-[0.18em] text-[#f3e6d7]/86 shadow-[0_16px_30px_-22px_rgba(0,0,0,0.74)] backdrop-blur-[1px] sm:max-w-[18rem]">
+              <SplitText
+                text={profile.tagline}
+                tag="span"
+                splitType="words, chars"
+                delay={18}
+                duration={0.9}
+                threshold={0.18}
+                rootMargin="-60px"
+                textAlign="left"
+                className="block"
+                from={{ opacity: 0, y: 18 }}
+                to={{ opacity: 1, y: 0 }}
+              />
+            </p>
+          </div>
+          <div className="reveal reveal-delay-2 mt-4 hidden lg:block">
             <p className="inline-flex max-w-[16.5rem] items-center rounded-[0.38rem] border border-[#c89a5a]/18 bg-[linear-gradient(90deg,rgba(201,153,94,0.2)_0%,rgba(201,153,94,0.1)_58%,rgba(201,153,94,0.03)_100%)] px-3.5 py-2 text-[0.8rem] font-medium tracking-[0.18em] text-[#f3e6d7]/86 shadow-[0_16px_30px_-22px_rgba(0,0,0,0.74)] backdrop-blur-[1px] sm:max-w-[18rem]">
               {profile.tagline}
             </p>
           </div>
 
           {appointmentLink ? (
-            <div className="reveal reveal-delay-3 mt-4 flex w-full justify-start">
-              <a
-                href={appointmentLink.href}
-                target={appointmentExternal ? "_blank" : undefined}
-                rel={appointmentExternal ? "noreferrer noopener" : undefined}
-                className="inline-flex min-w-[9rem] items-center justify-center rounded-full border border-[#b7814d30] bg-[#15100d]/96 px-6 py-3 text-[0.56rem] font-semibold uppercase tracking-[0.34em] text-[#f5efe8] shadow-[0_18px_44px_-28px_rgba(0,0,0,0.78)] transition duration-300 hover:-translate-y-0.5 hover:border-[#c2956355] hover:bg-[#1b140f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-              >
-                {profile.heroAppointmentLabel}
-              </a>
-            </div>
+            <>
+              <div className="mt-4 flex w-full justify-start lg:hidden">
+                <a
+                  href={appointmentLink.href}
+                  target={appointmentExternal ? "_blank" : undefined}
+                  rel={appointmentExternal ? "noreferrer noopener" : undefined}
+                  className="inline-flex min-w-[9rem] items-center justify-center rounded-full border border-[#b7814d30] bg-[#15100d]/96 px-6 py-3 text-[0.56rem] font-semibold uppercase tracking-[0.34em] text-[#f5efe8] shadow-[0_18px_44px_-28px_rgba(0,0,0,0.78)] transition duration-300 hover:-translate-y-0.5 hover:border-[#c2956355] hover:bg-[#1b140f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                >
+                  <SplitText
+                    text={profile.heroAppointmentLabel}
+                    tag="span"
+                    splitType="chars"
+                    delay={16}
+                    duration={0.8}
+                    threshold={0.2}
+                    rootMargin="-60px"
+                    textAlign="center"
+                    className="block"
+                    from={{ opacity: 0, y: 14 }}
+                    to={{ opacity: 1, y: 0 }}
+                  />
+                </a>
+              </div>
+              <div className="reveal reveal-delay-3 mt-4 hidden w-full justify-start lg:flex">
+                <a
+                  href={appointmentLink.href}
+                  target={appointmentExternal ? "_blank" : undefined}
+                  rel={appointmentExternal ? "noreferrer noopener" : undefined}
+                  className="inline-flex min-w-[9rem] items-center justify-center rounded-full border border-[#b7814d30] bg-[#15100d]/96 px-6 py-3 text-[0.56rem] font-semibold uppercase tracking-[0.34em] text-[#f5efe8] shadow-[0_18px_44px_-28px_rgba(0,0,0,0.78)] transition duration-300 hover:-translate-y-0.5 hover:border-[#c2956355] hover:bg-[#1b140f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                >
+                  {profile.heroAppointmentLabel}
+                </a>
+              </div>
+            </>
           ) : null}
 
         </div>

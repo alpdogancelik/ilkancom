@@ -10,6 +10,7 @@ import { BrandFooter } from "./BrandFooter";
 import { RevealOnView } from "./RevealOnView";
 import { ReviewCarousel } from "./ReviewCarousel";
 import { ServicePriceDialog } from "./ServicePriceDialog";
+import SplitText from "./splittext";
 
 type LinkHubProps = {
   profile: BrandProfile;
@@ -36,30 +37,55 @@ type HeroQuickNavProps = {
 
 function AnimatedHeroTitle({ lines, accentLine }: AnimatedHeroTitleProps) {
   // Baslik karakterleri gecikmeli animasyonla satir satir gosterilir.
-  return (
-    <h2 className="font-display mx-auto w-full max-w-[96vw] text-center text-[clamp(1.64rem,9.1vw,2.7rem)] font-extrabold leading-[1] tracking-[-0.034em] text-white uppercase sm:max-w-[26rem] sm:text-[clamp(1.95rem,6.8vw,3.35rem)] sm:tracking-[-0.042em] lg:mx-0 lg:max-w-[31rem] lg:text-left lg:text-[clamp(2.15rem,3.2vw,3.75rem)] lg:leading-[0.96] lg:tracking-[-0.05em]">
-      {lines.map((line, lineIndex) => (
-        <span key={`${line}-${lineIndex}`} className="hero-title-line">
-          {Array.from(line).map((character, characterIndex) => {
-            const style = {
-              "--hero-delay": `${lineIndex * 140 + characterIndex * 24}ms`,
-            } as CSSProperties;
-            const className =
-              lineIndex === accentLine ? "hero-title-char hero-title-char-accent" : "hero-title-char";
+  const titleClassName =
+    "font-display mx-auto w-full max-w-[96vw] text-center text-[clamp(1.64rem,9.1vw,2.7rem)] font-extrabold leading-[1] tracking-[-0.034em] text-white uppercase sm:max-w-[26rem] sm:text-[clamp(1.95rem,6.8vw,3.35rem)] sm:tracking-[-0.042em] lg:mx-0 lg:max-w-[31rem] lg:text-left lg:text-[clamp(2.15rem,3.2vw,3.75rem)] lg:leading-[0.96] lg:tracking-[-0.05em]";
 
-            return (
-              <span
-                key={`${lineIndex}-${characterIndex}-${character}`}
-                className={className}
-                style={style}
-              >
-                {character === " " ? "\u00A0" : character}
-              </span>
-            );
-          })}
-        </span>
-      ))}
-    </h2>
+  return (
+    <>
+      <h2 className={`${titleClassName} lg:hidden`}>
+        {lines.map((line, lineIndex) => (
+          <SplitText
+            key={`${line}-${lineIndex}`}
+            text={line}
+            tag="span"
+            splitType="chars"
+            delay={20}
+            duration={0.95}
+            threshold={0.18}
+            rootMargin="-40px"
+            startDelayMs={lineIndex * 160}
+            textAlign="center"
+            className={`hero-title-line block ${lineIndex === accentLine ? "split-gradient-gold" : ""}`}
+            from={{ opacity: 0, y: 28 }}
+            to={{ opacity: 1, y: 0 }}
+          />
+        ))}
+      </h2>
+
+      <h2 className={`${titleClassName} hidden lg:block`}>
+        {lines.map((line, lineIndex) => (
+          <span key={`${line}-${lineIndex}`} className="hero-title-line">
+            {Array.from(line).map((character, characterIndex) => {
+              const style = {
+                "--hero-delay": `${lineIndex * 140 + characterIndex * 24}ms`,
+              } as CSSProperties;
+              const className =
+                lineIndex === accentLine ? "hero-title-char hero-title-char-accent" : "hero-title-char";
+
+              return (
+                <span
+                  key={`${lineIndex}-${characterIndex}-${character}`}
+                  className={className}
+                  style={style}
+                >
+                  {character === " " ? "\u00A0" : character}
+                </span>
+              );
+            })}
+          </span>
+        ))}
+      </h2>
+    </>
   );
 }
 
@@ -150,12 +176,46 @@ function MapCard({ profile, mapLink, mapExternal, desktop = false }: MapCardProp
     >
       <div className="bento-item group relative flex h-full w-full flex-col overflow-hidden rounded-[38px] border-2 sm:rounded-[48px] sm:border">
         <div className="absolute top-6 left-6 z-20 sm:top-7 sm:left-8 md:top-8 md:left-9">
-          <span className="mb-2 block text-[10px] font-bold tracking-[0.4em] uppercase text-[#C7A17A]">
-            {profile.locationLabel}
-          </span>
-          <h3 className="text-[2rem] font-medium tracking-tight text-white sm:text-[2.2rem] lg:text-[2.45rem]">
-            {profile.locationName}
-          </h3>
+          {desktop ? (
+            <>
+              <span className="mb-2 block text-[10px] font-bold tracking-[0.4em] uppercase text-[#C7A17A]">
+                {profile.locationLabel}
+              </span>
+              <h3 className="text-[2rem] font-medium tracking-tight text-white sm:text-[2.2rem] lg:text-[2.45rem]">
+                {profile.locationName}
+              </h3>
+            </>
+          ) : (
+            <>
+              <SplitText
+                text={profile.locationLabel}
+                tag="span"
+                splitType="chars"
+                delay={16}
+                duration={0.8}
+                threshold={0.2}
+                rootMargin="-40px"
+                textAlign="left"
+                className="mb-2 block text-[10px] font-bold tracking-[0.4em] text-[#C7A17A] uppercase"
+                from={{ opacity: 0, y: 14 }}
+                to={{ opacity: 1, y: 0 }}
+              />
+              <SplitText
+                text={profile.locationName}
+                tag="h3"
+                splitType="words, chars"
+                delay={16}
+                duration={0.95}
+                threshold={0.2}
+                rootMargin="-40px"
+                startDelayMs={120}
+                textAlign="left"
+                className="text-[2rem] font-medium tracking-tight text-white sm:text-[2.2rem]"
+                from={{ opacity: 0, y: 18 }}
+                to={{ opacity: 1, y: 0 }}
+              />
+            </>
+          )}
         </div>
 
         <div className="absolute inset-0 z-0 opacity-40 transition-opacity duration-1000 group-hover:opacity-60">
@@ -270,28 +330,105 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
         <div className="order-2 flex flex-col justify-start lg:order-2 lg:col-span-8">
           <div className="mb-6 sm:mb-9 lg:mb-8">
             <RevealOnView delayMs={150}>
-              <span className="mb-3 block text-[9px] font-bold tracking-[0.4em] text-[#C7A17A] uppercase sm:mb-4 sm:text-[10px]">
-                {profile.aboutEyebrow}
-              </span>
+              <>
+                <SplitText
+                  text={profile.aboutEyebrow}
+                  tag="span"
+                  splitType="chars"
+                  delay={18}
+                  duration={0.85}
+                  threshold={0.18}
+                  rootMargin="-50px"
+                  textAlign="left"
+                  className="mb-3 block text-[9px] font-bold tracking-[0.4em] text-[#C7A17A] uppercase sm:mb-4 sm:text-[10px] lg:hidden"
+                  from={{ opacity: 0, y: 14 }}
+                  to={{ opacity: 1, y: 0 }}
+                />
+                <span className="mb-3 hidden text-[9px] font-bold tracking-[0.4em] text-[#C7A17A] uppercase sm:mb-4 sm:text-[10px] lg:block">
+                  {profile.aboutEyebrow}
+                </span>
+              </>
             </RevealOnView>
             <RevealOnView delayMs={250}>
-              <h3 className="max-w-[43rem] text-[2.1rem] font-[780] leading-[1] tracking-[-0.05em] text-white sm:text-[2.45rem] lg:text-[2.95rem] xl:text-[3.3rem]">
-                {aboutHeading.line1}
-                <br className="hidden sm:block" />
-                <span className="bg-[linear-gradient(90deg,#ffffff_0%,#a3a3a3_100%)] bg-clip-text text-transparent">
-                  {" "}
-                  {aboutHeading.line2}
-                </span>
-              </h3>
+              <>
+                <div className="max-w-[43rem] lg:hidden">
+                  <SplitText
+                    text={aboutHeading.line1}
+                    tag="span"
+                    splitType="words, chars"
+                    delay={18}
+                    duration={1}
+                    threshold={0.18}
+                    rootMargin="-50px"
+                    textAlign="left"
+                    className="block text-[2.1rem] font-[780] leading-[1] tracking-[-0.05em] text-white sm:text-[2.45rem]"
+                    from={{ opacity: 0, y: 24 }}
+                    to={{ opacity: 1, y: 0 }}
+                  />
+                  <SplitText
+                    text={aboutHeading.line2}
+                    tag="span"
+                    splitType="words, chars"
+                    delay={18}
+                    duration={1}
+                    threshold={0.18}
+                    rootMargin="-50px"
+                    startDelayMs={180}
+                    textAlign="left"
+                    className="split-gradient-silver mt-1 block text-[2.1rem] font-[780] leading-[1] tracking-[-0.05em] sm:text-[2.45rem]"
+                    from={{ opacity: 0, y: 24 }}
+                    to={{ opacity: 1, y: 0 }}
+                  />
+                </div>
+                <h3 className="hidden max-w-[43rem] text-[2.1rem] font-[780] leading-[1] tracking-[-0.05em] text-white sm:text-[2.45rem] lg:block lg:text-[2.95rem] xl:text-[3.3rem]">
+                  {aboutHeading.line1}
+                  <br className="hidden sm:block" />
+                  <span className="bg-[linear-gradient(90deg,#ffffff_0%,#a3a3a3_100%)] bg-clip-text text-transparent">
+                    {" "}
+                    {aboutHeading.line2}
+                  </span>
+                </h3>
+              </>
             </RevealOnView>
           </div>
 
           <div className="mb-7 flex max-w-[36rem] flex-col gap-4 text-sm leading-[1.68] font-light text-[#A1A1AA] sm:mb-10 sm:gap-5 sm:text-base lg:text-[0.93rem]">
             <RevealOnView delayMs={350}>
-              <p>{aboutLead}</p>
+              <>
+                <SplitText
+                  text={aboutLead}
+                  tag="p"
+                  splitType="lines"
+                  delay={80}
+                  duration={0.8}
+                  threshold={0.12}
+                  rootMargin="-50px"
+                  textAlign="left"
+                  className="lg:hidden"
+                  from={{ opacity: 0, y: 18 }}
+                  to={{ opacity: 1, y: 0 }}
+                />
+                <p className="hidden lg:block">{aboutLead}</p>
+              </>
             </RevealOnView>
             <RevealOnView delayMs={450}>
-              <p className="lg:max-w-[36rem]">{aboutSupport}</p>
+              <>
+                <SplitText
+                  text={aboutSupport}
+                  tag="p"
+                  splitType="lines"
+                  delay={80}
+                  duration={0.8}
+                  threshold={0.12}
+                  rootMargin="-50px"
+                  startDelayMs={120}
+                  textAlign="left"
+                  className="lg:hidden"
+                  from={{ opacity: 0, y: 18 }}
+                  to={{ opacity: 1, y: 0 }}
+                />
+                <p className="hidden lg:block lg:max-w-[36rem]">{aboutSupport}</p>
+              </>
             </RevealOnView>
           </div>
 
@@ -410,9 +547,19 @@ export function LinkHub({ profile }: LinkHubProps) {
 
             <RevealOnView delayMs={220} className="mt-8 lg:hidden">
               <div className="overflow-hidden py-8 text-center">
-                <p className="text-[0.9rem] font-semibold uppercase tracking-[0.34em] text-[#d5baa0]/72">
-                  {profile.locationName}
-                </p>
+                <SplitText
+                  text={profile.locationName}
+                  tag="p"
+                  splitType="chars"
+                  delay={16}
+                  duration={0.85}
+                  threshold={0.2}
+                  rootMargin="-30px"
+                  textAlign="center"
+                  className="text-[0.9rem] font-semibold tracking-[0.34em] text-[#d5baa0]/72 uppercase"
+                  from={{ opacity: 0, y: 14 }}
+                  to={{ opacity: 1, y: 0 }}
+                />
               </div>
             </RevealOnView>
           </div>

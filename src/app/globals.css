@@ -247,7 +247,40 @@ img {
 
 .char-reveal {
   opacity: 0;
+}
+
+.char-reveal-active {
   animation: reveal-char 0.4s ease-out forwards;
+}
+
+.split-parent .split-char,
+.split-parent .split-word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.split-parent .split-line {
+  display: block;
+  overflow: hidden;
+}
+
+.split-gradient-gold .split-char,
+.split-gradient-gold .split-word,
+.split-gradient-gold .split-line {
+  background: linear-gradient(90deg, #cba271 0%, #f3deba 48%, #a77a4c 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.split-gradient-silver .split-char,
+.split-gradient-silver .split-word,
+.split-gradient-silver .split-line {
+  background: linear-gradient(90deg, #ffffff 0%, #a3a3a3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @keyframes hero-char-in {
@@ -332,7 +365,7 @@ img {
   }
 }
 
-.text-gradient-gold .char-reveal {
+.text-gradient-gold .char-reveal-active {
   background: linear-gradient(to right, #c7a17a, #fcebc4, #c7a17a, #8a6b40, #c7a17a);
   background-size: 300%;
   -webkit-background-clip: text;
@@ -449,7 +482,10 @@ img {
   .premium-ambient-orb,
   .premium-ambient-orb-slow,
   .hero-title-char,
-  .hero-title-char-accent {
+  .hero-title-char-accent,
+  .split-parent .split-char,
+  .split-parent .split-word,
+  .split-parent .split-line {
     animation: none !important;
   }
 

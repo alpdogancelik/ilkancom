@@ -2,19 +2,15 @@
 
 // Sayfa sonundaki iletisim ve hizli baglanti bolumu.
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties } from "react";
 
 import type { BrandProfile } from "@/data/brand-profile";
 import { isExternalHref } from "@/lib/utils";
 
 import styles from "./BrandFooter.module.css";
+import SplitText from "./splittext";
 
 type BrandFooterProps = {
   profile: BrandProfile;
-};
-
-type SplitTextProps = {
-  text: string;
 };
 
 const footerCopy = {
@@ -49,23 +45,6 @@ const footerCopy = {
     rightsLabel: "All Rights Reserved",
   },
 } as const;
-
-function SplitText({ text }: SplitTextProps) {
-  // Baslik metnini harf harf animasyonla gosterir.
-  return (
-    <span className="inline-block overflow-hidden">
-      {text.split("").map((char, index) => (
-        <span
-          key={`${char}-${index}`}
-          className={styles.char}
-          style={{ animationDelay: `${index * 0.03}s` } as CSSProperties}
-        >
-          {char === " " ? "\u00A0" : char}
-        </span>
-      ))}
-    </span>
-  );
-}
 
 function findSocialHref(profile: BrandProfile, platform: "instagram" | "tiktok" | "whatsapp") {
   return profile.socials.find((social) => social.platform === platform)?.href ?? "#";
@@ -127,29 +106,65 @@ export function BrandFooter({ profile }: BrandFooterProps) {
             <div className="group relative flex flex-col justify-between overflow-visible rounded-[32px] border border-[#222] bg-[#101010]/70 p-6 backdrop-blur-xl sm:p-10 lg:col-span-2">
               <div className="relative mb-10 sm:mb-12 lg:mb-16">
                 <h2 className="max-w-[19rem] text-[clamp(1.95rem,7.2vw,2.75rem)] leading-[1.08] font-medium tracking-tight sm:max-w-none sm:text-4xl">
-                  {isVisible ? (
-                    <>
-                      <span className="sm:hidden">{copy.headingTop}</span>
-                      <span className="hidden sm:inline">
-                        <SplitText text={copy.headingTop} />
-                      </span>
-                      <br />
-                      <span className="sm:hidden">{copy.headingBottom}</span>
-                      <span className="hidden sm:inline">
-                        <SplitText text={copy.headingBottom} />
-                      </span>
-                    </>
-                  ) : null}
+                  <SplitText
+                    text={copy.headingTop}
+                    tag="span"
+                    splitType="words, chars"
+                    delay={18}
+                    duration={0.95}
+                    threshold={0.16}
+                    rootMargin="-40px"
+                    textAlign="left"
+                    className="block"
+                    from={{ opacity: 0, y: 22 }}
+                    to={{ opacity: 1, y: 0 }}
+                  />
+                  <SplitText
+                    text={copy.headingBottom}
+                    tag="span"
+                    splitType="words, chars"
+                    delay={18}
+                    duration={0.95}
+                    threshold={0.16}
+                    rootMargin="-40px"
+                    startDelayMs={140}
+                    textAlign="left"
+                    className="block"
+                    from={{ opacity: 0, y: 22 }}
+                    to={{ opacity: 1, y: 0 }}
+                  />
                 </h2>
                 <div className="mt-4 inline-flex rounded-2xl bg-[#a5f3bc] px-4 py-2 text-xs font-semibold text-[#1a5d2e] shadow-lg lg:absolute lg:top-6 lg:right-6 lg:mt-0 lg:text-sm">
-                  {copy.bubbleLabel}
+                  <SplitText
+                    text={copy.bubbleLabel}
+                    tag="span"
+                    splitType="chars"
+                    delay={14}
+                    duration={0.7}
+                    threshold={0.16}
+                    rootMargin="-40px"
+                    textAlign="center"
+                    className="block"
+                    from={{ opacity: 0, y: 12 }}
+                    to={{ opacity: 1, y: 0 }}
+                  />
                 </div>
               </div>
 
               <div className="z-10 grid gap-5 sm:gap-6">
-                <h3 className="text-[10px] font-semibold tracking-[0.28em] text-[#c7a17a] uppercase sm:text-xs">
-                  {copy.quickLinksTitle}
-                </h3>
+                <SplitText
+                  text={copy.quickLinksTitle}
+                  tag="h3"
+                  splitType="chars"
+                  delay={16}
+                  duration={0.8}
+                  threshold={0.16}
+                  rootMargin="-40px"
+                  textAlign="left"
+                  className="text-[10px] font-semibold tracking-[0.28em] text-[#c7a17a] uppercase sm:text-xs"
+                  from={{ opacity: 0, y: 14 }}
+                  to={{ opacity: 1, y: 0 }}
+                />
 
                 <div className="grid gap-4">
                   <div className="grid gap-3 sm:max-w-[24rem]">
@@ -168,7 +183,19 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                             <path d="M4 20c1.6-3.2 4.4-5 8-5s6.4 1.8 8 5" />
                           </svg>
                         </span>
-                        <span className="text-sm font-medium text-[#e2dfda]">{copy.aboutLabel}</span>
+                        <SplitText
+                          text={copy.aboutLabel}
+                          tag="span"
+                          splitType="chars"
+                          delay={14}
+                          duration={0.75}
+                          threshold={0.16}
+                          rootMargin="-40px"
+                          textAlign="left"
+                          className="text-sm font-medium text-[#e2dfda]"
+                          from={{ opacity: 0, y: 12 }}
+                          to={{ opacity: 1, y: 0 }}
+                        />
                       </div>
                       <svg
                         aria-hidden
@@ -195,7 +222,19 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                             <path d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                           </svg>
                         </span>
-                        <span className="text-sm font-medium text-[#e2dfda]">{copy.locationLabel}</span>
+                        <SplitText
+                          text={copy.locationLabel}
+                          tag="span"
+                          splitType="chars"
+                          delay={14}
+                          duration={0.75}
+                          threshold={0.16}
+                          rootMargin="-40px"
+                          textAlign="left"
+                          className="text-sm font-medium text-[#e2dfda]"
+                          from={{ opacity: 0, y: 12 }}
+                          to={{ opacity: 1, y: 0 }}
+                        />
                       </div>
                       <svg
                         aria-hidden
@@ -215,16 +254,64 @@ export function BrandFooter({ profile }: BrandFooterProps) {
             <div className="flex flex-col gap-6">
               <div className="flex flex-grow flex-col justify-between rounded-[32px] border border-[#222] bg-[#101010]/70 p-6 backdrop-blur-xl sm:p-10">
                 <div className="mb-5">
-                  <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[#c7a17a]">
-                    {copy.contactEyebrow}
-                  </p>
+                  {copy.contactEyebrow ? (
+                    <SplitText
+                      text={copy.contactEyebrow}
+                      tag="p"
+                      splitType="chars"
+                      delay={14}
+                      duration={0.75}
+                      threshold={0.16}
+                      rootMargin="-40px"
+                      textAlign="left"
+                      className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[#c7a17a]"
+                      from={{ opacity: 0, y: 12 }}
+                      to={{ opacity: 1, y: 0 }}
+                    />
+                  ) : null}
                   <h2 className="text-[clamp(1.7rem,3.3vw,2.4rem)] leading-[1.02] font-semibold tracking-[-0.03em] text-[#f4f4f4]">
-                    {copy.contactTitle}
-                    <span className="block text-[#c7a17a]">{copy.contactHighlight}</span>
+                    <SplitText
+                      text={copy.contactTitle}
+                      tag="span"
+                      splitType="words, chars"
+                      delay={18}
+                      duration={0.9}
+                      threshold={0.16}
+                      rootMargin="-40px"
+                      textAlign="left"
+                      className="block"
+                      from={{ opacity: 0, y: 20 }}
+                      to={{ opacity: 1, y: 0 }}
+                    />
+                    <SplitText
+                      text={copy.contactHighlight}
+                      tag="span"
+                      splitType="words, chars"
+                      delay={18}
+                      duration={0.9}
+                      threshold={0.16}
+                      rootMargin="-40px"
+                      startDelayMs={120}
+                      textAlign="left"
+                      className="split-gradient-gold block"
+                      from={{ opacity: 0, y: 20 }}
+                      to={{ opacity: 1, y: 0 }}
+                    />
                   </h2>
-                  <p className="mt-3 text-sm leading-relaxed text-[#a1a1aa]">
-                    {copy.contactSubtitle}
-                  </p>
+                  <SplitText
+                    text={copy.contactSubtitle}
+                    tag="p"
+                    splitType="lines"
+                    delay={80}
+                    duration={0.8}
+                    threshold={0.16}
+                    rootMargin="-40px"
+                    startDelayMs={180}
+                    textAlign="left"
+                    className="mt-3 text-sm leading-relaxed text-[#a1a1aa]"
+                    from={{ opacity: 0, y: 16 }}
+                    to={{ opacity: 1, y: 0 }}
+                  />
                 </div>
                 <div className="space-y-4">
                   <a
@@ -237,9 +324,19 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                     >
                       <path d="M20 22.621 16.479 15.83c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-8.994l2.083-1.026-3.493-6.82c-2.106 1.039-8.917 4.194-2.342 16.634 6.784 12.857 16.033 6.953 13.946 5.987Z" />
                     </svg>
-                    <span className="text-sm font-medium text-[#a1a1aa] transition-colors group-hover:text-white">
-                      {copy.phoneLabel}
-                    </span>
+                    <SplitText
+                      text={copy.phoneLabel}
+                      tag="span"
+                      splitType="chars"
+                      delay={14}
+                      duration={0.75}
+                      threshold={0.16}
+                      rootMargin="-40px"
+                      textAlign="left"
+                      className="text-sm font-medium text-[#a1a1aa] transition-colors group-hover:text-white"
+                      from={{ opacity: 0, y: 12 }}
+                      to={{ opacity: 1, y: 0 }}
+                    />
                   </a>
                 </div>
               </div>
@@ -271,7 +368,19 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                     </svg>
                   </a>
                   <div className="absolute -right-4 -bottom-4 z-20 whitespace-nowrap rounded-xl rounded-tl-none bg-[#f9a8d4] px-3 py-1 text-xs font-bold text-[#831843] shadow-lg">
-                    {copy.followLabel}
+                    <SplitText
+                      text={copy.followLabel}
+                      tag="span"
+                      splitType="chars"
+                      delay={14}
+                      duration={0.7}
+                      threshold={0.16}
+                      rootMargin="-40px"
+                      textAlign="center"
+                      className="block"
+                      from={{ opacity: 0, y: 10 }}
+                      to={{ opacity: 1, y: 0 }}
+                    />
                   </div>
                 </div>
 
