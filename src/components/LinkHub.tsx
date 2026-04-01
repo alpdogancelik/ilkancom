@@ -6,6 +6,7 @@ import { isExternalHref } from "@/lib/utils";
 import { BrandFooter } from "./BrandFooter";
 import { RevealOnView } from "./RevealOnView";
 import { ReviewCarousel } from "./ReviewCarousel";
+import { ServicePriceDialog } from "./ServicePriceDialog";
 
 type LinkHubProps = {
   profile: BrandProfile;
@@ -201,14 +202,23 @@ export function LinkHub({ profile }: LinkHubProps) {
           <div className="mx-auto flex w-full max-w-[96rem] flex-col">
             <div className="grid gap-6 lg:grid-cols-12 lg:items-start">
               <RevealOnView delayMs={40} className="lg:col-span-5">
-                <h2 className="max-w-[40rem] text-left text-[clamp(3rem,5.6vw,6.2rem)] font-bold leading-[0.98] tracking-[-0.045em] text-white uppercase">
-                  <span className="block">{headingCopy.line1}</span>
-                  <span className="block">{headingCopy.line2}</span>
-                  <span className="block">{headingCopy.line3}</span>
-                  <span className="block bg-[linear-gradient(90deg,#c7a17a_0%,#f3ddba_45%,#a47b4f_100%)] bg-clip-text text-transparent">
-                    {headingCopy.line4}
-                  </span>
-                </h2>
+                <div className="flex flex-col items-start">
+                  <h2 className="max-w-[40rem] text-left text-[clamp(3rem,5.6vw,6.2rem)] font-bold leading-[0.98] tracking-[-0.045em] text-white uppercase">
+                    <span className="block">{headingCopy.line1}</span>
+                    <span className="block">{headingCopy.line2}</span>
+                    <span className="block">{headingCopy.line3}</span>
+                    <span className="block bg-[linear-gradient(90deg,#c7a17a_0%,#f3ddba_45%,#a47b4f_100%)] bg-clip-text text-transparent">
+                      {headingCopy.line4}
+                    </span>
+                  </h2>
+
+                  <ServicePriceDialog
+                    accentColor={profile.accentColor}
+                    brandName={profile.brandName}
+                    locale={profile.locale}
+                    className="mt-8 sm:mt-10"
+                  />
+                </div>
               </RevealOnView>
 
               <RevealOnView delayMs={80} className="mt-2 lg:col-span-7 lg:mt-0 lg:pl-2 xl:pl-4">

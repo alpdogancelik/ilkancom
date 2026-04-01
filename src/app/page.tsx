@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
 import { LinkHub } from "@/components/LinkHub";
 import { ProfileHero } from "@/components/ProfileHero";
-import { ServicePriceDialog } from "@/components/ServicePriceDialog";
 import {
   defaultLocale,
   getBrandProfile,
@@ -32,11 +31,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     <main lang={locale} className="snap-shell relative overflow-x-hidden bg-background">
       <ProfileHero profile={profile} locale={locale} />
       <LinkHub profile={profile} />
-      <ServicePriceDialog
-        accentColor={profile.accentColor}
-        brandName={profile.brandName}
-        locale={locale}
-      />
       <FloatingWhatsAppButton
         ariaLabel={profile.phoneLabel}
         label={profile.contactButtonLabel}

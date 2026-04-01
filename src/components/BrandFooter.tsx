@@ -108,8 +108,8 @@ export function BrandFooter({ profile }: BrandFooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden bg-black p-4 pb-28 font-sans text-[#fdfdfd] sm:p-8">
-      <div className="relative mx-auto flex min-h-[100svh] w-full items-center justify-center overflow-hidden">
+    <footer className="relative overflow-hidden bg-black px-4 pt-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] font-sans text-[#fdfdfd] sm:px-8 sm:pt-8 sm:pb-8 lg:pb-10">
+      <div className="relative mx-auto flex w-full items-start justify-center overflow-hidden">
         <img
           src="https://i.hizliresim.com/p6nkv01.png"
           alt=""
@@ -128,9 +128,9 @@ export function BrandFooter({ profile }: BrandFooterProps) {
           className={`z-10 w-full max-w-[1100px] transform transition-all duration-1000 ease-out ${isVisible ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"
             }`}
         >
-          <div className="mb-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
-            <div className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-[#222] bg-[#101010]/70 p-6 backdrop-blur-xl sm:p-10 lg:col-span-2">
-              <div className="relative mb-12 sm:mb-24">
+          <div className="mb-8 grid grid-cols-1 gap-6 lg:mb-10 lg:grid-cols-3">
+            <div className="group relative flex flex-col justify-between overflow-visible rounded-[32px] border border-[#222] bg-[#101010]/70 p-6 backdrop-blur-xl sm:p-10 lg:col-span-2">
+              <div className="relative mb-10 sm:mb-12 lg:mb-16">
                 <h2 className="max-w-[19rem] text-[clamp(1.95rem,7.2vw,2.75rem)] leading-[1.08] font-medium tracking-tight sm:max-w-none sm:text-4xl">
                   {isVisible ? (
                     <>
@@ -146,7 +146,7 @@ export function BrandFooter({ profile }: BrandFooterProps) {
                     </>
                   ) : null}
                 </h2>
-                <div className="mt-4 inline-flex rounded-2xl bg-[#a5f3bc] px-4 py-2 text-xs font-semibold text-[#1a5d2e] shadow-lg sm:absolute sm:top-8 sm:-right-8 sm:mt-0 sm:translate-x-full sm:rounded-bl-none sm:text-sm">
+                <div className="mt-4 inline-flex rounded-2xl bg-[#a5f3bc] px-4 py-2 text-xs font-semibold text-[#1a5d2e] shadow-lg lg:absolute lg:top-6 lg:right-6 lg:mt-0 lg:text-sm">
                   {copy.bubbleLabel}
                 </div>
               </div>
@@ -299,18 +299,12 @@ export function BrandFooter({ profile }: BrandFooterProps) {
             </div>
           </div>
 
-          <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-[#222] pt-8 text-[#444] md:flex-row">
+          <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-[#222] pt-6 text-[#444] md:mt-10 md:flex-row md:pt-8 lg:pr-[18rem]">
             <div className="text-[10px] tracking-widest uppercase sm:text-xs">© {currentYear}</div>
             <div className="flex items-center gap-4 text-[10px] sm:text-xs">
               <span className="tracking-[0.2em] uppercase">{copy.rightsLabel}</span>
               <div className="flex items-center font-bold tracking-tighter">
-                <span className={`${styles.metalicText} pr-1 uppercase`}>{profile.footerTag}</span>
-                <span className="relative inline-block text-[#888]">
-                  R
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[7px] font-bold text-[#888]">
-                    ©
-                  </span>
-                </span>
+                <span className={`${styles.metalicText} uppercase`}>{profile.footerTag}</span>
               </div>
             </div>
           </div>

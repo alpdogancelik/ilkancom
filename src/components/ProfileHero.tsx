@@ -222,7 +222,7 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,3,2,0.02)_0%,rgba(5,4,3,0.06)_18%,rgba(7,5,4,0.18)_44%,rgba(8,6,5,0.78)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,6,5,0.42)_0%,rgba(8,6,5,0.12)_18%,rgba(8,6,5,0.04)_48%,rgba(8,6,5,0.26)_100%)]" />
 
-      <div className="relative flex min-h-[100svh] w-full flex-col px-6 pt-8 pb-[calc(env(safe-area-inset-bottom)+1.2rem)] sm:px-8 lg:px-14 xl:px-16">
+      <div className="relative flex min-h-[100svh] w-full flex-col px-6 pt-8 pb-[calc(env(safe-area-inset-bottom)+6rem)] sm:px-8 lg:px-14 lg:pb-[calc(env(safe-area-inset-bottom)+1.2rem)] xl:px-16">
         <div className="flex items-start justify-between gap-4">
           <Image
             src="/images/ikman.png"
@@ -249,7 +249,7 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
           <HeroSocialRail socials={heroSocials} accentColor={profile.accentColor} />
         </div>
 
-        <div className="mt-auto max-w-[16.75rem] pb-10 text-left sm:max-w-[18.25rem] lg:max-w-[20rem] lg:pb-24">
+        <div className="mt-auto max-w-[16.75rem] pb-24 text-left sm:max-w-[18.25rem] lg:max-w-[20rem] lg:pb-24">
           <p className="reveal text-[0.66rem] font-semibold uppercase tracking-[0.5em] text-[#c89a5a]">
             {profile.serviceType}
           </p>
@@ -282,7 +282,7 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+1.25rem)] flex justify-center lg:hidden">
+        <div className="pointer-events-none absolute inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+7.6rem)] flex justify-center lg:hidden">
           <SwipeIndicator
             href="#link-hub"
             label={profile.swipeIndicatorLabel}

@@ -12,6 +12,7 @@ type ServicePriceDialogProps = {
   accentColor: string;
   brandName: string;
   locale: Locale;
+  className?: string;
 };
 
 const servicePriceCopy = {
@@ -33,6 +34,7 @@ export function ServicePriceDialog({
   accentColor,
   brandName,
   locale,
+  className,
 }: ServicePriceDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -74,7 +76,7 @@ export function ServicePriceDialog({
 
   return (
     <>
-      <div className="fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] left-3 z-[60] sm:left-5 lg:bottom-8 lg:left-8">
+      <div className={className}>
         <button
           type="button"
           onClick={() => setIsOpen(true)}
