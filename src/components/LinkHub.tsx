@@ -176,7 +176,11 @@ function MapCard({ profile, mapLink, mapExternal, desktop = false }: MapCardProp
       } flex`}
     >
       <div className="bento-item group relative flex h-full w-full flex-col overflow-hidden rounded-[38px] border-2 sm:rounded-[48px] sm:border">
-        <div className="absolute top-6 left-6 z-20 sm:top-7 sm:left-8 md:top-8 md:left-9">
+        <div
+          className={`absolute left-6 z-20 sm:left-8 md:left-9 ${
+            desktop ? "bottom-5 md:bottom-7" : "top-6 sm:top-7 md:top-8"
+          }`}
+        >
           {desktop ? (
             <>
               <span className="mb-2 block text-[10px] font-bold tracking-[0.4em] uppercase text-[#C7A17A]">
@@ -315,6 +319,7 @@ function AboutSection({ profile }: { profile: BrandProfile }) {
                   <AnimatedCounter
                     value={Number.parseInt(stat.value, 10)}
                     suffix={stat.value.includes("+") ? "+" : ""}
+                    suffixPersistent={stat.value.includes("+")}
                     suffixAtEndOnly={stat.value.includes("+")}
                     durationMs={stat.value.includes("+") ? 2400 : 1800}
                     className="bg-[linear-gradient(180deg,#f3d2b3_0%,#c7a17a_58%,#8b6f4d_100%)] bg-clip-text text-[2.15rem] font-bold tracking-[-0.05em] text-transparent tabular-nums sm:text-[2.8rem] md:text-[3.2rem]"

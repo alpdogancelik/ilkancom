@@ -8,6 +8,7 @@ type AnimatedCounterProps = {
   durationMs?: number;
   suffix?: string;
   suffixAtEndOnly?: boolean;
+  suffixPersistent?: boolean;
 };
 
 const easeOutCubic = (progress: number) => 1 - Math.pow(1 - progress, 3);
@@ -18,6 +19,7 @@ export function AnimatedCounter({
   durationMs = 1800,
   suffix = "",
   suffixAtEndOnly = false,
+  suffixPersistent = false,
 }: AnimatedCounterProps) {
   const elementRef = useRef<HTMLSpanElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -117,7 +119,7 @@ export function AnimatedCounter({
       aria-label={`${value}${suffix}`}
     >
       {count}
-      {showSuffix ? suffix : ""}
+      {suffixPersistent ? suffix : showSuffix ? suffix : ""}
     </span>
   );
 }
