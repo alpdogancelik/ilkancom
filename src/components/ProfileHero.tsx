@@ -210,7 +210,7 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
           priority
           quality={92}
           sizes="(min-width: 1024px) 100vw, 0px"
-          className="hidden object-cover lg:block lg:object-[52%_66%]"
+          className="hidden object-cover lg:block lg:object-[52%_74%]"
         />
       ) : (
         <Image
@@ -310,19 +310,7 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
 
           <div className="mt-4 lg:hidden">
             <p className="inline-flex max-w-[16.5rem] items-center rounded-[0.38rem] border border-[#c89a5a]/18 bg-[linear-gradient(90deg,rgba(201,153,94,0.2)_0%,rgba(201,153,94,0.1)_58%,rgba(201,153,94,0.03)_100%)] px-3.5 py-2 text-[0.8rem] font-medium tracking-[0.18em] text-[#f3e6d7]/86 shadow-[0_16px_30px_-22px_rgba(0,0,0,0.74)] backdrop-blur-[1px] sm:max-w-[18rem]">
-              <SplitText
-                text={profile.tagline}
-                tag="span"
-                splitType="words, chars"
-                delay={18}
-                duration={0.9}
-                threshold={0.18}
-                rootMargin="-60px"
-                textAlign="left"
-                className="block"
-                from={{ opacity: 0, y: 18 }}
-                to={{ opacity: 1, y: 0 }}
-              />
+              <span>{profile.tagline}</span>
             </p>
           </div>
           <div className="reveal reveal-delay-2 mt-4 hidden lg:block">
@@ -333,26 +321,14 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
 
           {appointmentLink ? (
             <>
-              <div className="mt-4 flex w-full justify-start lg:hidden">
+              <div className="reveal reveal-delay-3 mt-4 flex w-full justify-start lg:hidden">
                 <a
                   href={appointmentLink.href}
                   target={appointmentExternal ? "_blank" : undefined}
                   rel={appointmentExternal ? "noreferrer noopener" : undefined}
                   className="inline-flex min-w-[9rem] items-center justify-center rounded-full border border-[#b7814d30] bg-[#15100d]/96 px-6 py-3 text-[0.56rem] font-semibold uppercase tracking-[0.34em] text-[#f5efe8] shadow-[0_18px_44px_-28px_rgba(0,0,0,0.78)] transition duration-300 hover:-translate-y-0.5 hover:border-[#c2956355] hover:bg-[#1b140f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                 >
-                  <SplitText
-                    text={profile.heroAppointmentLabel}
-                    tag="span"
-                    splitType="chars"
-                    delay={16}
-                    duration={0.8}
-                    threshold={0.2}
-                    rootMargin="-60px"
-                    textAlign="center"
-                    className="block"
-                    from={{ opacity: 0, y: 14 }}
-                    to={{ opacity: 1, y: 0 }}
-                  />
+                  <span>{profile.heroAppointmentLabel}</span>
                 </a>
               </div>
               <div className="reveal reveal-delay-3 mt-4 hidden w-full justify-start lg:flex">
