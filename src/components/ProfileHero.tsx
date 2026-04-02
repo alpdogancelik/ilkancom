@@ -210,7 +210,7 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
           priority
           quality={92}
           sizes="(min-width: 1024px) 100vw, 0px"
-          className="hidden object-cover lg:block lg:object-[center_center]"
+          className="hidden object-cover lg:block lg:object-[52%_66%]"
         />
       ) : (
         <Image
