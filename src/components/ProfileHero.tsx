@@ -202,27 +202,16 @@ export function ProfileHero({ profile, locale }: ProfileHeroProps) {
         sizes="(max-width: 1023px) 100vw, 0px"
         className="object-cover object-[center_20%] sm:object-[center_18%] lg:hidden"
       />
-      {profile.desktopHeroImage ? (
-        <Image
-          src={profile.desktopHeroImage}
-          alt={profile.heroImageAlt}
-          fill
-          priority
-          quality={92}
-          sizes="(min-width: 1024px) 100vw, 0px"
-          className="hidden object-cover lg:block lg:object-[52%_74%]"
-        />
-      ) : (
-        <Image
-          src={profile.heroImage}
-          alt={profile.heroImageAlt}
-          fill
-          priority
-          quality={92}
-          sizes="(min-width: 1024px) 100vw, 0px"
-          className="hidden object-cover lg:block lg:object-[center_8%] xl:object-[center_10%]"
-        />
-      )}
+      <div className="absolute inset-0 hidden lg:block bg-[radial-gradient(circle_at_50%_14%,rgba(120,20,48,0.32),transparent_32%),linear-gradient(180deg,#28050d_0%,#18040a_58%,#090505_100%)]" />
+      <Image
+        src={profile.heroImage}
+        alt={profile.heroImageAlt}
+        fill
+        priority
+        quality={92}
+        sizes="(min-width: 1024px) 60vw, 0px"
+        className="hidden object-contain lg:block lg:scale-[1.08] lg:object-[53%_86%] xl:scale-[1.1] xl:object-[53%_88%]"
+      />
 
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,3,2,0.02)_0%,rgba(5,4,3,0.06)_18%,rgba(7,5,4,0.18)_44%,rgba(8,6,5,0.78)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,6,5,0.42)_0%,rgba(8,6,5,0.12)_18%,rgba(8,6,5,0.04)_48%,rgba(8,6,5,0.26)_100%)]" />
