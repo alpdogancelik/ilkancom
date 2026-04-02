@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Inter, Libre_Baskerville, Manrope } from "next/font/google";
 
+import { seoConfig } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
@@ -31,18 +32,28 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  applicationName: siteConfig.name,
+  keywords: [...seoConfig.keywords],
+  alternates: {
+    canonical: "/",
+    languages: {
+      "tr-TR": "/",
+      "en-US": "/?lang=en",
+    },
+  },
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
+    locale: "tr_TR",
     type: "website",
     images: [
       {
         url: "/images/og-cover.svg",
         width: 1200,
         height: 630,
-        alt: "İlkan Kaymak için portre odaklı randevu ve bağlantı sayfası.",
+        alt: "İlkan Kaymak Hair Artist için İzmir erkek berberi tanıtım görseli.",
       },
     ],
   },
@@ -51,6 +62,17 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: ["/images/og-cover.svg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
