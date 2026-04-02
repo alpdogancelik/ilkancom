@@ -332,6 +332,9 @@ img {
   display: inline-block;
   opacity: 0;
   will-change: transform, opacity, filter;
+}
+
+.hero-title-char-active {
   animation: hero-char-in 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: var(--hero-delay, 0ms);
 }
@@ -342,6 +345,9 @@ img {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.hero-title-char-accent-active {
   animation:
     hero-char-in 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards,
     hero-accent-shift 8s ease-in-out infinite;

@@ -12,8 +12,6 @@ import {
 
 import type { BrandReview } from "@/data/brand-profile";
 
-import SplitText from "./splittext";
-
 type ReviewCarouselProps = {
   reviews: BrandReview[];
   accentColor: string;
@@ -246,7 +244,7 @@ export function ReviewCarousel({
         observer.disconnect();
       },
       {
-        threshold: 0.3,
+        threshold: 0.18,
       },
     );
 
@@ -301,37 +299,16 @@ export function ReviewCarousel({
     <section ref={sectionRef} className="relative flex flex-col justify-center overflow-hidden py-16">
       <div className="mb-14 w-full px-1 text-left select-none">
         <div className="flex flex-col gap-2">
-          <SplitText
-            text={eyebrow}
-            tag="span"
-            splitType="chars"
-            delay={18}
-            duration={0.85}
-            threshold={0.18}
-            rootMargin="-40px"
-            textAlign="left"
-            className="block text-[10px] font-bold tracking-[0.5em] text-[#C7A17A] uppercase lg:hidden"
-            from={{ opacity: 0, y: 14 }}
-            to={{ opacity: 1, y: 0 }}
-          />
+          <span className="block text-[10px] font-bold tracking-[0.5em] uppercase text-[#C7A17A] lg:hidden">
+            <TypingText text={eyebrow} animate={typingReady} />
+          </span>
           <span className="hidden text-[10px] font-bold tracking-[0.5em] uppercase text-[#C7A17A] lg:block">
             <TypingText text={eyebrow} animate={typingReady} />
           </span>
 
-          <SplitText
-            text={title}
-            tag="h3"
-            splitType="lines"
-            delay={120}
-            duration={0.92}
-            threshold={0.18}
-            rootMargin="-40px"
-            startDelayMs={180}
-            textAlign="left"
-            className="max-w-[16rem] text-[2.2rem] leading-[1.08] font-light tracking-[-0.045em] text-white italic sm:max-w-[24rem] sm:text-4xl lg:hidden"
-            from={{ opacity: 0, y: 22 }}
-            to={{ opacity: 1, y: 0 }}
-          />
+          <h3 className="max-w-[16rem] text-[2.2rem] leading-[1.08] font-light tracking-[-0.045em] text-white italic sm:max-w-[24rem] sm:text-4xl lg:hidden">
+            <TypingText text={title} delay={0.6} animate={typingReady} />
+          </h3>
           <h3 className="hidden text-3xl font-light tracking-tighter text-white italic sm:text-4xl lg:block lg:text-6xl">
             <TypingText text={title} delay={0.6} animate={typingReady} />
           </h3>

@@ -2,12 +2,12 @@
 import Image from "next/image";
 
 import type { BrandActionLink, BrandProfile } from "@/data/brand-profile";
-import type { CSSProperties } from "react";
 import { isExternalHref } from "@/lib/utils";
 
 import { AnimatedCounter } from "./AnimatedCounter";
 import { BrandFooter } from "./BrandFooter";
 import ColorBends from "./colorbends";
+import { DesktopAnimatedHeroTitle } from "./DesktopAnimatedHeroTitle";
 import { RevealOnView } from "./RevealOnView";
 import { ReviewCarousel } from "./ReviewCarousel";
 import { ServicePriceDialog } from "./ServicePriceDialog";
@@ -63,29 +63,7 @@ function AnimatedHeroTitle({ lines, accentLine }: AnimatedHeroTitleProps) {
         ))}
       </h2>
 
-      <h2 className={`${titleClassName} hidden lg:block`}>
-        {lines.map((line, lineIndex) => (
-          <span key={`${line}-${lineIndex}`} className="hero-title-line">
-            {Array.from(line).map((character, characterIndex) => {
-              const style = {
-                "--hero-delay": `${lineIndex * 140 + characterIndex * 24}ms`,
-              } as CSSProperties;
-              const className =
-                lineIndex === accentLine ? "hero-title-char hero-title-char-accent" : "hero-title-char";
-
-              return (
-                <span
-                  key={`${lineIndex}-${characterIndex}-${character}`}
-                  className={className}
-                  style={style}
-                >
-                  {character === " " ? "\u00A0" : character}
-                </span>
-              );
-            })}
-          </span>
-        ))}
-      </h2>
+      <DesktopAnimatedHeroTitle lines={lines} accentLine={accentLine} className={titleClassName} />
     </>
   );
 }
