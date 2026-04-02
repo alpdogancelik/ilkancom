@@ -382,7 +382,10 @@ export function BrandFooter({ profile }: BrandFooterProps) {
             <div className="flex items-center gap-4 text-[10px] sm:text-xs md:ml-auto">
               <span className="tracking-[0.2em] uppercase">{copy.rightsLabel}</span>
               <div className="flex items-center font-bold tracking-tighter">
-                <span className={`${styles.metalicText} uppercase`}>{profile.footerTag}</span>
+                <span className={`${styles.metalicText} uppercase`}>
+                  {profile.footerTag}
+                  <sup className={`${styles.metalicText} ml-0.5 text-[0.46em] align-super`}>©</sup>
+                </span>
               </div>
             </div>
           </div>

@@ -163,7 +163,7 @@ export function ReviewCarousel({
   const trackRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const scrollRef = useRef(0);
-  const velocityRef = useRef(1.2);
+  const velocityRef = useRef(0.7);
   const hoveredRef = useRef(false);
   const draggingRef = useRef(false);
   const pointerIdRef = useRef<number | null>(null);
@@ -177,7 +177,7 @@ export function ReviewCarousel({
   useEffect(() => {
     const animate = () => {
       if (!draggingRef.current) {
-        const targetVelocity = hoveredRef.current ? 0 : 1.2;
+        const targetVelocity = hoveredRef.current ? 0 : 0.7;
         velocityRef.current += (targetVelocity - velocityRef.current) * 0.05;
         scrollRef.current -= velocityRef.current;
       }
